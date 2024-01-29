@@ -7,3 +7,5 @@ jwt:
   expiration: 1800000
   #私密key
   secret: jfa-soin
+logging:
+  config: classpath:logback-spring.xml

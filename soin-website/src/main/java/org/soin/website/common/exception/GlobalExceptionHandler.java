@@ -1,5 +1,6 @@
 package org.soin.website.common.exception;
 
+import org.soin.core.biz.common.CommonCode;
 import org.soin.core.biz.common.GenericResponse;
 import org.soin.core.util.RunTimeTool;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class GlobalExceptionHandler<T> {
     @ExceptionHandler(value = IllegalArgumentException.class)
     public GenericResponse<?> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException) {
         RunTimeTool.printError(illegalArgumentException);
-        return new GenericResponse<T>(HttpStatus.BAD_REQUEST.value(), illegalArgumentException.getMessage());
+        return new GenericResponse<T>(CommonCode.ERROR_CODE, illegalArgumentException.getMessage());
     }
 
     @ExceptionHandler(value = {Exception.class})
