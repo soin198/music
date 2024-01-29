@@ -2,9 +2,11 @@
 bin-debug/
 bin-release/
 target/
+.idea/
 notes/
 [Oo]bj/
 [Bb]in/
+application-local.yml
 
 # Other files and folders
 .settings/

@@ -1,0 +1,9 @@
+#配置应用环境
+spring:
+  profiles:
+    active: dev
+jwt:
+  #过期时间半个小时
+  expiration: 1800000
+  #私密key
+  secret: jfa-soin
