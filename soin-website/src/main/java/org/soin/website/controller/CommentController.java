@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.biz.common.GenericResponse;
 import org.soin.core.biz.common.Page;
 import org.soin.website.biz.serivce.ICommentService;
-import org.soin.website.controller.dto.SubmitCommentDto;
+import org.soin.website.controller.form.CommentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class CommentController {
      * @return 评论是否提交成功
      */
     @PostMapping("/submit")
-    public GenericResponse<?> submitComment(@RequestBody @Valid SubmitCommentDto submitParams) {
+    public GenericResponse<?> submitComment(@RequestBody @Valid CommentForm submitParams) {
         Assert.notNull(submitParams, "评论内容不可为空!");
         boolean isOpen = commentService.submit(submitParams);
         return GenericResponse.builder().success(isOpen);

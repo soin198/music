@@ -41,6 +41,7 @@
         <mybatis-spring-version>1.1.1</mybatis-spring-version>
         <jwt-version>0.9.1</jwt-version>
         <mybatis-version>3.5.3</mybatis-version>
+        <redis-version>2.6.2</redis-version>
     </properties>
 
     <dependencies>

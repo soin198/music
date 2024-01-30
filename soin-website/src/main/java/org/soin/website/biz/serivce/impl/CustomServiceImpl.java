@@ -37,6 +37,7 @@ public class CustomServiceImpl implements ICustomService {
         Custom custom = customMapper.getUserByNameAndPassword(username, password);
         Assert.notNull(custom, "很抱歉，该用户名不存在");
         final String token = JwtUtil.generateToken(100L);
+
         return token;
     }
 }

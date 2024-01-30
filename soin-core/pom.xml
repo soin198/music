@@ -105,6 +105,13 @@
             <version>${xml-bind-version}</version>
         </dependency>
 
+        <!-- Redis Lettuce实现 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${redis-version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

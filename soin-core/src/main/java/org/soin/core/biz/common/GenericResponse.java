@@ -54,11 +54,11 @@ public class GenericResponse<T> {
         }
 
         public GenericResponse success() {
-            return new GenericResponse<>(CommonCode.SUCCESS_CODE, "响应成功");
+            return new GenericResponse<>(CommonCode.SUCCESS_CODE, "success");
         }
 
         public <T> GenericResponse<T> success(T item) {
-            return new GenericResponse<>(CommonCode.SUCCESS_CODE, "响应成功", item);
+            return new GenericResponse<>(CommonCode.SUCCESS_CODE, "success", item);
         }
 
     }

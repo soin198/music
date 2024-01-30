@@ -41,6 +41,16 @@ public class CustomController {
         return GenericResponse.builder().success(token);
     }
 
+    /**
+     * 注册站点账号
+     *
+     * @return 是否注册成功
+     */
+    @PutMapping("/register")
+    public GenericResponse<?> register() {
+        return GenericResponse.builder().success();
+    }
+
 
     /*@ResponseBody
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)

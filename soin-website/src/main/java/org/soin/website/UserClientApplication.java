@@ -14,10 +14,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @SpringBootApplication
 @MapperScan("org.soin.core.biz.mapper")
-public class WebSiteApplication {
+public class UserClientApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebSiteApplication.class, args);
+        SpringApplication.run(UserClientApplication.class, args);
         RunTimeTool.printInfo("WebSiteApplication start-up success....");
     }
 

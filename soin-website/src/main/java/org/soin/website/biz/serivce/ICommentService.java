@@ -1,7 +1,7 @@
 package org.soin.website.biz.serivce;
 
 import org.soin.core.biz.common.Page;
-import org.soin.website.controller.dto.SubmitCommentDto;
+import org.soin.website.controller.form.CommentForm;
 
 /**
  * 评论相关实现类
@@ -18,7 +18,7 @@ public interface ICommentService {
      * @param params 提交评论参数
      * @return 是否提交成功
      */
-    boolean submit(SubmitCommentDto params);
+    boolean submit(CommentForm params);
 
     /**
      * 根据主键删除对应评论

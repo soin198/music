@@ -5,7 +5,7 @@ import org.soin.core.biz.common.Page;
 import org.soin.core.biz.entity.Comment;
 import org.soin.core.biz.mapper.CommentMapper;
 import org.soin.website.biz.serivce.ICommentService;
-import org.soin.website.controller.dto.SubmitCommentDto;
+import org.soin.website.controller.form.CommentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,7 +87,7 @@ public class CommentServiceImpl implements ICommentService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean submit(SubmitCommentDto params) {
+    public boolean submit(CommentForm params) {
         Assert.notNull(params, "submit error params is null!");
         Comment comment = this.insert(params.getUserId(), params.getMusicId(), params.getContent());
         return (null != comment);
