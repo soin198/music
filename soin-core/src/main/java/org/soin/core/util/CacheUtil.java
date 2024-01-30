@@ -4,7 +4,8 @@ import org.soin.core.biz.common.enums.CacheTypeEnum;
 import org.soin.core.biz.common.enums.FolderEnum;
 import org.soin.core.cache.CacheNameSpace;
 import org.soin.core.cache.cacheApi.ICache;
-import org.soin.core.cache.factory.CacheFactoryKit;
+import org.soin.core.cache.CacheFactoryKit;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import java.util.function.Function;
  * @version 1.0.0
  * @date 2023-06-28 17:36
  **/
+@Component
 public class CacheUtil {
 
     /**
@@ -40,7 +42,7 @@ public class CacheUtil {
      * 初始化
      */
     @PostConstruct
-    public void build() {
+    public void kit() {
         KIT = cacheFactoryKit;
     }
 

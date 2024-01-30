@@ -1,4 +1,4 @@
-package org.soin.core.cache.factory;
+package org.soin.core.cache;
 
 import org.soin.core.biz.common.enums.FolderEnum;
 import org.soin.core.cache.cacheApi.ICache;

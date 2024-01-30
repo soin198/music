@@ -1,53 +1,53 @@
 package org.soin.core.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.soin.core.util.RunTimeTool;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * 启动服务连接数据库
+ * 启动创建数据库
  *
  * @author J.FLa.Soin
  * @version 1.0.0
- * @date 2024-01-09 14:54
+ * @date 2023-06-26 10:49
  **/
 @Configuration
-@SuppressWarnings("all")
-public class DatabaseConfig implements Serializable {
-
-    private static final long serialVersionUID = -5291938179126389090L;
+public class DatabaseConfig {
 
     @Resource
     private HikariDataSource dataSource;
 
+    /**
+     * 创建数据库连接
+     */
     @PostConstruct
-    public void init() throws ClassNotFoundException, URISyntaxException, SQLException {
-        //通过hikari获取数据库连接信息
+    public void create() {
         String driver = dataSource.getDriverClassName();
         String url = dataSource.getJdbcUrl();
         String username = dataSource.getUsername();
         String password = dataSource.getPassword();
-        Class.forName(driver);
-        URI uri = new URI(url.replace("jdbc:", ""));
-        String host = uri.getHost();
-        int port = uri.getPort();
-        String path = uri.getPath();
-        String connectUrl = "jdbc:mysql://" + host + ":" + port;
-        try (Connection connection = DriverManager.getConnection(connectUrl, username, password);
-             Statement statement = connection.createStatement()) {
-            // 创建数据库
-            statement.executeUpdate("`CREATE DATABASE IF NOT EXISTS `" + path.replace("/", "") + "` DEFAULT CHARACTER SET = `utf8` COLLATE `utf8_general_ci`;");
+        try {
+            Class.forName(driver);
+            String uriNew = url.replace("jdbc:", "");
+            URI uri = new URI(uriNew);
+            String host = uri.getHost();
+            int port = uri.getPort();
+            String path = uri.getPath();
+            String connectUrl = ("jdbc:mysql://" + host + ":" + port);
+            try (Connection connection = DriverManager.getConnection(connectUrl, username, password);
+                 Statement statement = connection.createStatement()) {
+                statement.executeUpdate("CREATE DATABASE IF NOT EXISTS `" + path.replace("/", "") + "` DEFAULT CHARACTER SET = `utf8` COLLATE `utf8_general_ci`;");
+            }
+        } catch (Exception exception) {
+            RunTimeTool.printError(exception);
         }
     }
-
 
 }
