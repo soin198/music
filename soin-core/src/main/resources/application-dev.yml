@@ -10,7 +10,7 @@ spring:
   banner:
     charset: UTF-8
   redis:
-    host: 192.168.110.249
+    host: localhost
     username: xxxx
     password: 123456
     port: 6379

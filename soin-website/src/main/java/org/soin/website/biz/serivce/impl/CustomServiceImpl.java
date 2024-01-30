@@ -2,6 +2,7 @@ package org.soin.website.biz.serivce.impl;
 
 import io.jsonwebtoken.lang.Assert;
 import lombok.RequiredArgsConstructor;
+import org.soin.core.biz.common.enums.CommonTimeEnum;
 import org.soin.core.biz.common.enums.FolderEnum;
 import org.soin.core.biz.entity.Custom;
 import org.soin.core.biz.mapper.CustomMapper;
@@ -42,7 +43,8 @@ public class CustomServiceImpl implements ICustomService {
         Assert.notNull(custom, "很抱歉，该用户名不存在");
         final String token = JwtUtil.generateToken(100L);
         Assert.hasText(token, "token is null");
-        CacheUtil.put(custom.getId(), token, 1800L, TimeUnit.SECONDS, FolderEnum.CLIENT);
+        CacheUtil.put(custom.getId(), token, CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, FolderEnum.CLIENT);
         return token;
     }
+
 }
