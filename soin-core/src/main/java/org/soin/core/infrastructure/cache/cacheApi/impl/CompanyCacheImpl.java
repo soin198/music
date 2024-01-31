@@ -38,9 +38,7 @@ public class CompanyCacheImpl implements ICache {
      * @return 是否缓存成功
      */
     @Override
-    public <COMPANY_KEY> boolean put(CacheNameSpace cacheNameSpace,
-                                     COMPANY_KEY key,
-                                     Object value) {
+    public <T> boolean put(CacheNameSpace cacheNameSpace, T key, Object value) {
         if (null == key || value == null) {
             return Boolean.FALSE;
         }
@@ -61,11 +59,7 @@ public class CompanyCacheImpl implements ICache {
      * @return 是否缓存成功
      */
     @Override
-    public <COMPANY_KEY> boolean put(CacheNameSpace cacheNameSpace,
-                                     COMPANY_KEY key,
-                                     Object value,
-                                     Long seconds,
-                                     TimeUnit timeUnit) {
+    public <T> boolean put(CacheNameSpace cacheNameSpace, T key, Object value, Long seconds, TimeUnit timeUnit) {
         if (null == key || value == null) {
             return Boolean.FALSE;
         }
@@ -82,8 +76,7 @@ public class CompanyCacheImpl implements ICache {
      * @return 是否成功
      */
     @Override
-    public <COMPANY_KEY> boolean remove(CacheNameSpace cacheNameSpace,
-                                        COMPANY_KEY key) {
+    public <T> boolean remove(CacheNameSpace cacheNameSpace, T key) {
         if (null == key) {
             return Boolean.FALSE;
         }
@@ -101,8 +94,7 @@ public class CompanyCacheImpl implements ICache {
      * @return 是否包含
      */
     @Override
-    public <COMPANY_KEY> boolean containsKey(CacheNameSpace cacheNameSpace,
-                                             COMPANY_KEY key) {
+    public <T> boolean containsKey(CacheNameSpace cacheNameSpace, T key) {
         if (null == key) {
             return Boolean.FALSE;
         }
@@ -124,12 +116,7 @@ public class CompanyCacheImpl implements ICache {
      * @return 缓存数据
      */
     @Override
-    public <R_TYPE, COMPANY_KEY> R_TYPE secureGet(CacheNameSpace cacheNameSpace,
-                                                  COMPANY_KEY key,
-                                                  Class<R_TYPE> classes,
-                                                  Function<COMPANY_KEY, R_TYPE> fallBack,
-                                                  Long seconds,
-                                                  TimeUnit timeUnit) {
+    public <R, T> R secureGet(CacheNameSpace cacheNameSpace, T key, Class<R> classes, Function<T, R> fallBack, Long seconds, TimeUnit timeUnit) {
         if (null == key) {
             return null;
         }
@@ -142,7 +129,7 @@ public class CompanyCacheImpl implements ICache {
         if (null != cacheVal) {
             return null;
         }
-        R_TYPE r = null;
+        R r = null;
         if (null != fallBack) {
             r = fallBack.apply(key);
         }
@@ -165,9 +152,7 @@ public class CompanyCacheImpl implements ICache {
      * @return 获取缓存值
      */
     @Override
-    public <R_TYPE, COMPANY_KEY> R_TYPE byKeyGet(CacheNameSpace cacheNameSpace,
-                                                 COMPANY_KEY key,
-                                                 Class<R_TYPE> classes) {
+    public <R, T> R byKeyGet(CacheNameSpace cacheNameSpace, T key, Class<R> classes) {
         String cacheDirName = cacheNameSpace.getCacheNameSpace();
         String cacheKey = cacheDirName + key;
         String cacheVal = redisTemplate.opsForValue().get(cacheKey);

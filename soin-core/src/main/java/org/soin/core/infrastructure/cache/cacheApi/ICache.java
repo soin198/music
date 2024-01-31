@@ -22,7 +22,7 @@ public interface ICache {
      * @param value          值
      * @return 是否缓存成功
      */
-    <COMPANY_KEY> boolean put(CacheNameSpace cacheNameSpace, COMPANY_KEY key, Object value);
+    <T> boolean put(CacheNameSpace cacheNameSpace, T key, Object value);
 
     /**
      * 添加缓存
@@ -34,7 +34,7 @@ public interface ICache {
      * @param timeUnit       时间单位
      * @return 是否缓存成功
      */
-    <COMPANY_KEY> boolean put(CacheNameSpace cacheNameSpace, COMPANY_KEY key, Object value, Long seconds, TimeUnit timeUnit);
+    <T> boolean put(CacheNameSpace cacheNameSpace, T key, Object value, Long seconds, TimeUnit timeUnit);
 
     /**
      * 删除缓存数据
@@ -43,7 +43,7 @@ public interface ICache {
      * @param key            缓存key
      * @return 是否成功
      */
-    <COMPANY_KEY> boolean remove(CacheNameSpace cacheNameSpace, COMPANY_KEY key);
+    <T> boolean remove(CacheNameSpace cacheNameSpace, T key);
 
     /**
      * 验证是否包含此key
@@ -52,7 +52,7 @@ public interface ICache {
      * @param key            键
      * @return 是否包含
      */
-    <COMPANY_KEY> boolean containsKey(CacheNameSpace cacheNameSpace, COMPANY_KEY key);
+    <T> boolean containsKey(CacheNameSpace cacheNameSpace, T key);
 
     /**
      * 根据K获取缓存数据
@@ -65,7 +65,7 @@ public interface ICache {
      * @param timeUnit       时间单位
      * @return 缓存数据
      */
-    <R_TYPE, COMPANY_KEY> R_TYPE secureGet(CacheNameSpace cacheNameSpace, COMPANY_KEY key, Class<R_TYPE> classes, Function<COMPANY_KEY, R_TYPE> fallBack, Long seconds, TimeUnit timeUnit);
+    <R, T> R secureGet(CacheNameSpace cacheNameSpace, T key, Class<R> classes, Function<T, R> fallBack, Long seconds, TimeUnit timeUnit);
 
     /**
      * 根据键获取缓存值
@@ -75,5 +75,5 @@ public interface ICache {
      * @param classes        值类型
      * @return 获取缓存值
      */
-    <R_TYPE, COMPANY_KEY> R_TYPE byKeyGet(CacheNameSpace cacheNameSpace, COMPANY_KEY key, Class<R_TYPE> classes);
+    <R, T> R byKeyGet(CacheNameSpace cacheNameSpace, T key, Class<R> classes);
 }

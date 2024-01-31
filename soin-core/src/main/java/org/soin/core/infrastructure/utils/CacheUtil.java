@@ -56,7 +56,7 @@ public class CacheUtil {
      * @param enums    数据源
      * @return 是否成功
      */
-    public static <COMPANY_KEY> boolean put(COMPANY_KEY key, Object value, Long seconds, TimeUnit timeUnit, FolderEnum enums) {
+    public static <T> boolean put(T key, Object value, Long seconds, TimeUnit timeUnit, FolderEnum enums) {
         ICache cache = KIT.getCache(enums);
         CacheNameSpace cacheNameSpace =
                 CacheNameSpace
@@ -75,7 +75,7 @@ public class CacheUtil {
      * @param enums 数据源
      * @return 是否成功
      */
-    public static <COMPANY_KEY> boolean put(COMPANY_KEY key, Object value, FolderEnum enums) {
+    public static <T> boolean put(T key, Object value, FolderEnum enums) {
         ICache cache = KIT.getCache(enums);
         CacheNameSpace cacheNameSpace =
                 CacheNameSpace
@@ -93,7 +93,7 @@ public class CacheUtil {
      * @param enums 数据源
      * @return 是否成功
      */
-    public static <COMPANY_KEY> boolean remove(COMPANY_KEY key, FolderEnum enums) {
+    public static <T> boolean remove(T key, FolderEnum enums) {
         ICache cache = KIT.getCache(enums);
         CacheNameSpace cacheNameSpace =
                 CacheNameSpace
@@ -114,7 +114,7 @@ public class CacheUtil {
      * @param enums    数据源
      * @return 是否成功
      */
-    public static <COMPANY_KEY> boolean idempotent(COMPANY_KEY key, String value, Long seconds, TimeUnit timeUnit, FolderEnum enums) {
+    public static <T> boolean idempotent(T key, String value, Long seconds, TimeUnit timeUnit, FolderEnum enums) {
         ICache cache = KIT.getCache(enums);
         CacheNameSpace cacheNameSpace =
                 CacheNameSpace
@@ -136,7 +136,7 @@ public class CacheUtil {
      * @param enums    数据源
      * @return 缓存函数
      */
-    public static <R_TYPE, COMPANY_KEY> R_TYPE secureGet(COMPANY_KEY key, Class<R_TYPE> classes, Function<COMPANY_KEY, R_TYPE> fallBack, Long seconds, TimeUnit timeUnit, FolderEnum enums) {
+    public static <R, T> R secureGet(T key, Class<R> classes, Function<T, R> fallBack, Long seconds, TimeUnit timeUnit, FolderEnum enums) {
         ICache cache = KIT.getCache(enums);
         CacheNameSpace cacheNameSpace =
                 CacheNameSpace
@@ -155,9 +155,7 @@ public class CacheUtil {
      * @param enums   数据源
      * @return 获取缓存值
      */
-    public static <R_TYPE, COMPANY_KEY> R_TYPE byKeyGet(COMPANY_KEY key,
-                                                        Class<R_TYPE> classes,
-                                                        FolderEnum enums) {
+    public static <R, T> R byKeyGet(T key, Class<R> classes, FolderEnum enums) {
         ICache cache = KIT.getCache(enums);
         CacheNameSpace cacheNameSpace =
                 CacheNameSpace
