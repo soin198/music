@@ -1,8 +1,7 @@
 package org.soin.core.infrastructure.mappers.mapper;
 
-import org.apache.ibatis.annotations.Param;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.soin.core.domain.music.entity.Comment;
-import org.springframework.stereotype.Repository;
 
 /**
  * 音乐评论Mapper
