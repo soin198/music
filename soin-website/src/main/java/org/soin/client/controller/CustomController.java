@@ -2,7 +2,11 @@ package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.client.api.ICustomApi;
+import org.soin.client.api.dto.RegisterDTO;
+import org.soin.core.domain.custom.bo.CustomBO;
 import org.soin.core.infrastructure.base.GenericResponse;
+import org.soin.core.infrastructure.utils.ConvertUtil;
+import org.soin.core.infrastructure.utils.CustomAssert;
 import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.soin.core.domain.custom.service.ICustomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +45,18 @@ public class CustomController implements ICustomApi {
     }
 
     /**
-     * 注册站点账号
+     * 注册平台用户
      *
+     * @param dto 注册数据源
      * @return 是否注册成功
      */
-    @PutMapping("/register")
-    public GenericResponse<?> register() {
-        return GenericResponse.builder().success();
+    @Override
+    public GenericResponse<Boolean> register(RegisterDTO dto) {
+        RunTimeTool.printMethodMsg("register", "注册平台用户", dto);
+        CustomAssert.isNull(dto, "请提供注册数据");
+        CustomBO bo = ConvertUtil.convert(dto, CustomBO.class);
+        return GenericResponse.builder().success(Boolean.TRUE);
     }
-
 
     /*@ResponseBody
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)

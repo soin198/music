@@ -1,4 +1,4 @@
-package org.soin.client.controller.form;
+package org.soin.client.api.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import java.io.Serializable;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CommentForm extends BaseParams implements Serializable {
+public class CommentDTO extends BaseParams implements Serializable {
 
     private static final long serialVersionUID = 7881075963677007809L;
 

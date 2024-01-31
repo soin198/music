@@ -42,6 +42,7 @@
         <mybatis-version>3.5.3</mybatis-version>
         <redis-version>2.7.3</redis-version>
         <mybatis-plus-version>3.5.3</mybatis-plus-version>
+        <swagger-version>3.0.0</swagger-version>
     </properties>
 
     <dependencies>

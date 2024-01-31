@@ -1,9 +1,7 @@
 package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.soin.core.infrastructure.base.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**

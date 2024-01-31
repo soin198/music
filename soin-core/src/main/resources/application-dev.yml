@@ -15,6 +15,9 @@ spring:
     password: 123456
     port: 6379
     database: 0
+#swagger开关
+swagger:
+  switch: false
 #指定打印sql等级
 logging:
   level:

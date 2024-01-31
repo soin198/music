@@ -1,11 +1,12 @@
-package org.soin.client.controller.form;
+package org.soin.client.api.dto;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 用户注册
@@ -15,7 +16,7 @@ import java.util.Date;
  * @date 2024-01-30 17:21
  **/
 @Data
-public class RegisterForm implements Serializable {
+public class RegisterDTO implements Serializable {
 
     private static final long serialVersionUID = -3164826060850361503L;
 
@@ -36,22 +37,27 @@ public class RegisterForm implements Serializable {
     /**
      * 性别
      */
+    @NotNull(message = "请选择性别")
     private Boolean sex;
 
     /**
      * 电话号码
      */
+    @NotBlank(message = "请输入您的电话号码")
+    @Length(max = 11, message = "电话号码最多支持11个字符")
     private String phone;
 
     /**
      * 邮箱
      */
+    @NotBlank(message = "请输入您的邮箱")
     private String email;
 
     /**
      * 生日
      */
-    private Date birth;
+    @NotNull(message = "请选择您的生日")
+    private LocalDateTime birth;
 
     /**
      * 简介
@@ -61,16 +67,16 @@ public class RegisterForm implements Serializable {
     /**
      * 省份
      */
-    private String province;
+    private Integer province;
 
     /**
      * 城市
      */
-    private String city;
+    private Integer city;
 
     /**
      * 区/县
      */
-    private String region;
+    private Integer region;
 
 }
