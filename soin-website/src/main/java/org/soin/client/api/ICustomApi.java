@@ -25,13 +25,13 @@ public interface ICustomApi {
      * @param username 用户名
      * @param password 密码
      * @return token
-     */
-    @ApiOperation(value = "登录")
+     */@ApiOperation(value = "登录")
     @PostMapping("/login")
     GenericResponse<String> login(@RequestParam(value = "username") String username,
                                   @RequestParam(value = "password") String password);
 
     /**
+
      * 注册平台用户
      *
      * @param registerDTO 注册数据源
