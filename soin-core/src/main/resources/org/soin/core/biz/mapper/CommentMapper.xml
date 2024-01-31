@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.soin.core.biz.mapper.CommentMapper">
 
-    <resultMap id="BaseResultMap" type="org.soin.core.biz.entity.Comment">
+    <resultMap id="BaseResultMap" type="org.soin.core.domain.music.entity.Comment">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="userId" property="userId"/>
         <result column="musicId" property="musicId"/>
@@ -18,7 +18,7 @@
         up_click ASupClick
     </sql>
 
-    <insert id="insert" parameterType="org.soin.core.biz.entity.Comment">
+    <insert id="insert" parameterType="org.soin.core.domain.music.entity.Comment">
         INSERT INTO `soin-music`.`t_comment` (`createDate`, `userId`, `musicId`, `content`, `up_click`)
         VALUES (#{createDate}, #{userId}, #{musicId}, #{content}, #{uoClick});
     </insert>
@@ -33,7 +33,7 @@
         </where>
     </update>
 
-    <select id="getCommentByKeyId" resultType="org.soin.core.biz.entity.Comment">
+    <select id="getCommentByKeyId" resultType="org.soin.core.domain.music.entity.Comment">
         SELECT
         <include refid="BASE_COLUMN"/>
         FROM `comment`

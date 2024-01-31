@@ -2,18 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.soin.core.biz.mapper.CustomMapper">
 
-    <select id="getUserByNameAndPassword" resultType="org.soin.core.biz.entity.Custom">
-        SELECT
-        *
-        FROM
-        `soin-music`.t_custom AS custom
-        <where>
-            custom.username =
-            <trim prefix="" suffix="">#{username}</trim>
-            AND custom.password =
-            <trim suffix="" prefix="">#{password}</trim>
-        </where>
-    </select>
-
-
 </mapper>
