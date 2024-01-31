@@ -21,7 +21,7 @@ public class CustomAssert {
      * @param param   参数
      * @param message 错误信息
      */
-    public static void isTrueAndString(String param, String message) {
+    public static void isNullAndString(String param, String message) {
         boolean isOpen = StringUtil.isBlank(param);
         if (isOpen) {
             throw new IllegalArgumentException(message);

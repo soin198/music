@@ -37,8 +37,8 @@ public class CustomServiceImpl implements ICustomService {
      */
     @Override
     public String login(String username, String password) {
-        CustomAssert.isTrueAndString(username, "请提供用户名");
-        CustomAssert.isTrueAndString(password, "请输入密码");
+        CustomAssert.isNullAndString(username, "请提供用户名");
+        CustomAssert.isNullAndString(password, "请输入密码");
         Custom custom = customRepository.getUserByNameAndPassword(username, password);
         Assert.notNull(custom, "很抱歉，该用户名不存在");
         Long customId = custom.getId();
