@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>soin-admin</module>
-        <module>soin-website</module>
+        <module>soin-client</module>
         <module>soin-core</module>
     </modules>
     <parent>

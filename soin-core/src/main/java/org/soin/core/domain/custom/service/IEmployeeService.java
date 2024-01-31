@@ -1,4 +1,4 @@
-package org.soin.admin.biz.service;
+package org.soin.core.domain.custom.service;
 
 /**
  * 后台员工
