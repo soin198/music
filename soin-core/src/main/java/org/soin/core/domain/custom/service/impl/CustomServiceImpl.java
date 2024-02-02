@@ -1,14 +1,13 @@
 package org.soin.core.domain.custom.service.impl;
 
-import io.jsonwebtoken.lang.Assert;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.custom.entity.Custom;
 import org.soin.core.domain.custom.repository.ICustomRepository;
 import org.soin.core.domain.custom.service.ICustomService;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
 import org.soin.core.infrastructure.enums.FolderEnum;
+import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.CacheUtil;
-import org.soin.core.infrastructure.utils.CustomAssert;
 import org.soin.core.infrastructure.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,15 +36,14 @@ public class CustomServiceImpl implements ICustomService {
      */
     @Override
     public String login(String username, String password) {
-        CustomAssert.isNullAndString(username, "请提供用户名");
-        CustomAssert.isNullAndString(password, "请输入密码");
+        Assert.isBlank(username, "请提供用户名");
+        Assert.isBlank(password, "请输入密码");
+        Custom byUserNameQuery = customRepository.getUserByUserName(username);
+        Assert.isNull(byUserNameQuery, "用户不存在，请更换用户名后重试");
         Custom custom = customRepository.getUserByNameAndPassword(username, password);
-        Assert.notNull(custom, "很抱歉，该用户名不存在");
+        Assert.isNull(custom, "密码错误，请重试");
         Long customId = custom.getId();
-        final String token = JwtUtil.generateToken(customId);
-        Assert.hasText(token, "token is null");
-        CacheUtil.put(customId, token, CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, FolderEnum.CLIENT);
-        return token;
+        return CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, FolderEnum.CLIENT);
     }
 
 }

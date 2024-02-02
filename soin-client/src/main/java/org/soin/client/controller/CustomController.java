@@ -6,11 +6,10 @@ import org.soin.client.api.dto.RegisterDTO;
 import org.soin.core.domain.custom.bo.CustomBO;
 import org.soin.core.infrastructure.base.GenericResponse;
 import org.soin.core.infrastructure.utils.ConvertUtil;
-import org.soin.core.infrastructure.utils.CustomAssert;
+import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.soin.core.domain.custom.service.ICustomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,8 +36,8 @@ public class CustomController implements ICustomApi {
     @Override
     public GenericResponse<String> login(String username, String password) {
         RunTimeTool.printMethodMsg("login", "开始验证登录", username, password);
-        Assert.notNull(username, "请输入用户名");
-        Assert.notNull(password, "请输入密码");
+        Assert.isBlank(username, "请输入用户名");
+        Assert.isBlank(username, "请输入密码");
         String token = customService.login(username, password);
         RunTimeTool.printMethodResponseMsg("login", token);
         return GenericResponse.builder().success(token);
@@ -53,7 +52,7 @@ public class CustomController implements ICustomApi {
     @Override
     public GenericResponse<Boolean> register(RegisterDTO dto) {
         RunTimeTool.printMethodMsg("register", "注册平台用户", dto);
-        CustomAssert.isNull(dto, "请提供注册数据");
+        Assert.isNull(dto, "请提供注册数据");
         CustomBO bo = ConvertUtil.convert(dto, CustomBO.class);
         return GenericResponse.builder().success(Boolean.TRUE);
     }

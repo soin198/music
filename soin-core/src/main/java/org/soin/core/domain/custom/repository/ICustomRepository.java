@@ -10,6 +10,14 @@ import org.soin.core.domain.custom.entity.Custom;
 public interface ICustomRepository {
 
     /**
+     * 根据用户名获取用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
+    Custom getUserByUserName(String username);
+
+    /**
      * 根据用户名密码获取用户
      * {@link Custom}
      *
@@ -18,4 +26,5 @@ public interface ICustomRepository {
      * @return 用户
      */
     Custom getUserByNameAndPassword(String username, String password);
+
 }

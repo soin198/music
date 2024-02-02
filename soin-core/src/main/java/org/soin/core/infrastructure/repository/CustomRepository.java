@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.custom.entity.Custom;
 import org.soin.core.domain.custom.repository.ICustomRepository;
 import org.soin.core.infrastructure.mappers.mapper.ICustomMapper;
-import org.soin.core.infrastructure.utils.CustomAssert;
+import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +21,19 @@ public class CustomRepository implements ICustomRepository {
     private final ICustomMapper customMapper;
 
     /**
+     * 根据用户名获取用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
+    @Override
+    public Custom getUserByUserName(String username) {
+        QueryWrapper<Custom> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username.trim());
+        return customMapper.selectOne(wrapper);
+    }
+
+    /**
      * 根据用户名密码获取用户
      * {@link Custom}
      *
@@ -30,8 +43,8 @@ public class CustomRepository implements ICustomRepository {
      */
     @Override
     public Custom getUserByNameAndPassword(String username, String password) {
-        CustomAssert.isNullAndString(username, "username is null");
-        CustomAssert.isNullAndString(password, "password is null");
+        Assert.isBlank(username, "username is null");
+        Assert.isBlank(password, "password is null");
         QueryWrapper<Custom> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
         wrapper.eq("password", password);
