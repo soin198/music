@@ -1,4 +1,4 @@
-package org.soin.core.domain.custom.entity;
+package org.soin.core.domain.manageEmployee.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

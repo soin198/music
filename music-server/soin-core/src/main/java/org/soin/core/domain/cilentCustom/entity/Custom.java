@@ -1,4 +1,4 @@
-package org.soin.core.domain.custom.entity;
+package org.soin.core.domain.cilentCustom.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

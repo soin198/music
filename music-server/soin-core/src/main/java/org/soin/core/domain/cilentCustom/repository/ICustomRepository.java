@@ -1,6 +1,6 @@
-package org.soin.core.domain.custom.repository;
+package org.soin.core.domain.cilentCustom.repository;
 
-import org.soin.core.domain.custom.entity.Custom;
+import org.soin.core.domain.cilentCustom.entity.Custom;
 
 /**
  * @author J.FLa.Soin
@@ -11,7 +11,7 @@ public interface ICustomRepository {
 
     /**
      * 根据用户名获取用户
-     * {@link org.soin.core.domain.custom.entity.Custom}
+     * {@link org.soin.core.domain.cilentCustom.entity.Custom}
      *
      * @param username 用户名
      * @return 用户
@@ -20,7 +20,7 @@ public interface ICustomRepository {
 
     /**
      * 根据用户名密码获取用户
-     * {@link org.soin.core.domain.custom.entity.Custom}
+     * {@link org.soin.core.domain.cilentCustom.entity.Custom}
      *
      * @param username 用户名
      * @param password 密码

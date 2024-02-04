@@ -1,4 +1,4 @@
-package org.soin.core.domain.custom.service;
+package org.soin.core.domain.manageEmployee.service;
 
 /**
  * 后台实现

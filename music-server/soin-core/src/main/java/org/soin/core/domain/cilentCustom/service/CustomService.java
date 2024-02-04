@@ -1,9 +1,9 @@
-package org.soin.core.domain.custom.service;
+package org.soin.core.domain.cilentCustom.service;
 
 import lombok.RequiredArgsConstructor;
-import org.soin.core.domain.custom.bo.CustomBO;
-import org.soin.core.domain.custom.entity.Custom;
-import org.soin.core.domain.custom.repository.ICustomRepository;
+import org.soin.core.domain.cilentCustom.bo.CustomBO;
+import org.soin.core.domain.cilentCustom.entity.Custom;
+import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
 import org.soin.core.infrastructure.enums.FolderEnum;
 import org.soin.core.infrastructure.utils.*;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 用户接口实现
+ * 用户服务
  *
  * @author J.FLa.Soin
  * @version 1.0.0
@@ -25,6 +25,8 @@ import java.util.concurrent.TimeUnit;
 public class CustomService {
 
     private final ICustomRepository customRepository;
+
+    private final CustomAreaService customAreaService;
 
     /**
      * 验证登录
@@ -54,8 +56,13 @@ public class CustomService {
     public boolean register(CustomBO convert) {
         Assert.isNull(convert, "请提供注册数据源");
         Custom custom = ConvertUtil.convert(convert, Custom.class);
-        int keyId = customRepository.insert(custom);
-        RunTimeTool.printMethodResponseMsg("customRepository.insert", keyId);
+        customRepository.insert(custom);
+        Long userId = custom.getId();
+        RunTimeTool.printMethodResponseMsg("customRepository.insert", userId);
+        Integer province = convert.getProvince();
+        Integer city = convert.getCity();
+        Integer region = convert.getRegion();
+        customAreaService.insert(userId, province, city, region);
         return Boolean.TRUE;
     }
 

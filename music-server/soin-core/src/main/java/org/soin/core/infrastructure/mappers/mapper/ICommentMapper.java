@@ -4,8 +4,6 @@ import org.apache.ibatis.annotations.Param;
 import org.soin.core.domain.music.entity.Comment;
 
 /**
- * 音乐评论Mapper
- *
  * @author J.FLa.Soin
  * @version 1.0.0
  * @date 2024-01-08 15:33

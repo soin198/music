@@ -2,8 +2,8 @@ package org.soin.core.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
-import org.soin.core.domain.custom.entity.Custom;
-import org.soin.core.domain.custom.repository.ICustomRepository;
+import org.soin.core.domain.cilentCustom.entity.Custom;
+import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
 import org.soin.core.infrastructure.mappers.mapper.ICustomMapper;
 import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;

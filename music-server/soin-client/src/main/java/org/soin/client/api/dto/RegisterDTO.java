@@ -3,7 +3,7 @@ package org.soin.client.api.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.soin.core.domain.custom.entity.Custom;
+import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;

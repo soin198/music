@@ -1,7 +1,7 @@
-package org.soin.core.domain.custom.bo;
+package org.soin.core.domain.cilentCustom.bo;
 
 import lombok.Data;
-import org.soin.core.domain.custom.entity.Custom;
+import org.soin.core.domain.cilentCustom.entity.Custom;
 
 import java.io.Serializable;
 import java.util.Date;
