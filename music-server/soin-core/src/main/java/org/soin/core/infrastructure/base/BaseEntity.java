@@ -33,6 +33,6 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 最新修改时间
      */
-    private Date lastModifiedDate = new Date();
+    private Date lastModifiedDate;
 
 }

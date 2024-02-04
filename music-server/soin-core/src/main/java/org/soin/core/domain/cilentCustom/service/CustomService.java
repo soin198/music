@@ -59,10 +59,10 @@ public class CustomService {
         customRepository.insert(custom);
         Long userId = custom.getId();
         RunTimeTool.printMethodResponseMsg("customRepository.insert", userId);
-        Integer province = convert.getProvince();
+        /*Integer province = convert.getProvince();
         Integer city = convert.getCity();
         Integer region = convert.getRegion();
-        customAreaService.insert(userId, province, city, region);
+        customAreaService.insert(userId, province, city, region);*/
         return Boolean.TRUE;
     }
 

@@ -67,7 +67,7 @@ export default defineComponent({
       email: null,
       birth: null,
       resume: null,
-      location: null,
+      location: null
     })
     const codes = reactive([getCityCode()]);
 
@@ -78,17 +78,26 @@ export default defineComponent({
       });
       if (!canRun) return;
       register.birth = formatDate(register.birth);
-      const result = (await HttpManager.SignUp(register)) as ResponseBody;
-      (proxy as any).$message({
+      const result = await HttpManager.SignUp(register) as ResponseBodys;
+      const {code, items, message} = result;
+      if (code === '200' && items) {
+        (proxy as any).$message({
+          message: "注册成功"
+        })
+      } else {
+        (proxy as any).$message({
+          message: message
+        });
+      }
+/*      (proxy as any).$message({
         message: result.message,
         type: result.type,
       });
       if (result.success) {
         changeIndex(NavName.SignIn);
         routerManager(RouterName.SignIn, {path: RouterName.SignIn});
-      }
+      }*/
     }
-
     return {
       SignUpRules,
       register,

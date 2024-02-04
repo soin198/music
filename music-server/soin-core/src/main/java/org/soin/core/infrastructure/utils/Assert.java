@@ -48,6 +48,16 @@ public class Assert {
         }
     }
 
-
+    /**
+     * 验证表达式是否成立
+     *
+     * @param condition 条件
+     * @param message   错误信息
+     */
+    public static void isTrue(boolean condition, String message) {
+        if (condition) {
+            throw new IllegalArgumentException(message);
+        }
+    }
 
 }

@@ -26,3 +26,10 @@ interface ResponseBody {
     type: string;
     data?: any;
 }
+
+
+interface ResponseBodys {
+    code: string;
+    message: string;
+    items?: any;
+}
