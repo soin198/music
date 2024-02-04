@@ -3,11 +3,10 @@ import { getBaseURL, get, post, deletes } from "./request";
 const HttpManager = {
   // 获取图片信息
   attachImageUrl: (url) => url ? `${getBaseURL()}/${url}` : "https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png",
-  // =======================> 用户 API
   // 登录
   signIn: (params) => post(`/custom/authority/login`, params),
   // 注册
-  SignUp: (params) => post(`/custom/authority/register`, params),
+  register: (params) => post(`/custom/authority/register`, params),
   // 删除用户
   deleteUser: (id) => get(`user/delete?id=${id}`),
   // 更新用户信息

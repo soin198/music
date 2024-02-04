@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, getCurrentInstance, onMounted} from "vue";
+import {defineComponent, reactive, getCurrentInstance} from "vue";
 import mixin from "@/mixins/mixin";
 import YinLoginLogo from "@/components/layouts/YinLoginLogo.vue";
 import {HttpManager} from "@/api";
@@ -69,6 +69,7 @@ export default defineComponent({
       resume: null,
       location: null
     })
+
     const codes = reactive([getCityCode()]);
 
     async function handleSignUp() {
@@ -78,25 +79,15 @@ export default defineComponent({
       });
       if (!canRun) return;
       register.birth = formatDate(register.birth);
-      const result = await HttpManager.SignUp(register) as ResponseBodys;
-      const {code, items, message} = result;
-      if (code === '200' && items) {
-        (proxy as any).$message({
-          message: "注册成功"
-        })
-      } else {
-        (proxy as any).$message({
-          message: message
-        });
-      }
-/*      (proxy as any).$message({
+      const result = await HttpManager.register(register) as ResponseBody;
+      (proxy as any).$message({
         message: result.message,
-        type: result.type,
+        type: "success",
       });
       if (result.success) {
         changeIndex(NavName.SignIn);
         routerManager(RouterName.SignIn, {path: RouterName.SignIn});
-      }*/
+      }
     }
     return {
       SignUpRules,
@@ -106,6 +97,8 @@ export default defineComponent({
     };
   },
 });
+
+
 </script>
 
 <style lang="scss" scoped>

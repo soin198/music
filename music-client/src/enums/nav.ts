@@ -35,7 +35,7 @@ export const SIGNLIST = [
   },
   {
     name: NavName.SignUp,
-    path: RouterName.SignUp,
+    path: RouterName.register,
   },
 ];
 
