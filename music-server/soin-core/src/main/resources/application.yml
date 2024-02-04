@@ -1,0 +1,11 @@
+#配置应用环境
+spring:
+  profiles:
+    active: local
+jwt:
+  #过期时间半个小时
+  expiration: 1800000
+  #私密key
+  secret: jfa-soin
+logging:
+  config: classpath:logback-spring.xml

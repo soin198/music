@@ -1,0 +1,27 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/soin-music?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: root
+    password: 199888yuan
+  banner:
+    charset: UTF-8
+  redis:
+    host: localhost
+    username: xxxx
+    password: 123456
+    port: 6379
+    database: 0
+#swagger开关
+swagger:
+  switch: false
+#指定打印sql等级
+logging:
+  level:
+    org:
+      soin:
+        biz:
+          mapper: info

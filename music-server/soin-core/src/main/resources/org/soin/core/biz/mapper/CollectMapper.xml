@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.soin.core.infrastructure.mappers.mapper.ICollectMapper">
+
+    <resultMap id="BaseResultMap" type="org.soin.core.domain.music.entity.Collect">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="musicId" property="musicId"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="org.soin.core.domain.music.entity.Collect">
+        insert into collection (user_id, type, song_id, song_list_id, create_time)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
+                #{songId,jdbcType=INTEGER}, #{songListId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+  <select id="byUserIdAndMusicIdGet" resultType="org.soin.core.domain.music.entity.Collect"></select>
+
+</mapper>

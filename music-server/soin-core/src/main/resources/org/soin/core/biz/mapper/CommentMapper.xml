@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.soin.core.infrastructure.mappers.mapper.ICommentMapper">
+
+    <resultMap id="BaseResultMap" type="org.soin.core.domain.music.entity.Comment">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userId" property="userId"/>
+        <result column="musicId" property="musicId"/>
+        <result column="content" property="content"/>
+        <result column="upClick" property="upClick"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN">
+        id AS id,
+        userId AS userId,
+        musicId AS musicId,
+        content AS content,
+        up_click ASupClick
+    </sql>
+
+    <insert id="insert" parameterType="org.soin.core.domain.music.entity.Comment">
+        INSERT INTO `soin-music`.`t_comment` (`createDate`, `userId`, `musicId`, `content`, `up_click`)
+        VALUES (#{createDate}, #{userId}, #{musicId}, #{content}, #{uoClick});
+    </insert>
+
+    <update id="renew">
+        UPDATE `soin-music`.`t_comment`
+        SET `lastModifiedDate` = now(),`content` = #{content},`up_click` = #{upClick}
+        <where>
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+        </where>
+    </update>
+
+    <select id="getCommentByKeyId" resultType="org.soin.core.domain.music.entity.Comment">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `comment`
+        <where>
+            <if test="keyId != null">
+                AND id = #{keyId}
+            </if>
+        </where>
+    </select>
+
+</mapper>
