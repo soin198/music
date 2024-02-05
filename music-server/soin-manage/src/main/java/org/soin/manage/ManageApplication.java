@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2024-01-09 10:34
  **/
 @SpringBootApplication(scanBasePackages = {"org.soin.manage", "org.soin.core.*"})
-@MapperScan("org.soin.core.infrastructure.mappers.mapper.*")
+@MapperScan("org.soin.core.infrastructure.mappers.mapper")
 public class ManageApplication {
 
     public static void main(String[] args) {
