@@ -23,7 +23,8 @@ public interface IMusicTreeRepository {
     /**
      * 随机获取歌单
      *
+     * @param limit 查询条数
      * @return 歌单列表
      */
-    List<MusicTreeVo> musicTreeQuery();
+    List<MusicTreeVo> musicTreeQuery(Integer limit);
 }

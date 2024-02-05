@@ -6,9 +6,9 @@
     </el-carousel-item>
   </el-carousel>
   <!--热门歌单-->
-  <play-list class="play-list-container" title="歌单" path="song-sheet-detail" :playList="songList"></play-list>
+  <play-list class="play-list-container" title="歌单" path="song-sheet-detail" :playList="songList"/>
   <!--热门歌手-->
-  <play-list class="play-list-container" title="歌手" path="singer-detail" :playList="singerList"></play-list>
+  <play-list class="play-list-container" title="歌手" path="singer-detail" :playList="singerList"/>
 </template>
 
 <script lang="ts" setup>
