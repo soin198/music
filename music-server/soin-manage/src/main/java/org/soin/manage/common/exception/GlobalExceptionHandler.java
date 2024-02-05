@@ -31,6 +31,7 @@ public class GlobalExceptionHandler<T> {
     @ExceptionHandler(value = {Exception.class})
     public GenericResponse<?> handleBindException(Exception exception) {
         RunTimeTool.printError(exception);
+        exception.printStackTrace();
         return new GenericResponse<T>(CodeConstant.ERROR_CODE, "系统繁忙");
     }
 
