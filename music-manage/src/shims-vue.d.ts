@@ -21,3 +21,9 @@ interface ResponseBody {
   type: string;
   data?: any;
 }
+
+interface Response {
+  code: number;
+  items?: any;
+  message: string;
+}

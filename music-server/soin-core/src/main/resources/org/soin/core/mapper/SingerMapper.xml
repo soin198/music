@@ -2,17 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.soin.core.infrastructure.mappers.mapper.SingerMapper">
 
-    <!-- 随机获取20个歌手 -->
+    <!-- 随机获取10个歌手 -->
     <select id="singerQuery" resultType="org.soin.core.domain.singer.vo.SingerVo">
-        SELECT id as id,
-               name as `name`,
-               sex,
-               photo,
-               birth,
-               nationality,
-               resume
-        FROM `soin-music`.`t_singer`
-        ORDER BY RAND() LIMIT 20;
+        SELECT s01.id   AS id,
+               s01.NAME AS `name`,
+               FROM_UNIXTIME(s01.createDate) AS createDate,
+               CASE
+                   WHEN s01.sex = 'MALE' THEN '男'
+                   WHEN s01.sex = 'WOMEN' THEN '女'
+                   WHEN s01.sex = 'OTHER' THEN '其他'
+                   END  AS sex,
+               s01.photo,
+               s01.birth,
+               s01.nationality,
+               s01.resume
+        FROM `soin-music`.`t_singer` AS s01
+        ORDER BY RAND() LIMIT #{limit};
     </select>
 
 </mapper>

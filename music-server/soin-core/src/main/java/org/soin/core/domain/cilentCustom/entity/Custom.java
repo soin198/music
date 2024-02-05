@@ -3,7 +3,7 @@ package org.soin.core.domain.cilentCustom.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.soin.core.infrastructure.base.BaseEntity;
+import org.soin.core.infrastructure.base.common.BaseEntity;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -3,6 +3,7 @@ package org.soin.core.domain.singer.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 歌单返回体
@@ -16,6 +17,44 @@ public class SingerVo implements Serializable {
 
     private static final long serialVersionUID = -7814431749672707929L;
 
+    /**
+     * 主键
+     */
+    private Long id;
 
+    /**
+     * 歌手名称
+     */
+    private String name;
+
+    /**
+     * 歌手性别
+     */
+    private String sex;
+
+    /**
+     * 歌手头像
+     */
+    private String photo;
+
+    /**
+     * 图片渲染
+     */
+    private String base64;
+
+    /**
+     * 歌手生日
+     */
+    private Date birth;
+
+    /**
+     * 国籍
+     */
+    private String nationality;
+
+    /**
+     * 简介
+     */
+    private String resume;
 
 }

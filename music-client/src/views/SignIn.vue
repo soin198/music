@@ -50,12 +50,12 @@ export default defineComponent({
       const params = new URLSearchParams();
       params.append("username", paramsForm.username);
       params.append("password", paramsForm.password);
-      const {code, items} = (await HttpManager.signIn(params)) as ResponseBody;
+      const {code, items} = (await HttpManager.signIn(params)) as Response;
       (proxy as any).$message({
         message: "登录成功",
         type: "success",
       });
-      if (code === "200") {
+      if (code === 200) {
         //proxy.$store.commit("setUserId", result.data[0].id);
         //proxy.$store.commit("setUsername", result.data[0].username);
         //proxy.$store.commit("setUserPic", result.data[0].avator);

@@ -11,7 +11,7 @@
                music.resume,
                music.type
         FROM `soin-music`.`t_music_tree` AS music
-        ORDER BY RAND() LIMIT 20;
+        ORDER BY RAND() LIMIT 10;
     </select>
 
 </mapper>

@@ -14,4 +14,14 @@ public class BaseConstant {
      * 公共URL
      */
     public static final String BASE_SERVICE_URL = "/api";
+
+    /**
+     * 通用查询数量
+     */
+    public static final int BASE_QUERY_MAX = 10;
+
+    /**
+     * 本地图片路径
+     */
+    public static final String IMAGE_URL = "D:/image";
 }

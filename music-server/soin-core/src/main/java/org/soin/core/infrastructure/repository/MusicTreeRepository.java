@@ -44,7 +44,7 @@ public class MusicTreeRepository implements IMusicTreeRepository {
     }
 
     /**
-     * 随机获取20个歌单
+     * 随机获取歌单
      *
      * @return 歌单列表
      */
