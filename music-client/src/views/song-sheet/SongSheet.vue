@@ -1,26 +1,26 @@
 <template>
   <div class="play-list-container">
-    <yin-nav :styleList="songStyle" :activeName="activeName" @click="handleChangeView"></yin-nav>
+    <yin-nav :styleList="musicTypes" :activeName="activeName" @click="handleChangeView"></yin-nav>
     <play-list :playList="data" path="song-sheet-detail"></play-list>
     <el-pagination
-      class="pagination"
-      background
-      layout="total, prev, pager, next"
-      :current-page="currentPage"
-      :page-size="pageSize"
-      :total="allPlayList.length"
-      @current-change="handleCurrentChange"
+        class="pagination"
+        background
+        layout="total, prev, pager, next"
+        :current-page="page"
+        :page-size="pageSize"
+        :total="musicTrees.length"
+        @current-change="handleCurrentChange"
     >
     </el-pagination>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import {defineComponent, ref, computed} from "vue";
 import YinNav from "@/components/layouts/YinNav.vue";
 import PlayList from "@/components/PlayList.vue";
-import { SONGSTYLE } from "@/enums";
-import { HttpManager } from "@/api";
+import {SONGSTYLE} from "@/enums";
+import {HttpManager} from "@/api";
 
 export default defineComponent({
   components: {
@@ -29,53 +29,50 @@ export default defineComponent({
   },
   setup() {
     const activeName = ref("全部歌单");
-    const pageSize = ref(15); // 页数
-    const currentPage = ref(1); // 当前页
-    const songStyle = ref(SONGSTYLE); // 歌单导航栏类别
-    const allPlayList = ref([]); // 歌单
-    const data = computed(() => allPlayList.value.slice((currentPage.value - 1) * pageSize.value, currentPage.value * pageSize.value));
+    // 当前页
+    const page = ref(1);
+    // 每页条数
+    const pageSize = ref(15);
+    // 歌单类型
+    const musicTypes = ref(SONGSTYLE); // 歌单导航栏类别
+    // 歌单列表
+    const musicTrees = ref([]); // 歌单
+    const data = computed(() => musicTrees.value.slice((page.value - 1) * pageSize.value, page.value * pageSize.value));
 
     // 获取全部歌单
     async function getSongList() {
-      allPlayList.value = ((await HttpManager.getSongList()) as ResponseBody).data;
-      currentPage.value = 1;
-    }
-    // 通过类别获取歌单
-    async function getSongListOfStyle(style) {
-      allPlayList.value = ((await HttpManager.getSongListOfStyle(style)) as ResponseBody).data;
-      currentPage.value = 1;
+      musicTrees.value = ((await HttpManager.getSongList("CHINESE")) as ResponseBody).data;
+      page.value = 1;
     }
 
-    try {
-      getSongList();
-    } catch (error) {
-      console.error(error);
+    // 通过类别获取歌单
+    async function getSongListOfStyle(style) {
+      musicTrees.value = ((await HttpManager.getSongListOfStyle(style)) as ResponseBody).data;
+      page.value = 1;
     }
 
     // 获取歌单
     async function handleChangeView(item) {
       activeName.value = item.name;
-      allPlayList.value = [];
-      try {
-        if (item.name === "全部歌单") {
-          await getSongList();
-        } else {
-          await getSongListOfStyle(item.name);
-        }
-      } catch (error) {
-        console.error(error);
+      musicTrees.value = [];
+      if (item.name === "全部歌单") {
+        await getSongList();
+      } else {
+        await getSongListOfStyle(item.name);
       }
     }
+
     // 获取当前页
     function handleCurrentChange(val) {
-      currentPage.value = val;
+      page.value = val;
     }
+
     return {
       activeName,
-      songStyle,
+      musicTypes,
       pageSize,
-      currentPage,
-      allPlayList,
+      page,
+      musicTrees,
       data,
       handleChangeView,
       handleCurrentChange,

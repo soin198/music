@@ -29,12 +29,9 @@
       <el-form-item prop="resume" label="签名">
         <el-input type="textarea" placeholder="签名" v-model.trim="register.resume"/>
       </el-form-item>
-      <el-select v-model="register.location" placeholder="地区" style="width: 100%">
-        <el-cascader
-            :options="codes"
-            collapse-tags
-            clearable/>
-      </el-select>
+      <el-form-item prop="location" label="地区">
+        <el-cascader placeholder="地区" :options="codes" collapse-tags clearable/>
+      </el-form-item>
       <el-form-item class="sign-btn">
         <el-button @click="goBack()">登录</el-button>
         <el-button type="primary" @click="handleSignUp(formRef)">确定</el-button>
@@ -50,7 +47,7 @@ import YinLoginLogo from "@/components/layouts/YinLoginLogo.vue";
 import {HttpManager} from "@/api";
 import {formatDate} from "@/utils";
 import {RouterName, NavName, SignUpRules} from "@/enums";
-import {getCityCode} from "@/static/js/area"
+import {cityCodeQuery} from "@/static/js/area"
 
 export default defineComponent({
   components: {
@@ -69,8 +66,7 @@ export default defineComponent({
       resume: null,
       location: null
     })
-
-    const codes = reactive([getCityCode()]);
+    const codes = cityCodeQuery();
 
     async function handleSignUp() {
       let canRun = true;
@@ -89,6 +85,7 @@ export default defineComponent({
         routerManager(RouterName.SignIn, {path: RouterName.SignIn});
       }
     }
+
     return {
       SignUpRules,
       register,

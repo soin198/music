@@ -65,9 +65,9 @@ export function getBaseURL() {
  */
 export function get(url, params?: object) {
   return new Promise((resolve, reject) => {
-    axios.get(url, params).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
+    axios.get((baseURL + url), params).then(
+        (response) => resolve(response.data),
+        (error) => reject(error)
     );
   });
 }
@@ -80,7 +80,7 @@ export function get(url, params?: object) {
  */
 export function post(url, data = {}) {
   return new Promise((resolve, reject) => {
-    axios.post(baseURL + url, data).then(
+    axios.post((baseURL + url), data).then(
         (response) => resolve(response.data),
         (error) => reject(error)
     );

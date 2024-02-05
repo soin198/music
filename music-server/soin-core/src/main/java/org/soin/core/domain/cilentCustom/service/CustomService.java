@@ -26,6 +26,9 @@ public class CustomService {
 
     private final ICustomRepository customRepository;
 
+    /**
+     * 用户地址服务
+     */
     private final CustomAreaService customAreaService;
 
     /**

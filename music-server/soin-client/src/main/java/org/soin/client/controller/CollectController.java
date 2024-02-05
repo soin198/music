@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
  * @date 2024-01-08 18:13
  **/
 @RestController
-@RequestMapping("/collection")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CollectController {
 
 /*    private final ICollectService collectService;

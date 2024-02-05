@@ -4084,7 +4084,7 @@ let verifyArea = () => {
     }
 };
 
-let getCityCode = () =>{
+const cityCodeQuery = () =>{
     return [
         {
             "value": "110000",
@@ -15654,4 +15654,4 @@ let getCityCode = () =>{
     ];
 }
 
-export {getMyArea, verifyArea,getCityCode}
+export {getMyArea, verifyArea, cityCodeQuery}

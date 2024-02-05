@@ -19,7 +19,7 @@ const HttpManager = {
 
   // =======================> 歌单 API
   // 获取全部歌单
-  getSongList: () => get("songList"),
+  getSongList: (params) => get(`/music/tree/musicTreeQuery?musicType=${params}`),
   // 获取歌单类型
   getSongListOfStyle: (style) => get(`songList/style/detail?style=${style}`),
   // 返回标题包含文字的歌单
