@@ -4,14 +4,14 @@
 
     <!-- 随机获取20个歌手 -->
     <select id="singerQuery" resultType="org.soin.core.domain.singer.vo.SingerVo">
-        SELECT singer.id,
-               singer.name,
-               singer.sex,
-               singer.photo,
-               singer.birth,
-               singer.nationality,
-               singer.resume
-        FROM `soin-music`.`t_singer` AS singer
+        SELECT id as id,
+               name as `name`,
+               sex,
+               photo,
+               birth,
+               nationality,
+               resume
+        FROM `soin-music`.`t_singer`
         ORDER BY RAND() LIMIT 20;
     </select>
 
