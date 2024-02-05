@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
-import org.soin.core.infrastructure.mappers.mapper.ICustomMapper;
+import org.soin.core.infrastructure.mappers.mapper.CustomMapper;
 import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.RegexExpressionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomRepository implements ICustomRepository {
 
-    private final ICustomMapper customMapper;
+    private final CustomMapper customMapper;
 
     /**
      * 根据用户名获取用户

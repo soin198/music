@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.music.entity.MusicTree;
 import org.soin.core.domain.music.repository.IMusicTreeRepository;
 import org.soin.core.domain.music.vo.MusicTreeVo;
-import org.soin.core.infrastructure.mappers.mapper.IMusicTreeMapper;
+import org.soin.core.infrastructure.mappers.mapper.MusicTreeMapper;
 import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MusicTreeRepository implements IMusicTreeRepository {
 
-    private final IMusicTreeMapper iMusicTreeMapper;
+    private final MusicTreeMapper musicTreeMapper;
 
     /**
      * 获取所有启用歌单
@@ -36,7 +36,7 @@ public class MusicTreeRepository implements IMusicTreeRepository {
         QueryWrapper<MusicTree> wrapper = new QueryWrapper<>();
         wrapper.eq("enable", Boolean.TRUE);
         wrapper.eq("type", musicType);
-        List<MusicTree> list = iMusicTreeMapper.selectList(wrapper);
+        List<MusicTree> list = musicTreeMapper.selectList(wrapper);
         if (null == list) {
             return Lists.newArrayList();
         }
@@ -50,7 +50,7 @@ public class MusicTreeRepository implements IMusicTreeRepository {
      */
     @Override
     public List<MusicTreeVo> musicTreeQuery() {
-        List<MusicTreeVo> list = iMusicTreeMapper.musicTreeQuery();
+        List<MusicTreeVo> list = musicTreeMapper.musicTreeQuery();
         return (null != list && list.size() > 0) ? list : Lists.newArrayList();
     }
 

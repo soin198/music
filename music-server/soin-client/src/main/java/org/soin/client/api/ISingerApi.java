@@ -3,6 +3,7 @@ package org.soin.client.api;
 import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,7 @@ public interface ISingerApi {
      *
      * @return 歌手列表
      */
-    @PostMapping("/singerQuery")
+    @GetMapping("/singerQuery")
     GenericResponse<List<SingerVo>> singerQuery();
 
 }

@@ -23,8 +23,10 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "DELETE", "PUT")
                 // 是否发送Cookie
                 .allowCredentials(Boolean.TRUE)
+                .allowedHeaders("*")
                 //暴露哪些头部信息
                 .exposedHeaders("*");
     }
+
 }
 

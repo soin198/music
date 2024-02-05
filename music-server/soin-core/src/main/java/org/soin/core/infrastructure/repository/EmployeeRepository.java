@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.manageEmployee.entity.Employee;
 import org.soin.core.domain.manageEmployee.repository.IEmployeeRepository;
-import org.soin.core.infrastructure.mappers.mapper.IEmployeeMapper;
+import org.soin.core.infrastructure.mappers.mapper.EmployeeMapper;
 import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmployeeRepository implements IEmployeeRepository {
 
-    private final IEmployeeMapper iEmployeeMapper;
+    private final EmployeeMapper employeeMapper;
 
     /**
      * 根据用户名获取员工
@@ -32,7 +32,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         Assert.isBlank(username, "请提供用户名");
         QueryWrapper<Employee> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
-        return iEmployeeMapper.selectOne(wrapper);
+        return employeeMapper.selectOne(wrapper);
     }
 
     /**
@@ -49,7 +49,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         QueryWrapper<Employee> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
         wrapper.eq("password", password);
-        return iEmployeeMapper.selectOne(wrapper);
+        return employeeMapper.selectOne(wrapper);
     }
 }
 

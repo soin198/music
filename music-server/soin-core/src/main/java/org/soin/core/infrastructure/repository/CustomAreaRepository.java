@@ -3,7 +3,7 @@ package org.soin.core.infrastructure.repository;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.CustomArea;
 import org.soin.core.domain.cilentCustom.repository.ICustomAreaRepository;
-import org.soin.core.infrastructure.mappers.mapper.ICustomAreaMapper;
+import org.soin.core.infrastructure.mappers.mapper.CustomAreaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomAreaRepository implements ICustomAreaRepository {
 
-    private final ICustomAreaMapper customAreaMapper;
+    private final CustomAreaMapper customAreaMapper;
 
     /**
      * 添加用户人员地址

@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0.0
  * @date 2024-01-09 14:02
  **/
-public interface ISingerMapper extends BaseMapper<Singer> {
+public interface SingerMapper extends BaseMapper<Singer> {
 
     /**
      * 随机获取20个歌手

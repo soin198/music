@@ -10,5 +10,5 @@ import org.soin.core.domain.cilentCustom.entity.Custom;
  * @version 1.0.0
  * @date 2024-01-09 14:02
  **/
-public interface ICustomMapper extends BaseMapper<Custom> {
+public interface CustomMapper extends BaseMapper<Custom> {
 }

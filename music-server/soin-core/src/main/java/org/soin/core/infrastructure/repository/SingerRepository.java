@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.singer.repository.ISingerRepository;
 import org.soin.core.domain.singer.vo.SingerVo;
-import org.soin.core.infrastructure.mappers.mapper.ISingerMapper;
+import org.soin.core.infrastructure.mappers.mapper.SingerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SingerRepository implements ISingerRepository {
 
-    private final ISingerMapper iSingerMapper;
+    private final SingerMapper singerMapper;
 
     /**
      * 随机获取20个歌手
@@ -29,7 +29,7 @@ public class SingerRepository implements ISingerRepository {
      */
     @Override
     public List<SingerVo> singerQuery() {
-        List<SingerVo> list = iSingerMapper.singerQuery();
+        List<SingerVo> list = singerMapper.singerQuery();
         return (null != list && !list.isEmpty()) ? list : Lists.newArrayList();
     }
 }

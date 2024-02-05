@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.soin.core.infrastructure.mappers.mapper.ISingerMapper">
+<mapper namespace="org.soin.core.infrastructure.mappers.mapper.SingerMapper">
 
     <!-- 随机获取20个歌手 -->
     <select id="singerQuery" resultType="org.soin.core.domain.singer.vo.SingerVo">
