@@ -19,7 +19,7 @@ const HttpManager = {
 
   // =======================> 歌单 API
   // 获取全部歌单
-  getSongList: (params) => get(`/music/tree/musicTreeQuery?musicType=${params}`),
+  getSongList: () => get(`/music/tree/musicTreeQuery`),
   // 获取歌单类型
   getSongListOfStyle: (style) => get(`songList/style/detail?style=${style}`),
   // 返回标题包含文字的歌单
@@ -29,7 +29,7 @@ const HttpManager = {
 
   // =======================> 歌手 API
   // 返回所有歌手
-  getAllSinger: () => get("singer"),
+  getAllSinger: () => get("/base/singer/singerQuery"),
   // 通过性别对歌手分类
   getSingerOfSex: (sex) => get(`singer/sex/detail?sex=${sex}`),
 

@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0.0
  * @date 2024-02-04 13:05
  **/
-@Service("musicTreeService")
+@Service(value = "MusicTreeService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MusicTreeService {
 

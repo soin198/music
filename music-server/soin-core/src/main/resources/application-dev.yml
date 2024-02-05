@@ -25,3 +25,5 @@ logging:
       soin:
         biz:
           mapper: info
+  mybatis-plus:
+    mapper-locations: classpath:/mappers/**/**.xml

@@ -22,7 +22,7 @@ const songList = ref([]); // 歌单列表
 const singerList = ref([]); // 歌手列表
 const { changeIndex } = mixin();
 try {
-  HttpManager.getSongList("CHINESE").then((res) => {
+  HttpManager.getSongList().then((res) => {
     songList.value = (res as ResponseBody).data.sort().slice(0, 10);
   });
 

@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0.0
  * @date 2024-01-08 17:43
  **/
-@SpringBootApplication(scanBasePackages = {"org.soin.core", "org.soin.client"})
-@MapperScan("org.soin.core.infrastructure.mappers.mapper")
+@SpringBootApplication(scanBasePackages = {"org.soin.client", "org.soin.core.*"})
+@MapperScan("org.soin.core.infrastructure.mappers")
 public class ClientApplication {
 
     public static void main(String[] args) {

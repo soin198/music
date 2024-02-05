@@ -1,4 +1,4 @@
-package org.soin.admin.contorller;
+package org.soin.manage.contorller;
 
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.springframework.web.bind.annotation.*;

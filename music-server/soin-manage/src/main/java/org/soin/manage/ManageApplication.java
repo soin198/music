@@ -1,4 +1,4 @@
-package org.soin.admin;
+package org.soin.manage;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.soin.core.infrastructure.utils.RunTimeTool;
@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0.0
  * @date 2024-01-09 10:34
  **/
-@SpringBootApplication(scanBasePackages = {"org.soin.core"})
-@MapperScan("org.soin.core.infrastructure.mappers.mapper")
+@SpringBootApplication(scanBasePackages = {"org.soin.manage", "org.soin.core"})
+@MapperScan("org.soin.core.infrastructure.mappers")
 public class ManageApplication {
 
     public static void main(String[] args) {

@@ -41,7 +41,7 @@ export default defineComponent({
 
     // 获取全部歌单
     async function getSongList() {
-      musicTrees.value = ((await HttpManager.getSongList("CHINESE")) as ResponseBody).data;
+      musicTrees.value = ((await HttpManager.getSongList()) as ResponseBody).data;
       page.value = 1;
     }
 

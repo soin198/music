@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @date 2024-01-09 11:50
  **/
-@Service("iCustomService")
+@Service(value = "CustomService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomService {
 

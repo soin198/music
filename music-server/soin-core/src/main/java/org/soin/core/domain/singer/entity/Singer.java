@@ -1,4 +1,4 @@
-package org.soin.core.domain.cilentCustom.entity;
+package org.soin.core.domain.singer.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -6,54 +6,48 @@ import lombok.EqualsAndHashCode;
 import org.soin.core.infrastructure.base.BaseEntity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
- * 用户信息
+ * 歌手
  *
  * @author J.FLa.Soin
  * @version 1.0.0
- * @date 2024-01-09 14:11
+ * @date 2024-01-09 09:52
  **/
 @Data
-@TableName(value = "t_custom")
+@TableName(value = "t_singer")
 @EqualsAndHashCode(callSuper = true)
-public class Custom extends BaseEntity implements Serializable {
+public class Singer extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 6176882420433792109L;
+    private static final long serialVersionUID = -7060543150128927908L;
 
     /**
-     * 用户名
+     * 歌手名称
      */
-    private String username;
+    private String name;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 性别
+     * 歌手性别
      */
     private GenderEnum sex;
 
     /**
-     * 电话号码
+     * 歌手头像
      */
-    private String phone;
+    private String photo;
 
     /**
-     * 邮箱
+     * 歌手生日
      */
-    private String email;
+    private String birth;
 
     /**
-     * 生日
+     * 国籍
      */
-    private LocalDate birth;
+    private Integer nationality;
 
     /**
-     * 个性签名
+     * 简介
      */
     private String resume;
 
@@ -77,4 +71,5 @@ public class Custom extends BaseEntity implements Serializable {
          */
         OTHER;
     }
+
 }
