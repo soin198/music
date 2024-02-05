@@ -1,6 +1,7 @@
 package org.soin.core.infrastructure.base;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
@@ -28,11 +29,13 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 创建时间
      */
+    @TableField(value = "createDate")
     private Date createDate = new Date();
 
     /**
      * 最新修改时间
      */
+    @TableField(value = "lastModifiedDate")
     private Date lastModifiedDate;
 
 }

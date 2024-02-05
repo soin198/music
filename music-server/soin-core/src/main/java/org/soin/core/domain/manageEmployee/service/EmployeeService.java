@@ -1,13 +1,19 @@
 package org.soin.core.domain.manageEmployee.service;
 
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.manageEmployee.entity.Employee;
 import org.soin.core.domain.manageEmployee.repository.IEmployeeRepository;
+import org.soin.core.infrastructure.enums.CommonTimeEnum;
+import org.soin.core.infrastructure.enums.FolderEnum;
+import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.utils.CacheUtil;
+import org.soin.core.infrastructure.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 /**
- * 后台实现
- *
  * @author J.FLa.Soin
  * @version 1.0.0
  * @date 2024-02-04 13:05
@@ -26,6 +32,13 @@ public class EmployeeService {
      * @return token
      */
     public String login(String username, String password) {
-        return null;
+        Assert.isBlank(username, "请输入用户名");
+        Assert.isBlank(password, "请输入密码");
+        Employee userNameEmp = iEmployeeRepository.byUserNameQuery(username);
+        Assert.isNull(userNameEmp, "用户名不存在");
+        Employee passWordEmp = iEmployeeRepository.byUserNameAndSecretKeyQuery(username, password);
+        Assert.isNull(passWordEmp, "密码错误，请重新输入");
+        Long employeeId = passWordEmp.getId();
+        return CacheUtil.secureGet(employeeId, String.class, t -> JwtUtil.generateToken(employeeId), CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, FolderEnum.MANAGE);
     }
 }

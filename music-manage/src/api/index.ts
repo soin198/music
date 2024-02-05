@@ -5,7 +5,7 @@ const HttpManager = {
   attachImageUrl: (url) => `${getBaseURL()}/${url}`,
   // =======================> 管理员 API
   // 是否登录成功
-  getLoginStatus: (params) => post(`employee/login`, params),
+  login: (params) => post(`/employee/login`, params),
 
   // =======================> 用户 API
   // 返回所有用户

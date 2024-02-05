@@ -1,5 +1,6 @@
 package org.soin.core.domain.manageEmployee.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.soin.core.infrastructure.base.BaseEntity;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @date 2024-01-08 14:39
  **/
 @Data
+@TableName(value = "t_employee")
 @EqualsAndHashCode(callSuper = true)
 public class Employee extends BaseEntity implements Serializable {
 

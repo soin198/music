@@ -39,14 +39,13 @@ export default defineComponent({
     });
     async function submitForm() {
       let params = new URLSearchParams();
-      params.append("name", ruleForm.username);
+      params.append("username", ruleForm.username);
       params.append("password", ruleForm.password);
-      const result = (await HttpManager.getLoginStatus(params)) as ResponseBody;
+      const result = (await HttpManager.login(params)) as ResponseBody;
       (proxy as any).$message({
         message: result.message,
         type: result.type,
       });
-
       if (result.success) routerManager(RouterName.Info, { path: RouterName.Info });
     }
     return {
