@@ -12,9 +12,10 @@ import java.util.List;
 public interface ISingerRepository {
 
     /**
-     * 随机获取20个歌手
+     * 随机获取歌手
      *
+     * @param limit 查询条数
      * @return 歌手列表
      */
-    List<SingerVo> singerQuery();
+    List<SingerVo> singerQuery(Integer limit);
 }

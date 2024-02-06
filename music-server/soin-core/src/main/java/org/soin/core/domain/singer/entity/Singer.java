@@ -3,7 +3,7 @@ package org.soin.core.domain.singer.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.soin.core.infrastructure.base.BaseEntity;
+import org.soin.core.infrastructure.base.common.BaseEntity;
 
 import java.io.Serializable;
 
@@ -69,7 +69,7 @@ public class Singer extends BaseEntity implements Serializable {
         /**
          * 其他
          */
-        OTHER;
+        OTHER,
     }
 
 }

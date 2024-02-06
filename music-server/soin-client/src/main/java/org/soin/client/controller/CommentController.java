@@ -1,7 +1,6 @@
 package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.soin.core.infrastructure.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

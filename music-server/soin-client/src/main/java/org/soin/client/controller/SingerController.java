@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.client.api.ISingerApi;
 import org.soin.core.domain.singer.serivce.SingerService;
 import org.soin.core.domain.singer.vo.SingerVo;
+import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,15 @@ public class SingerController implements ISingerApi {
     private final SingerService singerService;
 
     /**
-     * 随机获取20个歌手
+     * 随机获取10个歌手
      *
      * @return 歌手列表
      */
     @Override
     public GenericResponse<List<SingerVo>> singerQuery() {
-        RunTimeTool.printMethodMsg("singerQuery", "随机获取20个歌手");
-        List<SingerVo> list = singerService.singerQuery();
-        RunTimeTool.printMethodResponseMsg("singerQuery", list);
+        RunTimeTool.printMethodMsg("singerQuery", "随机获取10个歌手");
+        List<SingerVo> list = singerService.singerQuery(BaseConstant.BASE_QUERY_MAX);
+        RunTimeTool.printMethodResponseMsg("singerQuery", list.size());
         return GenericResponse.builder().success(list);
     }
 }

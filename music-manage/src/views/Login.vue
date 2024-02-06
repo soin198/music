@@ -37,16 +37,19 @@ export default defineComponent({
       username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       password: [{ required: true, message: "请输入密码", trigger: "blur" }],
     });
+
     async function submitForm() {
       let params = new URLSearchParams();
       params.append("username", ruleForm.username);
       params.append("password", ruleForm.password);
-      const result = (await HttpManager.login(params)) as ResponseBody;
+      const {code, message} = (await HttpManager.login(params)) as Response;
       (proxy as any).$message({
-        message: result.message,
-        type: result.type,
+        message: message,
+        type: "error",
       });
-      if (result.success) routerManager(RouterName.Info, { path: RouterName.Info });
+      if (code === 200) {
+        routerManager(RouterName.Info, {path: RouterName.Info});
+      }
     }
     return {
       nusicName,

@@ -3,7 +3,6 @@ package org.soin.core.domain.music.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 歌单返回体
@@ -23,11 +22,6 @@ public class MusicTreeVo implements Serializable {
     private Long id;
 
     /**
-     * 创建时间
-     */
-    private Date createDate;
-
-    /**
      * 歌单标题
      */
     private String title;
@@ -36,6 +30,11 @@ public class MusicTreeVo implements Serializable {
      * 歌单图片
      */
     private String photo;
+
+    /**
+     * 图片渲染
+     */
+    private String base64;
 
     /**
      * 歌单简介

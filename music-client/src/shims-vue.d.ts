@@ -13,8 +13,8 @@ declare module "vue/types/vue" {
     }
 }
 
-interface ResponseBody {
-    code: String;
+interface Response {
+    code: number;
     items?: any;
     message: string;
 }

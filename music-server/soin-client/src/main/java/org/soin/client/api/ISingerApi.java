@@ -4,7 +4,6 @@ import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 public interface ISingerApi {
 
     /**
-     * 随机获取20个歌手
+     * 随机获取10个歌手
      *
      * @return 歌手列表
      */

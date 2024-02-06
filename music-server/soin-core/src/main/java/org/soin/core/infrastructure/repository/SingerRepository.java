@@ -23,13 +23,14 @@ public class SingerRepository implements ISingerRepository {
     private final SingerMapperService singerMapperService;
 
     /**
-     * 随机获取20个歌手
+     * 随机获取歌手
      *
+     * @param limit 查询条数
      * @return 歌手列表
      */
     @Override
-    public List<SingerVo> singerQuery() {
-        List<SingerVo> list = singerMapperService.getBaseMapper().singerQuery();
+    public List<SingerVo> singerQuery(Integer limit) {
+        List<SingerVo> list = singerMapperService.getBaseMapper().singerQuery(limit);
         return (null != list && !list.isEmpty()) ? list : Lists.newArrayList();
     }
 }

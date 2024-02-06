@@ -4,7 +4,7 @@
     <ul class="play-body">
       <li class="card-frame" v-for="(item, index) in playList" :key="index">
         <div class="card" @click="goAblum(item)">
-          <el-image class="card-img" fit="contain" :src="attachImageUrl(item.pic)" />
+          <img class="card-img" :src="item.base64" alt="图片">
           <div class="mask" @click="goAblum(item)">
             <yin-icon class="mask-icon" :icon="BOFANG"></yin-icon>
           </div>

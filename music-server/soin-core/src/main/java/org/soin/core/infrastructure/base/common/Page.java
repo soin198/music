@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.base;
+package org.soin.core.infrastructure.base.common;
 
 import lombok.Data;
 

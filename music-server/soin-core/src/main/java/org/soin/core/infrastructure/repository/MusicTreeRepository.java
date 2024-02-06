@@ -44,13 +44,14 @@ public class MusicTreeRepository implements IMusicTreeRepository {
     }
 
     /**
-     * 随机获取20个歌单
+     * 随机获取歌单
      *
+     * @param limit 查询条数
      * @return 歌单列表
      */
     @Override
-    public List<MusicTreeVo> musicTreeQuery() {
-        List<MusicTreeVo> list = musicTreeMapper.musicTreeQuery();
+    public List<MusicTreeVo> musicTreeQuery(Integer limit) {
+        List<MusicTreeVo> list = musicTreeMapper.musicTreeQuery(limit);
         return (null != list && list.size() > 0) ? list : Lists.newArrayList();
     }
 

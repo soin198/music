@@ -21,9 +21,10 @@ public interface IMusicTreeRepository {
     List<MusicTreeVo> musicTreeQueryByType(MusicTree.Type musicType);
 
     /**
-     * 随机获取20个歌单
+     * 随机获取歌单
      *
+     * @param limit 查询条数
      * @return 歌单列表
      */
-    List<MusicTreeVo> musicTreeQuery();
+    List<MusicTreeVo> musicTreeQuery(Integer limit);
 }

@@ -5,6 +5,7 @@ import org.soin.client.api.IMusicTreeApi;
 import org.soin.core.domain.music.entity.MusicTree;
 import org.soin.core.domain.music.serivce.MusicTreeService;
 import org.soin.core.domain.music.vo.MusicTreeVo;
+import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,8 @@ public class MusicTreeController implements IMusicTreeApi {
     @Override
     public GenericResponse<List<MusicTreeVo>> musicTreeQuery() {
         RunTimeTool.printMethodMsg("musicTreeQuery", "随机获取歌单");
-        List<MusicTreeVo> list = musicTreeService.musicTreeQuery();
-        RunTimeTool.printMethodResponseMsg("musicTreeQuery", list);
+        List<MusicTreeVo> list = musicTreeService.musicTreeQuery(BaseConstant.BASE_QUERY_MAX);
+        RunTimeTool.printMethodResponseMsg("musicTreeQuery", list.size());
         return GenericResponse.builder().success(list);
     }
 
