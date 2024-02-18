@@ -41,7 +41,7 @@ public class RegisterDTO implements Serializable {
      * 性别
      */
     @NotNull(message = "请选择性别")
-    private Custom.GenderEnum sex;
+    private Custom.Gender sex;
 
     /**
      * 电话号码

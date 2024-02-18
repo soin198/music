@@ -34,6 +34,7 @@ public class CustomRepository implements ICustomRepository {
     public Custom getUserByUserName(String username) {
         QueryWrapper<Custom> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username.trim());
+        wrapper.eq("deleted", Boolean.FALSE);
         return customMapper.selectOne(wrapper);
     }
 
@@ -52,6 +53,7 @@ public class CustomRepository implements ICustomRepository {
         QueryWrapper<Custom> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
         wrapper.eq("password", password);
+        wrapper.eq("deleted", Boolean.FALSE);
         return customMapper.selectOne(wrapper);
     }
 
@@ -76,7 +78,7 @@ public class CustomRepository implements ICustomRepository {
         Assert.isBlank(password, "请输入密码");
         boolean passwordCondition = (password.length() > 19);
         Assert.isTrue(passwordCondition, "密码最多支持19个字符");
-        Custom.GenderEnum sex = custom.getSex();
+        Custom.Gender sex = custom.getSex();
         Assert.isNull(sex, "请选择性别");
         String phone = custom.getPhone();
         Assert.isBlank(phone, "请提供手机号码");
@@ -92,7 +94,40 @@ public class CustomRepository implements ICustomRepository {
         Assert.isBlank(resume, "请输入您的个性签名");
         boolean resumeCondition = (resume.length() > 255);
         Assert.isTrue(resumeCondition, "个性签名最多支持255个字符");
+        custom.setDeleted(Boolean.FALSE);
         return customMapper.insert(custom);
+    }
+
+    /**
+     * 根据人员ID获取用户
+     * {@link org.soin.core.domain.cilentCustom.entity.Custom}
+     *
+     * @param userId 人员ID
+     * @return 用户
+     */
+    @Override
+    public Custom getOne(Long userId) {
+        Assert.isNull(userId, "请提供人员ID");
+        QueryWrapper<Custom> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", userId);
+        wrapper.eq("deleted", Boolean.FALSE);
+        Custom custom = customMapper.selectOne(wrapper);
+        Assert.isNull(custom, "userId invalid");
+        return custom;
+    }
+
+    /**
+     * 注销账号
+     *
+     * @param userId 当前人员ID
+     * @return 是否注销成功
+     */
+    @Override
+    public boolean cancel(Long userId) {
+        Custom custom = this.getOne(userId);
+        custom.setDeleted(Boolean.TRUE);
+        customMapper.updateById(custom);
+        return Boolean.TRUE;
     }
 
 }

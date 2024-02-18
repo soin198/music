@@ -36,4 +36,21 @@ public interface ICustomRepository {
      * @return 是否添加成功
      */
     int insert(Custom custom);
+
+    /**
+     * 根据人员ID获取用户
+     * {@link org.soin.core.domain.cilentCustom.entity.Custom}
+     *
+     * @param userId 人员ID
+     * @return 用户
+     */
+    Custom getOne(Long userId);
+
+    /**
+     * 注销账号
+     *
+     * @param userId 当前人员ID
+     * @return 是否注销成功
+     */
+    boolean cancel(Long userId);
 }

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>soin-admin</artifactId>
+    <artifactId>soin-manage</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

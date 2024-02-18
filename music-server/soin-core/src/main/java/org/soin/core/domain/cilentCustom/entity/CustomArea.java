@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @date 2024-02-04 15:00
  **/
 @Data
-@TableName(value = "t_custom")
+@TableName(value = "t_custom_area")
 @EqualsAndHashCode(callSuper = true)
 public class CustomArea extends BaseEntity implements Serializable {
 

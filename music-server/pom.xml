@@ -18,8 +18,8 @@
     <groupId>org.soin</groupId>
     <artifactId>soin-music</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Yin-music</name>
-    <description>music-website project for Spring Boot</description>
+    <name>music-server</name>
+    <description>music-server project for Spring Boot</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
