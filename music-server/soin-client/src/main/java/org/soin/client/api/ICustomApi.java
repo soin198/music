@@ -1,12 +1,11 @@
 package org.soin.client.api;
 
 import org.soin.client.api.dto.RegisterDTO;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author J.FLa.Soin
@@ -21,14 +20,13 @@ public interface ICustomApi {
      *
      * @param username 用户名
      * @param password 密码
-     * @return token
+     * @return 当前登录用户信息
      */
     @PostMapping("/login")
-    GenericResponse<String> login(@RequestParam(value = "username") String username,
-                                  @RequestParam(value = "password") String password);
+    GenericResponse<LoginVo> login(@RequestParam(value = "username") String username,
+                                   @RequestParam(value = "password") String password);
 
     /**
-
      * 注册平台用户
      *
      * @param registerDTO 注册数据源
@@ -36,5 +34,23 @@ public interface ICustomApi {
      */
     @PostMapping("/register")
     GenericResponse<Boolean> register(@RequestBody RegisterDTO registerDTO);
+
+    /**
+     * 获取用户详情
+     *
+     * @param userId 当前人员ID
+     * @return 当前登录人员详情
+     */
+    @GetMapping("/detailsQuery")
+    GenericResponse<CustomVo> detailsQuery(@RequestParam("userId") Long userId);
+
+    /**
+     * 注销账号
+     *
+     * @param userId 当前人员ID
+     * @return 是否注销成功
+     */
+    @PostMapping("/cancel")
+    GenericResponse<Boolean> cancel(@RequestParam("userId") Long userId);
 
 }

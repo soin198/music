@@ -11,7 +11,6 @@ spring:
     charset: UTF-8
   redis:
     host: localhost
-    username: xxxx
     password: 123456
     port: 6379
     database: 0
@@ -29,5 +28,7 @@ mybatis-plus:
   mapper-locations: classpath:/org/soin/core/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #关闭mybatis-plus自动下划线驼峰转换
+    map-underscore-to-camel-case: false
   global-config:
     banner: false

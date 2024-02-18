@@ -40,7 +40,6 @@ export default defineComponent({
       username: "",
       password: "",
     });
-
     async function handleLoginIn() {
       let canRun = true;
       (proxy.$refs["signInForm"] as any).validate((valid) => {
@@ -50,19 +49,24 @@ export default defineComponent({
       const params = new URLSearchParams();
       params.append("username", paramsForm.username);
       params.append("password", paramsForm.password);
-      const {code, items} = (await HttpManager.signIn(params)) as Response;
+      const {code, items, message} = (await HttpManager.login(params)) as Response;
+      if (code !== 200) {
+        (proxy as any).$message({
+          message: message,
+          type: "error",
+        });
+        return;
+      }
       (proxy as any).$message({
         message: "登录成功",
         type: "success",
       });
-      if (code === 200) {
-        //proxy.$store.commit("setUserId", result.data[0].id);
-        //proxy.$store.commit("setUsername", result.data[0].username);
-        //proxy.$store.commit("setUserPic", result.data[0].avator);
-        proxy.$store.commit("setToken", items);
-        changeIndex(NavName.Home);
-        routerManager(RouterName.Home, {path: RouterName.Home});
-      }
+      proxy.$store.commit("setUserId", items.userId);
+      proxy.$store.commit("setUsername", items.username);
+      //proxy.$store.commit("setUserPic", items.avator);
+      proxy.$store.commit("setToken", items.token);
+      changeIndex(NavName.Home);
+      routerManager(RouterName.Home, {path: RouterName.Home});
 
     }
 

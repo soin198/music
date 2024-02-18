@@ -29,8 +29,8 @@
       <el-form-item prop="resume" label="签名">
         <el-input type="textarea" placeholder="签名" v-model.trim="register.resume"/>
       </el-form-item>
-      <el-form-item prop="location" label="地区">
-        <el-cascader placeholder="地区" :options="codes" collapse-tags clearable/>
+      <el-form-item prop="codes" label="地区">
+        <el-cascader v-model="codes" placeholder="地区" :options="areaCodes" collapse-tags clearable/>
       </el-form-item>
       <el-form-item class="sign-btn">
         <el-button @click="goBack()">登录</el-button>
@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, getCurrentInstance} from "vue";
+import {defineComponent, reactive, getCurrentInstance, ref} from "vue";
 import mixin from "@/mixins/mixin";
 import YinLoginLogo from "@/components/layouts/YinLoginLogo.vue";
 import {HttpManager} from "@/api";
@@ -56,6 +56,7 @@ export default defineComponent({
   setup: function () {
     const {proxy} = getCurrentInstance();
     const {routerManager, changeIndex} = mixin();
+    const codes = ref([]);
     const register = reactive({
       username: null,
       password: null,
@@ -64,9 +65,11 @@ export default defineComponent({
       email: null,
       birth: null,
       resume: null,
-      location: null
+      province: null,
+      city: null,
+      region: null
     })
-    const codes = cityCodeQuery();
+    const areaCodes = cityCodeQuery();
 
     async function handleSignUp() {
       let canRun = true;
@@ -75,12 +78,21 @@ export default defineComponent({
       });
       if (!canRun) return;
       register.birth = formatDate(register.birth);
-      const result = await HttpManager.register(register) as ResponseBody;
-      (proxy as any).$message({
-        message: result.message,
-        type: "success",
-      });
-      if (result.success) {
+      const value = codes.value;
+      if (null !== value) {
+        register.province = value[0]
+        register.city = value[1]
+        register.region = value[2]
+      }
+      const {code, items, message} = await HttpManager.register(register) as Response;
+      if (200 !== code) {
+        (proxy as any).$message({
+          message: message,
+          type: "error",
+        });
+        return;
+      }
+      if (items) {
         changeIndex(NavName.SignIn);
         routerManager(RouterName.SignIn, {path: RouterName.SignIn});
       }
@@ -90,6 +102,7 @@ export default defineComponent({
       SignUpRules,
       register,
       handleSignUp,
+      areaCodes,
       codes
     };
   },

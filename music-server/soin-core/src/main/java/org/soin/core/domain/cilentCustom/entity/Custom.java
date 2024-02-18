@@ -35,7 +35,7 @@ public class Custom extends BaseEntity implements Serializable {
     /**
      * 性别
      */
-    private GenderEnum sex;
+    private Gender sex;
 
     /**
      * 电话号码
@@ -58,9 +58,14 @@ public class Custom extends BaseEntity implements Serializable {
     private String resume;
 
     /**
+     * 是否有效（false未删除、true删除）
+     */
+    private Boolean deleted;
+
+    /**
      * 性别枚举
      */
-    public enum GenderEnum {
+    public enum Gender {
 
         /**
          * 男性
@@ -76,5 +81,7 @@ public class Custom extends BaseEntity implements Serializable {
          * 其他
          */
         OTHER;
+
     }
+
 }

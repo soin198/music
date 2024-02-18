@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 2024-01-31 16:14
  **/
 @Data
-public class CustomBO implements Serializable {
+public class CustomBo implements Serializable {
 
     private static final long serialVersionUID = 6634226754131954187L;
 
@@ -29,7 +29,7 @@ public class CustomBO implements Serializable {
     /**
      * 性别
      */
-    private Custom.GenderEnum sex;
+    private Custom.Gender sex;
 
     /**
      * 电话号码

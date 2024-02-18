@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.CustomArea;
 import org.soin.core.domain.cilentCustom.repository.ICustomAreaRepository;
 import org.soin.core.infrastructure.mappers.mapper.CustomAreaMapper;
+import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +31,8 @@ public class CustomAreaRepository implements ICustomAreaRepository {
      */
     @Override
     public boolean insert(Long userId, Integer province, Integer city, Integer region) {
+        Assert.isNull(province, "请提供省份信息");
+        Assert.isNull(city, "请提供城市信息");
         CustomArea customArea = new CustomArea();
         customArea.setUserId(userId);
         customArea.setProvince(province);
