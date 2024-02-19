@@ -1,6 +1,6 @@
 package org.soin.core.infrastructure.cache;
 
-import org.soin.core.infrastructure.enums.FolderEnum;
+import org.soin.core.infrastructure.enums.RegionEnum;
 import org.soin.core.infrastructure.cache.cacheApi.ICache;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +35,7 @@ public class CacheFactoryKit {
      * @param enums 数据源
      * @return ICache实例
      */
-    public ICache getCache(FolderEnum enums) {
+    public ICache getCache(RegionEnum enums) {
         switch (enums) {
             case CLIENT:
                 currentIndex = 0;

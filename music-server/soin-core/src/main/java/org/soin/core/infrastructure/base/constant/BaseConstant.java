@@ -2,6 +2,7 @@ package org.soin.core.infrastructure.base.constant;
 
 /**
  * 通用常量类
+ *
  * @author J.FLa.Soin
  * @version 1.0.0
  * @date 2024-01-31 14:41
@@ -24,4 +25,10 @@ public class BaseConstant {
      * 本地图片路径
      */
     public static final String IMAGE_URL = "D:/image";
+
+    /**
+     * 短信发送响应码
+     */
+    public static final String SMS_SEND_RESULT_CODE = "ok";
+
 }

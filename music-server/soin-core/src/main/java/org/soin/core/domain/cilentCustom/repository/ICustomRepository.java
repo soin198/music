@@ -53,4 +53,12 @@ public interface ICustomRepository {
      * @return 是否注销成功
      */
     boolean cancel(Long userId);
+
+    /**
+     * 根据手机号码获取用户
+     *
+     * @param phone 手机号码
+     * @return 用户信息
+     */
+    Custom getUserByPhone(String phone);
 }

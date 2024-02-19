@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.repository;
+package org.soin.core.infrastructure.repository.singer;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;

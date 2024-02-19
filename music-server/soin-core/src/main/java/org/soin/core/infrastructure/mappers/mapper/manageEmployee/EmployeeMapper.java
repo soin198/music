@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.mappers.mapper;
+package org.soin.core.infrastructure.mappers.mapper.manageEmployee;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.soin.core.domain.manageEmployee.entity.Employee;

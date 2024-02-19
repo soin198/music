@@ -3,7 +3,7 @@ package org.soin.core.infrastructure.mappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.soin.core.domain.music.entity.MusicTree;
-import org.soin.core.infrastructure.mappers.mapper.MusicTreeMapper;
+import org.soin.core.infrastructure.mappers.mapper.music.MusicTreeMapper;
 
 
 /**
