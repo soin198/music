@@ -21,19 +21,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class SmsUtil {
 
-    @Value("${sms.accessKeyId}")
+    @Value("${sms.accessKeyId:null}")
     private String accessKeyId;
 
-    @Value("${sms.accessSecret}")
+    @Value("${sms.accessSecret:null}")
     private String accessKeySecret;
 
-    @Value("${sms.templateCode}")
+    @Value("${sms.templateCode:null}")
     private String templateCode;
 
-    @Value("${sms.signName}")
+    @Value("${sms.signName:null}")
     private String signName;
 
-    @Value("${sms.isOpen}")
+    @Value("${sms.isOpen:false}")
     private Boolean smsOpen;
 
     /**
