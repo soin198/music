@@ -34,17 +34,17 @@ public enum CommonTimeEnum {
     /**
      * 5分钟
      */
-    SECS_240(300L, TimeUnit.SECONDS),
+    SECS_300(300L, TimeUnit.SECONDS),
 
     /**
      * 30分钟
      */
-    SECS_300(1800L, TimeUnit.SECONDS),
+    SECS_1800(1800L, TimeUnit.SECONDS),
 
     /**
      * 1小时
      */
-    SECS_1200(3200L, TimeUnit.SECONDS);
+    SECS_3200(3200L, TimeUnit.SECONDS);
 
     /**
      * 时间

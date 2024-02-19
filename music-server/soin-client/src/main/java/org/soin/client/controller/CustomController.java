@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0.0
  * @date 2024-01-09 11:43
  **/
-@ResponseBody
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomController implements ICustomApi {

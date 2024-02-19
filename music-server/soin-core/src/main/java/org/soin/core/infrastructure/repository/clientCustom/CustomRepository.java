@@ -1,10 +1,10 @@
-package org.soin.core.infrastructure.repository;
+package org.soin.core.infrastructure.repository.clientCustom;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
-import org.soin.core.infrastructure.mappers.mapper.CustomMapper;
+import org.soin.core.infrastructure.mappers.mapper.clientCustom.CustomMapper;
 import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.RegexExpressionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,6 +128,21 @@ public class CustomRepository implements ICustomRepository {
         custom.setDeleted(Boolean.TRUE);
         customMapper.updateById(custom);
         return Boolean.TRUE;
+    }
+
+    /**
+     * 根据手机号码获取用户
+     *
+     * @param phone 手机号码
+     * @return 用户信息
+     */
+    @Override
+    public Custom getUserByPhone(String phone) {
+        Assert.isBlank(phone, "请提供手机号码");
+        QueryWrapper<Custom> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.eq("deleted", Boolean.FALSE);
+        return customMapper.selectOne(wrapper);
     }
 
 }

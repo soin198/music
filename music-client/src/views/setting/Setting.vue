@@ -16,14 +16,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, computed, reactive } from "vue";
-import { Delete } from "@element-plus/icons-vue";
+import {defineComponent, getCurrentInstance, computed, reactive} from "vue";
+import {Delete} from "@element-plus/icons-vue";
 import PersonalData from "./PersonalData.vue";
 import Password from "./Password.vue";
-import { HttpManager } from "@/api";
-import { useStore } from "vuex";
+import {HttpManager} from "@/api";
+import {useStore} from "vuex";
 import mixin from "@/mixins/mixin";
-import { RouterName } from "@/enums";
+import {RouterName} from "@/enums";
 
 export default defineComponent({
   components: {
@@ -31,19 +31,27 @@ export default defineComponent({
     Password,
   },
   setup() {
-    const { proxy } = getCurrentInstance();
+    const {proxy} = getCurrentInstance();
     const store = useStore();
     const { routerManager } = mixin();
-
     const userId = computed(() => store.getters.userId);
 
     async function cancelAccount() {
-      const result = (await HttpManager.deleteUser(userId.value)) as ResponseBody;
-      (proxy as any).$message({
-        message: result.message,
-        type: result.type,
-      });
-      routerManager(RouterName.SignIn, { path: RouterName.SignIn });
+      const {code, items, message} = (await HttpManager.cancelAccount(userId.value)) as Response;
+      if (200 !== code && !items) {
+        (proxy as any).$message({
+          message: message,
+          type: "error",
+        });
+        return;
+      }
+      if (200 === code && items) {
+        (proxy as any).$message({
+          message: "注销成功",
+          type: "success",
+        });
+      }
+      routerManager(RouterName.SignIn, {path: RouterName.SignIn});
       proxy.$store.commit("setToken", false);
     }
 

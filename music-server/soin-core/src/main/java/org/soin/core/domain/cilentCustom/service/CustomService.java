@@ -7,7 +7,7 @@ import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
 import org.soin.core.domain.cilentCustom.vo.CustomVo;
 import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
-import org.soin.core.infrastructure.enums.FolderEnum;
+import org.soin.core.infrastructure.enums.RegionEnum;
 import org.soin.core.infrastructure.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class CustomService {
         Long customId = custom.getId();
         loginVo.setUserId(customId);
         loginVo.setUsername(custom.getUsername());
-        String token = CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, FolderEnum.CLIENT);
+        String token = CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_1800.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
         loginVo.setToken(token);
         return loginVo;
     }
@@ -97,6 +97,10 @@ public class CustomService {
     @Transactional(rollbackFor = Exception.class)
     public boolean cancel(Long userId) {
         Assert.isNull(userId, "请提供人员ID");
-        return customRepository.cancel(userId);
+        boolean isOpen = customRepository.cancel(userId);
+        Assert.isTrue(!isOpen, "注销失败，请稍后重试");
+        boolean remove = CacheUtil.remove(userId, RegionEnum.CLIENT);
+        RunTimeTool.printMethodResponseMsg("remove", remove);
+        return Boolean.TRUE;
     }
 }

@@ -12,7 +12,7 @@ import lombok.Getter;
  **/
 @Getter
 @AllArgsConstructor
-public enum FolderEnum {
+public enum RegionEnum {
 
     /**
      * 用户端

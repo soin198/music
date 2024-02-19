@@ -40,6 +40,7 @@
         <jwt-version>0.9.1</jwt-version>
         <redis-version>2.7.3</redis-version>
         <mybatis-plus-version>3.5.3</mybatis-plus-version>
+        <ali-sms-version>2.0.19</ali-sms-version>
     </properties>
 
     <dependencies>

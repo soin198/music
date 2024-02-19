@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.repository;
+package org.soin.core.infrastructure.repository.music;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.music.entity.MusicTree;
 import org.soin.core.domain.music.repository.IMusicTreeRepository;
 import org.soin.core.domain.music.vo.MusicTreeVo;
-import org.soin.core.infrastructure.mappers.mapper.MusicTreeMapper;
+import org.soin.core.infrastructure.mappers.mapper.music.MusicTreeMapper;
 import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

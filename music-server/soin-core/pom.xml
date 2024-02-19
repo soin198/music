@@ -112,6 +112,13 @@
             <version>${mybatis-plus-version}</version>
         </dependency>
 
+        <!--阿里云短信 -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+            <version>${ali-sms-version}</version>
+        </dependency>
+
     </dependencies>
 
     <!-- 将xml打包 -->

@@ -32,3 +32,10 @@ mybatis-plus:
     map-underscore-to-camel-case: false
   global-config:
     banner: false
+#阿里短信
+sms:
+  isOpen: false #短信开关
+  accessKeyId: LTAI80otsvrbJStp
+  accessSecret: YSMalsBGvDxkoFwB9rvaZtXLDXdDdw
+  templateCode: SMS_173175531
+  signName: xxx

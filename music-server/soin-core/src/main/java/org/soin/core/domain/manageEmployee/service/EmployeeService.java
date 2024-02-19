@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.manageEmployee.entity.Employee;
 import org.soin.core.domain.manageEmployee.repository.IEmployeeRepository;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
-import org.soin.core.infrastructure.enums.FolderEnum;
+import org.soin.core.infrastructure.enums.RegionEnum;
 import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.CacheUtil;
 import org.soin.core.infrastructure.utils.JwtUtil;
@@ -39,6 +39,6 @@ public class EmployeeService {
         Employee passWordEmp = iEmployeeRepository.byUserNameAndSecretKeyQuery(username, password);
         Assert.isNull(passWordEmp, "密码错误，请重新输入");
         Long employeeId = passWordEmp.getId();
-        return CacheUtil.secureGet(employeeId, String.class, t -> JwtUtil.generateToken(employeeId), CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, FolderEnum.MANAGE);
+        return CacheUtil.secureGet(employeeId, String.class, t -> JwtUtil.generateToken(employeeId), CommonTimeEnum.SECS_1800.getSecond(), TimeUnit.SECONDS, RegionEnum.MANAGE);
     }
 }
