@@ -20,4 +20,13 @@ public interface ISmsMessageRepository {
      * @param type    发送类型
      */
     void insert(Long userId, String phone, String content, SmsMessage.State state, SmsMessage.Type type);
+
+    /**
+     * 判断当前手机号x秒内是否存在
+     *
+     * @param phone     发送手机号码
+     * @param condition 时间条件
+     * @return 是否存在记录
+     */
+    boolean recentQuery(String phone, int condition);
 }

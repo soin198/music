@@ -11,6 +11,7 @@ import org.soin.core.infrastructure.enums.RegionEnum;
 import org.soin.core.infrastructure.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,25 +35,25 @@ public class SmsMessageService {
      * 生成验证码并发送手机
      *
      * @param phone 发送手机号码
+     * @param type  短信发送类型
      * @return 是否发送成功
      */
-    public boolean generateCode(String phone) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean generateCode(String phone, SmsMessage.Type type) {
         Assert.isBlank(phone, "请输入手机号码");
+        Assert.isNull(type, "请提供短信发送类型");
         boolean mobile = RegexExpressionUtil.isMobile(phone);
         Assert.isTrue(!mobile, "手机号无效");
         Custom custom = iCustomRepository.getUserByPhone(phone);
         Assert.isNull(custom, "手机号未注册，请注册后重新登录");
+        boolean isExist = iSmsMessageRepository.recentQuery(phone, 60);
+        Assert.isTrue(isExist, "60秒之内只能发送一条");
         String code = RandomStringUtils.randomNumeric(6);
         RunTimeTool.printMethodResponseMsg("generateCode", code);
         Long userId = custom.getId();
-        //发送短信
         boolean isOpen = smsUtil.messageSend(phone, code);
-        if (isOpen) {
-            CacheUtil.put(phone, code, CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
-            iSmsMessageRepository.insert(userId, phone, code, SmsMessage.State.SUCCESS, SmsMessage.Type.LOGIN_CODE);
-            return Boolean.TRUE;
-        }
-        iSmsMessageRepository.insert(userId, phone, code, SmsMessage.State.ERROR, SmsMessage.Type.LOGIN_CODE);
-        return Boolean.FALSE;
+        SmsMessage.State state = isOpen ? SmsMessage.State.SUCCESS : SmsMessage.State.ERROR;
+        iSmsMessageRepository.insert(userId, phone, code, state, type);
+        return isOpen ? CacheUtil.put(phone, code, CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT) : Boolean.FALSE;
     }
 }

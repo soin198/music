@@ -1,5 +1,6 @@
 package org.soin.client.api;
 
+import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public interface ISmsMessageApi {
 
     /**
-     * 发送验证码
+     * 生成验证码并发送手机
      *
      * @param phone 发送手机号码
+     * @param type  短信发送类型
      * @return 是否发送成功
      */
     @PostMapping("/generateCode")
-    GenericResponse<Boolean> generateCode(@RequestParam(value = "phone") String phone);
+    GenericResponse<Boolean> generateCode(@RequestParam(value = "phone") String phone,
+                                          @RequestParam(value = "type") SmsMessage.Type type);
+
+
+
+
 
 }

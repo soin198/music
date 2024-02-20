@@ -1,11 +1,15 @@
 package org.soin.core.infrastructure.repository.sms;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.domain.sms.repository.ISmsMessageRepository;
 import org.soin.core.infrastructure.mappers.mapper.sms.SmsMessageMapper;
+import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
 
 
 /**
@@ -38,6 +42,26 @@ public class SmsMessageRepository implements ISmsMessageRepository {
         message.setType(type);
         smsMessageMapper.insert(message);
     }
+
+    /**
+     * 判断当前手机号x秒内是否存在
+     *
+     * @param phone     发送手机号码
+     * @param condition 时间条件
+     * @return 是否存在记录
+     */
+    @Override
+    public boolean recentQuery(String phone, int condition) {
+        Assert.isBlank(phone, "请提供电话号码");
+        Date now = new Date();
+        int millis = condition * 1000;
+        Date before = new Date(now.getTime() - millis);
+        QueryWrapper<SmsMessage> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.between("createDate", before, now);
+        return smsMessageMapper.exists(wrapper);
+    }
 }
+
 
 

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
  * @version 1.0.0
  * @date 2024-01-31 14:57
  **/
-@Service(value = "SingerMapperService")
 @SuppressWarnings("all")
+@Service(value = "SingerMapperService")
 public class SingerMapperService extends ServiceImpl<SingerMapper, Singer> implements IService<Singer> {
 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @version 1.0.0
  * @date 2024-01-31 14:57
  **/
-@Service(value = "SmsMessageMapperService")
 @SuppressWarnings("all")
+@Service(value = "SmsMessageMapperService")
 public class SmsMessageMapperService extends ServiceImpl<SmsMessageMapper, SmsMessage> implements IService<SmsMessage> {
 }

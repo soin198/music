@@ -10,10 +10,11 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input type="password" placeholder="密码" v-model="paramsForm.password"
-                  @keyup.enter="handleLoginIn"></el-input>
+                  @keyup.enter="handleLoginIn"/>
       </el-form-item>
       <el-form-item class="sign-btn">
         <el-button @click="handleSignUp">注册</el-button>
+        <el-button @click="phoneLogin">验证码登录</el-button>
         <el-button type="primary" @click="handleLoginIn">登录</el-button>
       </el-form-item>
     </el-form>
@@ -40,6 +41,7 @@ export default defineComponent({
       username: "",
       password: "",
     });
+
     async function handleLoginIn() {
       let canRun = true;
       (proxy.$refs["signInForm"] as any).validate((valid) => {
@@ -70,9 +72,12 @@ export default defineComponent({
 
     }
 
-    //跳转注册页面
     function handleSignUp() {
       routerManager(RouterName.register, {path: RouterName.register});
+    }
+
+    function phoneLogin() {
+      routerManager(RouterName.phoneLogin, {path: RouterName.phoneLogin});
     }
 
     return {
@@ -80,6 +85,7 @@ export default defineComponent({
       SignInRules,
       handleLoginIn,
       handleSignUp,
+      phoneLogin
     };
   },
 });

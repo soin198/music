@@ -15,11 +15,11 @@ import java.io.Serializable;
  * @date 2024-02-18 16:20
  **/
 @Data
-@EqualsAndHashCode(callSuper = true)
 @TableName(value = "t_sms_message")
+@EqualsAndHashCode(callSuper = true)
 public class SmsMessage extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = -9185904477226961833L;
+    private static final long serialVersionUID = 2040465231719545574L;
 
     /**
      * 发送人员ID
