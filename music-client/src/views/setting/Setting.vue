@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, getCurrentInstance, computed, reactive} from "vue";
+import {defineComponent, getCurrentInstance, computed} from "vue";
 import {Delete} from "@element-plus/icons-vue";
 import PersonalData from "./PersonalData.vue";
 import Password from "./Password.vue";
@@ -24,6 +24,7 @@ import {CoreManager} from "@/api/core";
 import {useStore} from "vuex";
 import mixin from "@/mixins/mixin";
 import {RouterName} from "@/enums";
+import {ElMessage} from "element-plus";
 
 export default defineComponent({
   components: {
@@ -33,23 +34,15 @@ export default defineComponent({
   setup() {
     const {proxy} = getCurrentInstance();
     const store = useStore();
-    const { routerManager } = mixin();
+    const {routerManager} = mixin();
     const userId = computed(() => store.getters.userId);
 
     async function cancelAccount() {
       const {code, items, message} = (await CoreManager.cancelAccount(userId.value)) as Response;
-      if (200 !== code && !items) {
-        (proxy as any).$message({
-          message: message,
-          type: "error",
-        });
-        return;
-      }
       if (200 === code && items) {
-        (proxy as any).$message({
-          message: "注销成功",
-          type: "success",
-        });
+        ElMessage.success("注销成功")
+      } else {
+        ElMessage.error(message)
       }
       routerManager(RouterName.SignIn, {path: RouterName.SignIn});
       proxy.$store.commit("setToken", false);

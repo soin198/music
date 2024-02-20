@@ -2,12 +2,12 @@ export default {
     state: {
         userId: "",
         username: "",
-        userPic: "",
+        photo:""
     },
     getters: {
         userId: (state) => state.userId,
         username: (state) => state.username,
-        userPic: (state) => state.userPic,
+        userPic: (state) => state.photo,
     },
     mutations: {
         setUserId: (state, userId) => {
@@ -16,8 +16,8 @@ export default {
         setUsername: (state, username) => {
             state.username = username;
         },
-        setUserPic: (state, userPic) => {
-            state.userPic = userPic;
+        setPhoto: (state, photo) => {
+            state.photo = photo;
         },
     },
 };

@@ -13,7 +13,7 @@
     <!--设置-->
     <yin-header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"></yin-header-nav>
     <el-dropdown class="user-wrap" v-if="token" trigger="click">
-      <el-image class="user" fit="contain" :src="attachImageUrl(userPic)" />
+      <el-image class="user" fit="contain" :src="photo" />
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item v-for="(item, index) in menuList" :key="index" @click.stop="goMenuList(item.path)">{{ item.name }}</el-dropdown-item>
@@ -31,7 +31,6 @@ import YinIcon from "./YinIcon.vue";
 import YinHeaderNav from "./YinHeaderNav.vue";
 import mixin from "@/mixins/mixin";
 import { HEADERNAVLIST, SIGNLIST, MENULIST, Icon, MUSICNAME, RouterName, NavName } from "@/enums";
-import { HttpManager } from "@/api";
 
 export default defineComponent({
   components: {
@@ -52,7 +51,7 @@ export default defineComponent({
     });
     const keywords = ref("");
     const activeNavName = computed(() => store.getters.activeNavName);
-    const userPic = computed(() => store.getters.userPic);
+    const photo = computed(() => store.getters.photo);
     const token = computed(() => store.getters.token);
 
     function goPage(path, name) {
@@ -94,13 +93,12 @@ export default defineComponent({
       iconList,
       keywords,
       activeNavName,
-      userPic,
+      photo,
       token,
       Search,
       goPage,
       goMenuList,
-      goSearch,
-      attachImageUrl: HttpManager.attachImageUrl,
+      goSearch
     };
   },
 });
