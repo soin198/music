@@ -35,11 +35,12 @@ public class CustomController implements ICustomApi {
      * @return 当前登录用户信息
      */
     @Override
-    public GenericResponse<LoginVo> login(String username, String password) {
-        RunTimeTool.printMethodMsg("login", "开始验证登录", username, password);
+    public GenericResponse<LoginVo> login(String username, String password, String code) {
+        RunTimeTool.printMethodMsg("login", "开始验证登录", username, password, code);
         Assert.isBlank(username, "请输入用户名");
         Assert.isBlank(username, "请输入密码");
-        LoginVo vo = customService.login(username, password);
+        Assert.isBlank(code, "请输入验证码");
+        LoginVo vo = customService.login(username, password,code);
         RunTimeTool.printMethodResponseMsg("login", vo);
         return GenericResponse.builder().success(vo);
     }
@@ -88,6 +89,16 @@ public class CustomController implements ICustomApi {
         boolean isOpen = customService.cancel(userId);
         RunTimeTool.printMethodResponseMsg("cancel", isOpen);
         return GenericResponse.builder().success(isOpen);
+    }
+
+    /**
+     * 生成随机图片验证码
+     *
+     * @return 图形验证码
+     **/
+    @Override
+    public GenericResponse<String> graphicCode() {
+        return GenericResponse.builder().success(customService.graphicCode());
     }
 
 }

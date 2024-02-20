@@ -24,7 +24,8 @@ public interface ICustomApi {
      */
     @PostMapping("/login")
     GenericResponse<LoginVo> login(@RequestParam(value = "username") String username,
-                                   @RequestParam(value = "password") String password);
+                                   @RequestParam(value = "password") String password,
+                                   @RequestParam(value = "code") String code);
 
     /**
      * 注册平台用户
@@ -53,4 +54,11 @@ public interface ICustomApi {
     @PostMapping("/cancel")
     GenericResponse<Boolean> cancel(@RequestParam("userId") Long userId);
 
+    /**
+     * 生成随机图片验证码
+     *
+     * @return 图形验证码
+     **/
+    @GetMapping("/graphicCode")
+    GenericResponse<String> graphicCode();
 }
