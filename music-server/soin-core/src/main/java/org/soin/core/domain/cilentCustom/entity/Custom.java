@@ -38,6 +38,11 @@ public class Custom extends BaseEntity implements Serializable {
     private Gender sex;
 
     /**
+     * 头像
+     */
+    private String photo;
+
+    /**
      * 电话号码
      */
     private String phone;

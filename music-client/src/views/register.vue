@@ -44,7 +44,7 @@
 import {defineComponent, reactive, getCurrentInstance, ref} from "vue";
 import mixin from "@/mixins/mixin";
 import YinLoginLogo from "@/components/layouts/YinLoginLogo.vue";
-import {HttpManager} from "@/api";
+import {CoreManager} from "@/api/core";
 import {formatDate} from "@/utils";
 import {RouterName, NavName, SignUpRules} from "@/enums";
 import {cityCodeQuery} from "@/static/js/area"
@@ -84,7 +84,7 @@ export default defineComponent({
         register.city = value[1]
         register.region = value[2]
       }
-      const {code, items, message} = await HttpManager.register(register) as Response;
+      const {code, items, message} = await CoreManager.register(register) as Response;
       if (200 !== code) {
         (proxy as any).$message({
           message: message,

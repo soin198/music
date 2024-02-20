@@ -32,6 +32,11 @@ public class CustomVo implements Serializable {
     private Custom.Gender sex;
 
     /**
+     * 头像
+     */
+    private String photo;
+
+    /**
      * 电话号码
      */
     private String phone;

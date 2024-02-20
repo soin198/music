@@ -2,6 +2,9 @@ package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.client.api.ISmsMessageApi;
+import org.soin.core.domain.cilentCustom.entity.Custom;
+import org.soin.core.domain.cilentCustom.service.CustomService;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.domain.sms.serivce.SmsMessageService;
 import org.soin.core.infrastructure.base.response.GenericResponse;
@@ -23,6 +26,9 @@ public class SmsMessageController implements ISmsMessageApi {
 
     private final SmsMessageService smsMessageService;
 
+    private final CustomService customService;
+
+
     /**
      * 生成验证码并发送手机
      *
@@ -38,5 +44,27 @@ public class SmsMessageController implements ISmsMessageApi {
         boolean isOpen = smsMessageService.generateCode(phone, type);
         RunTimeTool.printMethodResponseMsg("generateCode", isOpen);
         return GenericResponse.builder().success(isOpen);
+    }
+
+    /**
+     * 使用验证码登录
+     *
+     * @param phone 登录电话号码
+     * @param code  验证码
+     * @return 登陆相关数据
+     */
+    @Override
+    public GenericResponse<LoginVo> login(String phone, String code, SmsMessage.Type type) {
+        RunTimeTool.printMethodMsg("login", "验证码登录", phone, code, type);
+        Assert.isBlank(phone, "请输入手机号码");
+        Assert.isBlank(code, "请输入验证码");
+        Assert.isNull(type, "未知的发送类型");
+        boolean condition = smsMessageService.validate(phone, code, type);
+        RunTimeTool.printMethodResponseMsg("validate", condition);
+        Assert.isTrue(!condition, "验证失败");
+        Custom custom = customService.phoneQuery(phone);
+        LoginVo login = customService.login(custom.getUsername(), custom.getPassword());
+        RunTimeTool.printMethodResponseMsg("login", login);
+        return GenericResponse.builder().success(login);
     }
 }

@@ -4,12 +4,12 @@
       <span>评论</span>
       <span class="comment-desc">共 {{ commentList.length }} 条评论</span>
     </h2>
-    <el-input class="comment-input" type="textarea" placeholder="期待您的精彩评论..." :rows="2" v-model="textarea" />
+    <el-input class="comment-input" type="textarea" placeholder="期待您的精彩评论..." :rows="2" v-model="textarea"/>
     <el-button class="sub-btn" type="primary" @click="submitComment()">发表评论</el-button>
   </div>
   <ul class="popular">
     <li v-for="(item, index) in commentList" :key="index">
-      <el-image class="popular-img" fit="contain" :src="attachImageUrl(item.avator)" />
+      <el-image class="popular-img" fit="contain" :src="attachImageUrl(item.avator)"/>
       <div class="popular-msg">
         <ul>
           <li class="name">{{ item.username }}</li>
@@ -18,22 +18,28 @@
         </ul>
       </div>
       <div ref="up" class="comment-ctr" @click="setSupport(item.id, item.up, index)">
-        <div><yin-icon :icon="iconList.Support"></yin-icon> {{ item.up }}</div>
-        <el-icon v-if="item.userId === userId" @click="deleteComment(item.id, index)"><delete /></el-icon>
+        <div>
+          <yin-icon :icon="iconList.Support"></yin-icon>
+          {{ item.up }}
+        </div>
+        <el-icon v-if="item.userId === userId" @click="deleteComment(item.id, index)">
+          <delete/>
+        </el-icon>
       </div>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, ref, toRefs, computed, watch, reactive, onMounted } from "vue";
-import { useStore } from "vuex";
-import { Delete } from "@element-plus/icons-vue";
+import {defineComponent, getCurrentInstance, ref, toRefs, computed, watch, reactive, onMounted} from "vue";
+import {useStore} from "vuex";
+import {Delete} from "@element-plus/icons-vue";
 import YinIcon from "@/components/layouts/YinIcon.vue";
 import mixin from "@/mixins/mixin";
-import { HttpManager } from "@/api";
-import { Icon } from "@/enums";
-import { formatDate } from "@/utils";
+import {HttpManager} from "@/api";
+import {CoreManager} from "@/api/core";
+import {Icon} from "@/enums";
+import {formatDate} from "@/utils";
 
 export default defineComponent({
   components: {
@@ -45,11 +51,11 @@ export default defineComponent({
     type: Number, // 歌单（1）/歌曲（0）
   },
   setup(props) {
-    const { proxy } = getCurrentInstance();
+    const {proxy} = getCurrentInstance();
     const store = useStore();
-    const { checkStatus } = mixin();
+    const {checkStatus} = mixin();
 
-    const { playId, type } = toRefs(props);
+    const {playId, type} = toRefs(props);
     const commentList = ref([]); // 存放评论内容
     const textarea = ref(""); // 存放输入内容
     const iconList = reactive({
@@ -68,7 +74,7 @@ export default defineComponent({
         commentList.value = result.data;
         for (let index = 0; index < commentList.value.length; index++) {
           // 获取评论用户的昵称和头像
-          const resultUser = (await HttpManager.getOne(commentList.value[index].userId)) as ResponseBody;
+          const resultUser = (await CoreManager.getOne(commentList.value[index].userId)) as ResponseBody;
           commentList.value[index].avator = resultUser.data[0].avator;
           commentList.value[index].username = resultUser.data[0].username;
         }
@@ -184,10 +190,12 @@ export default defineComponent({
 /*热门评论*/
 .popular {
   width: 100%;
+
   > li {
     border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     display: flex;
+
     .popular-img {
       width: 50px;
     }
@@ -195,16 +203,20 @@ export default defineComponent({
     .popular-msg {
       padding: 0 20px;
       flex: 1;
+
       li {
         width: 100%;
       }
+
       .time {
         font-size: 0.6rem;
         color: rgba(0, 0, 0, 0.5);
       }
+
       .name {
         color: rgba(0, 0, 0, 0.5);
       }
+
       .content {
         font-size: 1rem;
       }

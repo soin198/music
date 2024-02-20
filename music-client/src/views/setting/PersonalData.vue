@@ -18,7 +18,7 @@
     </el-form-item>
     <el-form-item prop="location" label="地区">
       <el-select v-model="registerForm.location" placeholder="地区" style="width: 100%">
-        <el-option v-for="item in AREA" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+        <el-option v-for="item in AREA" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item prop="phoneNum" label="手机">
@@ -35,18 +35,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, getCurrentInstance, reactive } from "vue";
-import { useStore } from "vuex";
+import {defineComponent, computed, onMounted, getCurrentInstance, reactive} from "vue";
+import {useStore} from "vuex";
 import mixin from "@/mixins/mixin";
-import { AREA, SignUpRules } from "@/enums";
-import { HttpManager } from "@/api";
-import { getBirth } from "@/utils";
+import {AREA, SignUpRules} from "@/enums";
+import {HttpManager} from "@/api";
+import {CoreManager} from "@/api/core";
+import {getBirth} from "@/utils";
 
 export default defineComponent({
   setup() {
-    const { proxy } = getCurrentInstance();
+    const {proxy} = getCurrentInstance();
     const store = useStore();
-    const { goBack } = mixin();
+    const {goBack} = mixin();
 
     // 注册
     const registerForm = reactive({
@@ -62,7 +63,7 @@ export default defineComponent({
     const userId = computed(() => store.getters.userId);
 
     async function getUserInfo(id) {
-      const result = (await HttpManager.getOne(id)) as ResponseBody;
+      const result = (await CoreManager.getOne(id)) as ResponseBody;
       registerForm.username = result.data[0].username;
       registerForm.sex = result.data[0].sex;
       registerForm.phoneNum = result.data[0].phoneNum;

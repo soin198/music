@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
@@ -54,6 +55,32 @@ public class SmsMessageService {
         boolean isOpen = smsUtil.messageSend(phone, code);
         SmsMessage.State state = isOpen ? SmsMessage.State.SUCCESS : SmsMessage.State.ERROR;
         iSmsMessageRepository.insert(userId, phone, code, state, type);
+        //return CacheUtil.put(phone, code, CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
         return isOpen ? CacheUtil.put(phone, code, CommonTimeEnum.SECS_300.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT) : Boolean.FALSE;
+    }
+
+    /**
+     * 验证短信验证码是否可用
+     *
+     * @param phone 电话号码
+     * @param code  验证码
+     * @param type  短信类型
+     * @return 短信验证码是否可用
+     */
+    public boolean validate(String phone, String code, SmsMessage.Type type) {
+        Assert.isBlank(phone, "请提供手机号码");
+        Assert.isBlank(code, "请提供验证码");
+        Assert.isNull(type, "短信类型为空");
+        boolean mobile = RegexExpressionUtil.isMobile(phone);
+        Assert.isTrue(!mobile, "手机号无效");
+        Custom custom = iCustomRepository.getUserByPhone(phone);
+        Assert.isNull(custom, "手机号未注册，请注册后重新登录");
+        SmsMessage smsMessage = iSmsMessageRepository.phoneAndCodeQuery(phone, code);
+        Assert.isNull(smsMessage, "验证码无效");
+        Assert.isTrue(Objects.equals(SmsMessage.State.ERROR, smsMessage.getState()), "验证码无效，请重新获取验证码");
+        String redisCode = CacheUtil.byKeyGet(phone, String.class, RegionEnum.CLIENT);
+        Assert.isBlank(redisCode, "验证码过期，请重新获取");
+        Assert.isTrue(!Objects.equals(redisCode, code), "验证码错误，请重试输入");
+        return Boolean.TRUE;
     }
 }

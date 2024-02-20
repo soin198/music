@@ -1,5 +1,6 @@
 package org.soin.client.api;
 
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
@@ -24,8 +25,18 @@ public interface ISmsMessageApi {
     GenericResponse<Boolean> generateCode(@RequestParam(value = "phone") String phone,
                                           @RequestParam(value = "type") SmsMessage.Type type);
 
-
-
+    /**
+     * 使用验证码登录
+     *
+     * @param phone 登录电话号码
+     * @param code  验证码
+     * @param type  作用域
+     * @return 登陆相关数据
+     */
+    @PostMapping("/login")
+    GenericResponse<LoginVo> login(@RequestParam(value = "phone") String phone,
+                                   @RequestParam(value = "code") String code,
+                                   @RequestParam(value = "type") SmsMessage.Type type);
 
 
 }
