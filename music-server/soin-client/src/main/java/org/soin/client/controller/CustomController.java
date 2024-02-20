@@ -14,6 +14,8 @@ import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * 用户控制层
  *
@@ -97,8 +99,8 @@ public class CustomController implements ICustomApi {
      * @return 图形验证码
      **/
     @Override
-    public GenericResponse<String> graphicCode() {
-        return GenericResponse.builder().success(customService.graphicCode());
+    public GenericResponse<Map<String,String>> graphicCode() {
+        return GenericResponse.builder().success(customService.generateValidateCode());
     }
 
 }

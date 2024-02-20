@@ -1,5 +1,7 @@
 package org.soin.core.domain.cilentCustom.service;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.bo.CustomBo;
 import org.soin.core.domain.cilentCustom.entity.Custom;
@@ -13,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -68,7 +70,6 @@ public class CustomService {
      **/
     public LoginVo login(String username, String password, String code) {
         Assert.isBlank(code, "请输入验证码");
-//        Assert.isTrue(!GraphicCodeUtil.getCacheValue(code), "验证码错误，请刷新后重新输出");
         return getLoginVo(username, password);
     }
 
@@ -139,18 +140,17 @@ public class CustomService {
      * @author gjx
      * @date 2024/2/20 15:30
      **/
-    @Transactional(rollbackFor = Exception.class)
-    public String graphicCode() {
-        String code = "";
-        GraphicCodeUtil verifyCode = new GraphicCodeUtil();
-        try {
-            verifyCode.output(verifyCode.getImage(), new FileOutputStream("code.jpg"));
-//            code = verifyCode.setCache();
-            code = verifyCode.getText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return code;
+    public Map<String, String> generateValidateCode() {
+        //通过工具类生成图片验证码
+        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 48, 4, 20);
+        //验证码的值
+        String codeValue = circleCaptcha.getCode();
+        //将图片进行base64编码，并返回
+        String imageBase64 = circleCaptcha.getImageBase64();
+        String key = UUID.randomUUID().toString().replaceAll("-", "");
+        CacheUtil.put("code:validate:" + key, codeValue, CommonTimeEnum.SECS_30.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
+        Map<String, String> codeMap = Map.of("key", key, "imageBase64", "data:image/png;base64," + imageBase64);
+        return codeMap;
     }
 
 

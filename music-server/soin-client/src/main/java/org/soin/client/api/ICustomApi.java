@@ -7,6 +7,7 @@ import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 /**
  * @author J.FLa.Soin
  * @version 1.0.0
@@ -60,5 +61,5 @@ public interface ICustomApi {
      * @return 图形验证码
      **/
     @GetMapping("/graphicCode")
-    GenericResponse<String> graphicCode();
+    GenericResponse<Map<String,String>> graphicCode();
 }
