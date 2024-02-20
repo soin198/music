@@ -36,21 +36,19 @@ public class CustomService {
     private final CustomAreaService customAreaService;
 
     /**
-     * 前台站点登录接口
+     * 校验登陆方法
      *
      * @param username 用户名
      * @param password 密码
      * @return 当前登录用户信息
      */
-    public LoginVo login(String username, String password, String code) {
+    private LoginVo getLoginVo(String username, String password) {
         Assert.isBlank(username, "请提供用户名");
         Assert.isBlank(password, "请输入密码");
-        Assert.isBlank(code, "请输入验证码");
         Custom byUserNameQuery = customRepository.getUserByUserName(username);
         Assert.isNull(byUserNameQuery, "用户不存在，请更换用户名后重试");
         Custom custom = customRepository.getUserByNameAndPassword(username, password);
         Assert.isNull(custom, "密码错误，请重试");
-//        Assert.isTrue(!GraphicCodeUtil.getCacheValue(code), "验证码错误，请刷新后重新输出");
         LoginVo loginVo = new LoginVo();
         Long customId = custom.getId();
         loginVo.setUserId(customId);
@@ -60,6 +58,31 @@ public class CustomService {
         loginVo.setToken(token);
         return loginVo;
     }
+
+    /**
+     * 前台验证码登陆接口
+     *
+     * @return org.soin.core.domain.cilentCustom.vo.LoginVo
+     * @author gjx
+     * @date 2024/2/20 16:29
+     **/
+    public LoginVo login(String username, String password, String code) {
+        Assert.isBlank(code, "请输入验证码");
+//        Assert.isTrue(!GraphicCodeUtil.getCacheValue(code), "验证码错误，请刷新后重新输出");
+        return getLoginVo(username, password);
+    }
+
+    /**
+     * 验证登陆接口
+     *
+     * @return org.soin.core.domain.cilentCustom.vo.LoginVo
+     * @author gjx
+     * @date 2024/2/20 16:29
+     **/
+    public LoginVo login(String username, String password) {
+        return getLoginVo(username, password);
+    }
+
 
     /**
      * 注册客户端账号
