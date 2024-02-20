@@ -61,6 +61,24 @@ public class SmsMessageRepository implements ISmsMessageRepository {
         wrapper.between("createDate", before, now);
         return smsMessageMapper.exists(wrapper);
     }
+
+    /**
+     * 获取短信发送记录
+     *
+     * @param phone 电话号码
+     * @param code  验证码
+     * @return 短信发送记录
+     */
+    @Override
+    public SmsMessage phoneAndCodeQuery(String phone, String code) {
+        Assert.isBlank(phone, "请提供手机号码");
+        Assert.isBlank(code, "请提供验证码");
+        QueryWrapper<SmsMessage> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.eq("content", code);
+        wrapper.orderByDesc("createDate");
+        return smsMessageMapper.selectList(wrapper).stream().findFirst().orElse(null);
+    }
 }
 
 

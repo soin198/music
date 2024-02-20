@@ -1,26 +1,29 @@
-import { AREA } from "./area";
-import { Icon } from "./icon";
-import { MUSICNAME } from "./music-name";
-import { NavName, HEADERNAVLIST, SIGNLIST, MENULIST } from "./nav";
-import { singerStyle } from "./singer";
-import { SONGSTYLE } from "./songList";
-import { swiperList } from "./swiper";
-import { RouterName } from "./router-name";
-import { validatePassword, SignInRules, SignUpRules } from "./validate";
+import {AREA} from "./area";
+import {Icon} from "./icon";
+import {MUSICNAME} from "./music-name";
+import {NavName, HEADERNAVLIST, SIGNLIST, MENULIST} from "./nav";
+import {singerStyle} from "./singer";
+import {SONGSTYLE} from "./songList";
+import {swiperList} from "./swiper";
+import {RouterName} from "./router-name";
+import {validatePassword, SignInRules, SignUpRules, CodeLoginRules} from "./validate";
+import {SMS} from "./smsMessage";
 
 export {
-  AREA,
-  Icon,
-  MUSICNAME,
-  NavName,
-  HEADERNAVLIST,
-  RouterName,
-  SIGNLIST,
-  MENULIST,
-  singerStyle,
-  SONGSTYLE,
-  swiperList,
-  validatePassword,
-  SignInRules,
-  SignUpRules,
+    AREA,
+    Icon,
+    MUSICNAME,
+    NavName,
+    HEADERNAVLIST,
+    RouterName,
+    SIGNLIST,
+    MENULIST,
+    singerStyle,
+    SONGSTYLE,
+    swiperList,
+    validatePassword,
+    SignInRules,
+    SignUpRules,
+    CodeLoginRules,
+    SMS,
 };

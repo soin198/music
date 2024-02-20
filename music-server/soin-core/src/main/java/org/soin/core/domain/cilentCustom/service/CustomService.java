@@ -55,6 +55,7 @@ public class CustomService {
         Long customId = custom.getId();
         loginVo.setUserId(customId);
         loginVo.setUsername(custom.getUsername());
+        loginVo.setPhoto(ImageUtil.generate(custom.getPhoto()));
         String token = CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_1800.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
         loginVo.setToken(token);
         return loginVo;
@@ -129,4 +130,14 @@ public class CustomService {
         return code;
     }
 
+
+    /**
+     * 根据手机号码获取用户
+     *
+     * @param phone 手机号码
+     * @return 用户信息
+     */
+    public Custom phoneQuery(String phone) {
+        return customRepository.getUserByPhone(phone);
+    }
 }

@@ -29,4 +29,13 @@ public interface ISmsMessageRepository {
      * @return 是否存在记录
      */
     boolean recentQuery(String phone, int condition);
+
+    /**
+     * 获取短信发送记录
+     *
+     * @param phone 电话号码
+     * @param code  验证码
+     * @return 短信发送记录
+     */
+    SmsMessage phoneAndCodeQuery(String phone, String code);
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="personal">
     <div class="personal-info">
-      <el-image class="personal-img" fit="contain" :src="attachImageUrl(userPic)" @click="dialogTableVisible = true" />
+      <el-image class="personal-img" fit="contain" :src="attachImageUrl(userPic)" @click="dialogTableVisible = true"/>
       <div class="personal-msg">
         <div class="username">{{ personalInfo.username }}</div>
         <div class="introduction">{{ personalInfo.introduction }}</div>
@@ -18,14 +18,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, ref, computed, watch, reactive } from "vue";
-import { useStore } from "vuex";
-import { Edit } from "@element-plus/icons-vue";
+import {defineComponent, nextTick, ref, computed, watch, reactive} from "vue";
+import {useStore} from "vuex";
+import {Edit} from "@element-plus/icons-vue";
 import SongList from "@/components/SongList.vue";
 import Upload from "../setting/Upload.vue";
 import mixin from "@/mixins/mixin";
-import { HttpManager } from "@/api";
-import { RouterName } from "@/enums";
+import {HttpManager} from "@/api";
+import {CoreManager} from "@/api/core";
+import {RouterName} from "@/enums";
 
 export default defineComponent({
   components: {
@@ -35,7 +36,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const { routerManager } = mixin();
+    const {routerManager} = mixin();
 
     const dialogTableVisible = ref(false);
     const collectSongList = ref([]); // 收藏的歌曲
@@ -53,16 +54,18 @@ export default defineComponent({
     });
 
     function goPage() {
-      routerManager(RouterName.Setting, { path: RouterName.Setting });
+      routerManager(RouterName.Setting, {path: RouterName.Setting});
     }
+
     async function getUserInfo(id) {
-      const result = (await HttpManager.getOne(id)) as ResponseBody;
+      const result = (await CoreManager.getOne(id)) as ResponseBody;
       personalInfo.username = result.data[0].username;
       personalInfo.userSex = result.data[0].sex;
       personalInfo.birth = result.data[0].birth;
       personalInfo.introduction = result.data[0].introduction;
       personalInfo.location = result.data[0].location;
     }
+
     // 获取收藏的歌曲
     async function getCollection(userId) {
       collectSongList.value = []
@@ -117,6 +120,7 @@ export default defineComponent({
 .personal-info {
   position: relative;
   margin-bottom: 60px;
+
   .personal-img {
     height: 200px;
     width: 200px;
@@ -127,6 +131,7 @@ export default defineComponent({
     left: 50px;
     cursor: pointer;
   }
+
   .personal-msg {
     margin-left: 300px;
     position: absolute;
@@ -142,6 +147,7 @@ export default defineComponent({
       font-weight: 500;
     }
   }
+
   .edit-info {
     position: absolute;
     right: 10vw;

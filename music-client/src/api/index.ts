@@ -2,14 +2,9 @@ import {getBaseURL, get, post, deletes} from "./request";
 
 const HttpManager = {
     attachImageUrl: (url) => url ? `${getBaseURL()}/${url}` : "https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png",
-    login: (params) => post(`/custom/authority/login`, params),
-    register: (params) => post(`/custom/authority/register`, params),
-    cancelAccount: (userId) => post(`/custom/authority/cancel?userId=${userId}`),
+    uploadUrl: (userId) => `${getBaseURL()}/user/avatar/update?id=${userId}`,
     updateUserMsg: (params) => post(`user/update`, params),
     updateUserPassword: (params) => post(`user/updatePassword`, params),
-    getOne: (userId) => get(`/custom/authority/detailsQuery?userId=${userId}`),
-    uploadUrl: (userId) => `${getBaseURL()}/user/avatar/update?id=${userId}`,
-    generateCode: (phone, smsType) => post(`/sms/generateCode?phone=${phone}&type=${smsType}`),
 
     // =======================> 歌单 API
     // 获取全部歌单

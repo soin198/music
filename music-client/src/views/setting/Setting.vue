@@ -20,7 +20,7 @@ import {defineComponent, getCurrentInstance, computed, reactive} from "vue";
 import {Delete} from "@element-plus/icons-vue";
 import PersonalData from "./PersonalData.vue";
 import Password from "./Password.vue";
-import {HttpManager} from "@/api";
+import {CoreManager} from "@/api/core";
 import {useStore} from "vuex";
 import mixin from "@/mixins/mixin";
 import {RouterName} from "@/enums";
@@ -37,7 +37,7 @@ export default defineComponent({
     const userId = computed(() => store.getters.userId);
 
     async function cancelAccount() {
-      const {code, items, message} = (await HttpManager.cancelAccount(userId.value)) as Response;
+      const {code, items, message} = (await CoreManager.cancelAccount(userId.value)) as Response;
       if (200 !== code && !items) {
         (proxy as any).$message({
           message: message,
