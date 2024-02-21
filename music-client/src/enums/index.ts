@@ -2,7 +2,7 @@ import {AREA} from "./area";
 import {Icon} from "./icon";
 import {MUSICNAME} from "./music-name";
 import {NavName, HEADERNAVLIST, SIGNLIST, MENULIST} from "./nav";
-import {singerStyle} from "./singer";
+import {SingerType} from "./singer";
 import {SONGSTYLE} from "./songList";
 import {swiperList} from "./swiper";
 import {RouterName} from "./router-name";
@@ -18,7 +18,7 @@ export {
     RouterName,
     SIGNLIST,
     MENULIST,
-    singerStyle,
+    SingerType,
     SONGSTYLE,
     swiperList,
     validatePassword,

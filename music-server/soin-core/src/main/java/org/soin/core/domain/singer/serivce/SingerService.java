@@ -2,8 +2,10 @@ package org.soin.core.domain.singer.serivce;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.repository.ISingerRepository;
 import org.soin.core.domain.singer.vo.SingerVo;
+import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,16 +25,14 @@ public class SingerService {
     private final ISingerRepository iSingerRepository;
 
     /**
-     * 随机获取歌手
+     * 获取歌手分页列表
      *
-     * @param limit 查询条数
-     * @return 歌手列表
+     * @param singerParams 歌手列表查询数据源
+     * @return 歌手分页列表
      */
-    public List<SingerVo> singerQuery(Integer limit) {
-        List<SingerVo> list = iSingerRepository.singerQuery(limit);
-        if (null == list || list.isEmpty()) {
-            return Lists.newArrayList();
-        }
-        return list.stream().peek(p -> p.setBase64(ImageUtil.generate(p.getPhoto()))).collect(Collectors.toList());
+    public Page<SingerVo> singerQuery(SingerParams singerParams) {
+        int totalRows = iSingerRepository.count(singerParams);
+        List<SingerVo> list = (totalRows > 0) ? iSingerRepository.singerQuery(singerParams) : Lists.newArrayList();
+        return new Page<>(totalRows, list.stream().peek(p -> p.setBase64(ImageUtil.generate(p.getPhoto()))).collect(Collectors.toList()));
     }
 }

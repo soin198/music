@@ -12,18 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author J.FLa.Soin
  * @version 1.0.0
- * @date 2024-01-31 14:37
+ * @date 2024-02-21 15:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/base/singer")
-public interface ISingerApi {
-
-    /**
-     * 获取歌手分页列表
-     *
-     * @param singerParams 歌手列表查询数据源
-     * @return 歌手分页列表
-     */
-    @PostMapping("/singerQuery")
-    GenericResponse<Page<SingerVo>> singerQuery(@RequestBody SingerParams singerParams);
+@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/music/entry")
+public interface IMusicEntryApi {
 
 }

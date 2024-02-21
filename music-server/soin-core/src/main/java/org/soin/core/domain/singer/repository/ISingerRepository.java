@@ -1,5 +1,6 @@
 package org.soin.core.domain.singer.repository;
 
+import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.vo.SingerVo;
 
 import java.util.List;
@@ -12,10 +13,18 @@ import java.util.List;
 public interface ISingerRepository {
 
     /**
-     * 随机获取歌手
+     * 获取歌手列表
      *
-     * @param limit 查询条数
+     * @param singerParams 歌手列表查询数据源
      * @return 歌手列表
      */
-    List<SingerVo> singerQuery(Integer limit);
+    List<SingerVo> singerQuery(SingerParams singerParams);
+
+    /**
+     * 统计总歌手数量
+     *
+     * @param singerParams 统计数据源
+     * @return 总歌手数量
+     */
+    int count(SingerParams singerParams);
 }

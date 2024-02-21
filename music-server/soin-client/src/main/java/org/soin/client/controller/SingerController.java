@@ -2,16 +2,17 @@ package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.client.api.ISingerApi;
+import org.soin.core.domain.singer.params.SingerParams;
+import org.soin.core.domain.singer.entity.Singer;
 import org.soin.core.domain.singer.serivce.SingerService;
 import org.soin.core.domain.singer.vo.SingerVo;
-import org.soin.core.infrastructure.base.constant.BaseConstant;
+import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.response.GenericResponse;
+import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author J.FLa.Soin
@@ -26,15 +27,17 @@ public class SingerController implements ISingerApi {
     private final SingerService singerService;
 
     /**
-     * 随机获取10个歌手
+     * 获取歌手分页列表
      *
-     * @return 歌手列表
+     * @param singerParams 歌手列表查询数据源
+     * @return 歌手分页列表
      */
     @Override
-    public GenericResponse<List<SingerVo>> singerQuery() {
-        RunTimeTool.printMethodMsg("singerQuery", "随机获取10个歌手");
-        List<SingerVo> list = singerService.singerQuery(BaseConstant.BASE_QUERY_MAX);
-        RunTimeTool.printMethodResponseMsg("singerQuery", list.size());
-        return GenericResponse.builder().success(list);
+    public GenericResponse<Page<SingerVo>> singerQuery(SingerParams singerParams) {
+        RunTimeTool.printMethodMsg("singerQuery", "获取歌手分页列表", singerParams);
+        Assert.isTrue(Singer.Gender.contain(singerParams.getSingerType()), "歌手类型异常");
+        Page<SingerVo> page = singerService.singerQuery(singerParams);
+        RunTimeTool.printMethodResponseMsg("singerQuery", page.getTotalRows());
+        return GenericResponse.builder().success(page);
     }
 }

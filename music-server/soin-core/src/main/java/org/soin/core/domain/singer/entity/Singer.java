@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import org.soin.core.infrastructure.base.common.BaseEntity;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * 歌手
@@ -29,7 +31,7 @@ public class Singer extends BaseEntity implements Serializable {
     /**
      * 歌手性别
      */
-    private GenderEnum sex;
+    private Gender sex;
 
     /**
      * 歌手头像
@@ -54,7 +56,7 @@ public class Singer extends BaseEntity implements Serializable {
     /**
      * 性别枚举
      */
-    public enum GenderEnum {
+    public enum Gender {
 
         /**
          * 男性
@@ -69,7 +71,20 @@ public class Singer extends BaseEntity implements Serializable {
         /**
          * 其他
          */
-        OTHER,
+        OTHER;
+
+        /**
+         * 验证歌手类型是否包含
+         *
+         * @param gender 歌手类型
+         * @return 是否包含
+         */
+        public static boolean contain(Gender gender) {
+            if (null == gender) {
+                return Boolean.FALSE;
+            }
+            return !Arrays.stream(Gender.values()).collect(Collectors.toList()).contains(gender);
+        }
     }
 
 }

@@ -2,22 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.soin.core.infrastructure.mappers.mapper.singer.SingerMapper">
 
-    <!-- 随机获取10个歌手 -->
-    <select id="singerQuery" resultType="org.soin.core.domain.singer.vo.SingerVo">
-        SELECT s01.id   AS id,
-               s01.NAME AS `name`,
-               FROM_UNIXTIME(s01.createDate) AS createDate,
-               CASE
-                   WHEN s01.sex = 'MALE' THEN '男'
-                   WHEN s01.sex = 'WOMEN' THEN '女'
-                   WHEN s01.sex = 'OTHER' THEN '其他'
-                   END  AS sex,
-               s01.photo,
-               s01.birth,
-               s01.nationality,
-               s01.resume
+    <!-- 获取歌手列表 -->
+    <select id="singerQuery"
+            parameterType="org.soin.core.domain.singer.params.SingerParams"
+            resultType="org.soin.core.domain.singer.vo.SingerVo">
+        SELECT
+        <include refid="QUERY_COLUMN"/>
         FROM `soin-music`.`t_singer` AS s01
-        ORDER BY RAND() LIMIT #{limit};
+        <include refid="SINGER_WHERE"/>
+        ORDER BY s01.id DESC
+        <include refid="LIMIT"/>
     </select>
+
+    <!-- 统计歌手数量 -->
+    <select id="count" parameterType="org.soin.core.domain.singer.params.SingerParams"
+            resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `soin-music`.`t_singer` AS s01
+        <include refid="SINGER_WHERE"/>
+    </select>
+
+    <sql id="QUERY_COLUMN">
+        s01.id AS id,
+        s01.NAME AS `name`,
+        FROM_UNIXTIME(s01.createDate) AS createDate,
+        CASE
+        WHEN s01.sex = 'MALE' THEN '男'
+        WHEN s01.sex = 'WOMEN' THEN '女'
+        WHEN s01.sex = 'OTHER' THEN '其他'
+        END AS sex,
+        s01.photo,
+        s01.birth,
+        s01.nationality,
+        s01.resume
+    </sql>
+
+    <sql id="SINGER_WHERE">
+        <where>
+            <if test="null != singerName and '' != singerName">
+                AND s01.name = #{singerName}
+            </if>
+            <if test="null != singerType">
+                AND s01.sex = #{singerType}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="LIMIT">
+        <if test="pageSize &gt; 0">LIMIT ${start}, ${pageSize}</if>
+    </sql>
 
 </mapper>

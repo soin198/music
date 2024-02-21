@@ -16,12 +16,6 @@ const HttpManager = {
     // 返回歌单里指定歌单ID的歌曲
     getListSongOfSongId: (songListId) => get(`listSong/detail?songListId=${songListId}`),
 
-    // =======================> 歌手 API
-    // 返回所有歌手
-    getAllSinger: () => get("/base/singer/singerQuery"),
-    // 通过性别对歌手分类
-    getSingerOfSex: (sex) => get(`singer/sex/detail?sex=${sex}`),
-
     // =======================> 收藏 API
     // 返回的指定用户ID的收藏列表
     getCollectionOfUser: (userId) => get(`collection/detail?userId=${userId}`),

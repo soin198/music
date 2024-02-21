@@ -30,11 +30,11 @@ public interface ICustomApi {
     /**
      * 注册平台用户
      *
-     * @param registerDTO 注册数据源
+     * @param registerParams 注册数据源
      * @return 是否注册成功
      */
     @PostMapping("/register")
-    GenericResponse<Boolean> register(@RequestBody RegisterDTO registerDTO);
+    GenericResponse<Boolean> register(@RequestBody RegisterDTO registerParams);
 
     /**
      * 获取用户详情

@@ -12,13 +12,21 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted} from "vue";
+import {ref, onMounted, reactive} from "vue";
 import PlayList from "@/components/PlayList.vue";
 import {swiperList, NavName} from "@/enums";
 import {HttpManager} from "@/api";
+import {SingerManager} from "@/api/singer";
 import mixin from "@/mixins/mixin";
 // 歌单列表
 const songList = ref([]);
+
+const params = reactive({
+  page: 1,
+  pageSize: 10,
+  singerName: null,
+  singerType: "WOMEN"
+})
 // 歌手列表
 const singerList = ref([]);
 const {changeIndex} = mixin();
@@ -27,7 +35,7 @@ try {
     songList.value = (res as Response).items;
   });
 
-  HttpManager.getAllSinger().then((res) => {
+  SingerManager.singerRandomQuery(params).then((res) => {
     singerList.value = (res as Response).items;
   });
 
