@@ -25,8 +25,7 @@ public interface ICustomApi {
      */
     @PostMapping("/login")
     GenericResponse<LoginVo> login(@RequestParam(value = "username") String username,
-                                   @RequestParam(value = "password") String password,
-                                   @RequestParam(value = "code") String code);
+                                   @RequestParam(value = "password") String password);
 
     /**
      * 注册平台用户

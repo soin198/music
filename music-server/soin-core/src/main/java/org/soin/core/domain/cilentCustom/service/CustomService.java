@@ -38,13 +38,13 @@ public class CustomService {
     private final CustomAreaService customAreaService;
 
     /**
-     * 校验登陆方法
+     * 前台登录站点
      *
      * @param username 用户名
      * @param password 密码
      * @return 当前登录用户信息
      */
-    private LoginVo getLoginVo(String username, String password) {
+    public LoginVo login(String username, String password) {
         Assert.isBlank(username, "请提供用户名");
         Assert.isBlank(password, "请输入密码");
         Custom byUserNameQuery = customRepository.getUserByUserName(username);
@@ -60,30 +60,6 @@ public class CustomService {
         loginVo.setToken(token);
         return loginVo;
     }
-
-    /**
-     * 前台验证码登陆接口
-     *
-     * @return org.soin.core.domain.cilentCustom.vo.LoginVo
-     * @author gjx
-     * @date 2024/2/20 16:29
-     **/
-    public LoginVo login(String username, String password, String code) {
-        Assert.isBlank(code, "请输入验证码");
-        return getLoginVo(username, password);
-    }
-
-    /**
-     * 验证登陆接口
-     *
-     * @return org.soin.core.domain.cilentCustom.vo.LoginVo
-     * @author gjx
-     * @date 2024/2/20 16:29
-     **/
-    public LoginVo login(String username, String password) {
-        return getLoginVo(username, password);
-    }
-
 
     /**
      * 注册客户端账号
