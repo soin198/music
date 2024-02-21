@@ -125,8 +125,7 @@ public class CustomService {
         String imageBase64 = circleCaptcha.getImageBase64();
         String key = UUID.randomUUID().toString().replaceAll("-", "");
         CacheUtil.put("code:validate:" + key, codeValue, CommonTimeEnum.SECS_30.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
-        Map<String, String> codeMap = Map.of("key", key, "imageBase64", "data:image/png;base64," + imageBase64);
-        return codeMap;
+        return Map.of("key", key, "imageBase64", "data:image/png;base64," + imageBase64);
     }
 
 
