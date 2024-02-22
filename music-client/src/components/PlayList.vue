@@ -3,9 +3,9 @@
     <div class="play-title" v-if="title">{{ title }}</div>
     <ul class="play-body">
       <li class="card-frame" v-for="(item, index) in playList" :key="index">
-        <div class="card" @click="goAblum(item)">
+        <div class="card" @click="enterDetails(item)">
           <img class="card-img" :src="item.base64" alt="图片">
-          <div class="mask" @click="goAblum(item)">
+          <div class="mask" @click="enterDetails(item)">
             <yin-icon class="mask-icon" :icon="BOFANG"></yin-icon>
           </div>
         </div>
@@ -32,19 +32,19 @@ export default defineComponent({
     path: String,
   },
   setup(props) {
-    const { proxy } = getCurrentInstance();
-    const { routerManager } = mixin();
+    const {proxy} = getCurrentInstance();
+    const {routerManager} = mixin();
 
-    const { path } = toRefs(props);
+    const {path} = toRefs(props);
 
-    function goAblum(item) {
-      proxy.$store.commit("setSongDetails", item);
-      routerManager(path.value, { path: `/${path.value}/${item.id}` });
+    function enterDetails(item) {
+      proxy.$store.commit("singerId",item.id)
+      routerManager(path.value, {path: `/${path.value}/${item.id}`});
     }
 
     return {
       BOFANG: Icon.BOFANG,
-      goAblum,
+      enterDetails,
       attachImageUrl: HttpManager.attachImageUrl,
     };
   },

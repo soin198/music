@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.mappers.mapper.clientCustom;
+package org.soin.core.infrastructure.mapper.clientCustom;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.soin.core.domain.cilentCustom.entity.Custom;

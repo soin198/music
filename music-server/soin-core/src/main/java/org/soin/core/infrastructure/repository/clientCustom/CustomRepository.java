@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
-import org.soin.core.infrastructure.mappers.mapper.clientCustom.CustomMapper;
+import org.soin.core.infrastructure.mapper.clientCustom.CustomMapper;
 import org.soin.core.infrastructure.utils.Assert;
 import org.soin.core.infrastructure.utils.RegexExpressionUtil;
 import org.springframework.beans.factory.annotation.Autowired;

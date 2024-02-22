@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.soin.core.infrastructure.mapper.music.MusicMapper">
+
+    <select id="page" resultType="org.soin.core.domain.music.vo.MusicVo">
+        SELECT
+        ts.`name` AS singerName,
+        tm.id AS musicId,
+        tm.musicName,
+        tm.resume,
+        tm.compose
+        FROM
+        t_singer ts
+        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
+        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        <where>
+            <if test="singerId != null">
+                AND tmcs.singerId = #{singerId}
+            </if>
+        </where>
+        <include refid="LIMIT"/>
+    </select>
+
+    <!-- 统计歌曲总数 -->
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        t_singer ts
+        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
+        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        <where>
+            <if test="singerId != null">
+                AND tmcs.singerId = #{singerId}
+            </if>
+        </where>
+    </select>
+
+    <sql id="LIMIT">
+        <if test="pageSize &gt; 0">LIMIT ${start}, ${pageSize}</if>
+    </sql>
+
+
+</mapper>

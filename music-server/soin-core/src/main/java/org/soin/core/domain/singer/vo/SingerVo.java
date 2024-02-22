@@ -3,7 +3,6 @@ package org.soin.core.domain.singer.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 歌单返回体
@@ -45,7 +44,7 @@ public class SingerVo implements Serializable {
     /**
      * 歌手生日
      */
-    private Date birth;
+    private String birth;
 
     /**
      * 国籍

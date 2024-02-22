@@ -55,8 +55,6 @@ const HttpManager = {
     // =======================> 歌曲 API
     // 返回指定歌曲ID的歌曲
     getSongOfId: (id) => get(`song/detail?id=${id}`),
-    // 返回指定歌手ID的歌曲
-    getSongOfSingerId: (id) => get(`song/singer/detail?singerId=${id}`),
     // 返回指定歌手名的歌曲
     getSongOfSingerName: (keywords) => get(`song/singerName/detail?name=${keywords}`),
     // 下载音乐

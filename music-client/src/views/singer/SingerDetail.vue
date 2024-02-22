@@ -1,31 +1,35 @@
 <template>
   <el-container>
     <el-aside class="album-slide">
-      <el-image class="singer-img" fit="contain" :src="attachImageUrl(songDetails.pic)" />
+      <el-image class="singer-img" fit="contain" :src="singer.base64"/>
       <div class="album-info">
         <h2>基本资料</h2>
         <ul>
-          <li v-if="songDetails.sex !== 2">性别：{{ getUserSex(songDetails.sex) }}</li>
-          <li>生日：{{ getBirth(songDetails.birth) }}</li>
-          <li>故乡：{{ songDetails.location }}</li>
+          <li v-if="singer.sex === 'MALE'">性别：男</li>
+          <li v-if="singer.sex === 'WOMEN'">性别：女</li>
+          <li v-if="singer.sex === 'OTHER'">性别：组合</li>
+          <li>生日：{{ singer.birth }}</li>
+          <li>故乡：{{ singer.nationality }}</li>
         </ul>
       </div>
     </el-aside>
     <el-main class="album-main">
-      <h1>{{ songDetails.name }}</h1>
-      <p>{{ songDetails.introduction }}</p>
-      <song-list :songList="currentSongList"></song-list>
+      <h1>{{ singer.name }}</h1>
+      <p>{{ singer.resume }}</p>
+      <song-list :songList="data"/>
     </el-main>
   </el-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from "vue";
-import { useStore } from "vuex";
+import {defineComponent, ref, computed, onMounted, reactive} from "vue";
+import {useStore} from "vuex";
 import mixin from "@/mixins/mixin";
 import SongList from "@/components/SongList.vue";
-import { HttpManager } from "@/api";
-import { getBirth } from "@/utils";
+import {HttpManager} from "@/api";
+import {SingerManager} from "@/api/singer";
+import {MusicManager} from "@/api/music"
+import {ElMessage} from "element-plus";
 
 export default defineComponent({
   components: {
@@ -33,26 +37,54 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const { getUserSex } = mixin();
+    const {getUserSex} = mixin();
+    const data = ref([]);
+    const totalRows = ref(0);
+    const singer = ref({
+      id: null,
+      name: null,
+      sex: null,
+      base64: null,
+      birth: null,
+      nationality: null,
+      resume: null
+    })
+    const params = reactive({
+      page: 1,
+      pageSize: 10,
+      singerId: null
+    })
+    const singerId = computed(() => store.getters.singerId) as any;
+    params.singerId = singerId.value;
 
-    const currentSongList = ref([]);
-    const songDetails = computed(() => store.getters.songDetails) as any;
+    async function singerQueryById(singerId) {
+      const {code, items, message} = (await SingerManager.singerQueryById(singerId)) as Response;
+      if (code === 200) {
+        singer.value = items;
+      } else {
+        ElMessage.error(message)
+      }
+    }
+
+    async function page() {
+      const {code, items, message} = (await MusicManager.page(params)) as Response;
+      if (code === 200) {
+        totalRows.value = items.totalRows;
+        data.value = items.data;
+      } else {
+        ElMessage.error(message)
+      }
+    }
 
     onMounted(async () => {
-      try {
-        const result = (await HttpManager.getSongOfSingerId(songDetails.value.id)) as ResponseBody;
-        currentSongList.value = result.data;
-      } catch (error) {
-        console.error(error);
-      }
+      await Promise.all([page(), singerQueryById(singerId.value)]);
     });
 
     return {
-      songDetails,
-      currentSongList,
+      data,
       attachImageUrl: HttpManager.attachImageUrl,
-      getBirth,
       getUserSex,
+      singer
     };
   },
 });
@@ -76,6 +108,7 @@ export default defineComponent({
   .album-info {
     width: 60%;
     padding-top: 2rem;
+
     li {
       width: 100%;
       height: 30px;

@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.mappers.mapper.sms;
+package org.soin.core.infrastructure.mapper.sms;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.soin.core.domain.sms.entity.SmsMessage;

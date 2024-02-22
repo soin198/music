@@ -3,7 +3,7 @@ package org.soin.core.infrastructure.repository.clientCustom;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.CustomArea;
 import org.soin.core.domain.cilentCustom.repository.ICustomAreaRepository;
-import org.soin.core.infrastructure.mappers.mapper.clientCustom.CustomAreaMapper;
+import org.soin.core.infrastructure.mapper.clientCustom.CustomAreaMapper;
 import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

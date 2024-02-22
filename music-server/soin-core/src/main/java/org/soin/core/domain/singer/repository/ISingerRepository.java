@@ -1,5 +1,6 @@
 package org.soin.core.domain.singer.repository;
 
+import org.soin.core.domain.singer.entity.Singer;
 import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.vo.SingerVo;
 
@@ -27,4 +28,12 @@ public interface ISingerRepository {
      * @return 总歌手数量
      */
     int count(SingerParams singerParams);
+
+    /**
+     * 根据歌手ID获取歌手详情
+     *
+     * @param singerId 歌手ID
+     * @return 歌手数据
+     */
+    Singer getOneByKeyId(Long singerId);
 }

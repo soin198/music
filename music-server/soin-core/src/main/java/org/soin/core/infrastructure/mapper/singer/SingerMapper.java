@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.mappers.mapper.singer;
+package org.soin.core.infrastructure.mapper.singer;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.soin.core.domain.singer.entity.Singer;

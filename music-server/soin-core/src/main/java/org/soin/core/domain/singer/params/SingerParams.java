@@ -9,8 +9,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 用户注册
- *
  * @author J.FLa.Soin
  * @version 1.0.0
  * @date 2024-01-30 17:21

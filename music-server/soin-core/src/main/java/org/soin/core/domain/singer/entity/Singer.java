@@ -46,7 +46,7 @@ public class Singer extends BaseEntity implements Serializable {
     /**
      * 国籍
      */
-    private Integer nationality;
+    private String nationality;
 
     /**
      * 简介

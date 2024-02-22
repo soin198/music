@@ -9,10 +9,13 @@ import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.utils.DateUtil;
 import org.soin.core.infrastructure.utils.RunTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * @author J.FLa.Soin
@@ -39,5 +42,22 @@ public class SingerController implements ISingerApi {
         Page<SingerVo> page = singerService.singerQuery(singerParams);
         RunTimeTool.printMethodResponseMsg("singerQuery", page.getTotalRows());
         return GenericResponse.builder().success(page);
+    }
+
+    /**
+     * 根据歌手ID获取歌手详情
+     *
+     * @param singerId 歌手ID
+     * @return 歌手数据
+     */
+    @Override
+    public GenericResponse<SingerVo> singerQueryById(Long singerId) {
+        Assert.isNull(singerId, "请正确选择查看的歌手");
+        RunTimeTool.printMethodMsg("singerQueryById", "根据歌手ID获取歌手详情", singerId);
+        SingerVo singerVo = singerService.singerQueryById(singerId);
+        String build = DateUtil.format(singerVo.getBirth(), DateUtil.DATE_YEAR_MONTH_DAY);
+        singerVo.setBirth(build);
+        RunTimeTool.printMethodResponseMsg("singerQueryById", singerVo);
+        return GenericResponse.builder().success(singerVo);
     }
 }

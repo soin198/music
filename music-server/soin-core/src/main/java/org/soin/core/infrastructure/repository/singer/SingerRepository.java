@@ -1,12 +1,14 @@
 package org.soin.core.infrastructure.repository.singer;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.singer.entity.Singer;
 import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.repository.ISingerRepository;
 import org.soin.core.domain.singer.vo.SingerVo;
-import org.soin.core.infrastructure.mappers.SingerMapperService;
-import org.soin.core.infrastructure.mappers.mapper.singer.SingerMapper;
+import org.soin.core.infrastructure.mapper.singer.SingerMapper;
+import org.soin.core.infrastructure.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +26,6 @@ public class SingerRepository implements ISingerRepository {
 
     private final SingerMapper singerMapper;
 
-    private final SingerMapperService singerMapperService;
-
     /**
      * 获取歌手列表
      *
@@ -34,7 +34,7 @@ public class SingerRepository implements ISingerRepository {
      */
     @Override
     public List<SingerVo> singerQuery(SingerParams singerParams) {
-        List<SingerVo> list = singerMapperService.getBaseMapper().singerQuery(singerParams);
+        List<SingerVo> list = singerMapper.singerQuery(singerParams);
         return (null != list && !list.isEmpty()) ? list : Lists.newArrayList();
     }
 
@@ -47,6 +47,20 @@ public class SingerRepository implements ISingerRepository {
     @Override
     public int count(SingerParams singerParams) {
         return singerMapper.count(singerParams);
+    }
+
+    /**
+     * 根据歌手ID获取歌手详情
+     *
+     * @param singerId 歌手ID
+     * @return 歌手数据
+     */
+    @Override
+    public Singer getOneByKeyId(Long singerId) {
+        Assert.isNull(singerId, "请提供singerId");
+        QueryWrapper<Singer> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", singerId);
+        return singerMapper.selectOne(wrapper);
     }
 }
 

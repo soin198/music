@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.mappers.mapper.music;
+package org.soin.core.infrastructure.mapper.music;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

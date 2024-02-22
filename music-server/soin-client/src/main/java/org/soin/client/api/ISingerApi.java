@@ -5,9 +5,7 @@ import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author J.FLa.Soin
@@ -25,5 +23,14 @@ public interface ISingerApi {
      */
     @PostMapping("/singerQuery")
     GenericResponse<Page<SingerVo>> singerQuery(@RequestBody SingerParams singerParams);
+
+    /**
+     * 根据歌手ID获取歌手详情
+     *
+     * @param singerId 歌手ID
+     * @return 歌手数据
+     */
+    @GetMapping("/singerQueryById")
+    GenericResponse<SingerVo> singerQueryById(@RequestParam(value = "singerId") Long singerId);
 
 }
