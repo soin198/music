@@ -43,4 +43,5 @@ public interface ISingerRepository {
      * @return 歌手列表
      */
     List<Singer> list();
+
 }

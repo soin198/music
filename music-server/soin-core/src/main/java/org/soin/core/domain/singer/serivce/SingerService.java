@@ -66,4 +66,5 @@ public class SingerService {
         }
         return ConvertUtil.converts(list, SingerVo.class);
     }
+
 }

@@ -73,6 +73,7 @@ public class SingerRepository implements ISingerRepository {
         QueryWrapper<Singer> wrapper = new QueryWrapper<>();
         return singerMapper.selectList(wrapper);
     }
+
 }
 
 

@@ -48,10 +48,16 @@ public class SyncImageController implements ISyncImageApi {
         }
         RunTimeTool.printInfo(String.format("待同步歌手数量%s...", list.size()));
         for (SingerVo singerVo : list) {
+            //歌手名称
             String name = singerVo.getName();
-            String path = FileUtil.ensureGet(imageNode, ChineseUtil.chineseToPinyin(name));
+            //下一级包名
+            String packName = ChineseUtil.chineseToPinyin(name);
+            //生成文件夹
+            boolean isOpen = FileUtil.ensureGet(imageNode, packName);
+            RunTimeTool.printMethodResponseMsg("ensureGet", String.format("生成文件夹%s响应值%b", packName, isOpen));
         }
         RunTimeTool.printMethodResponseMsg("syncImageName", Boolean.TRUE);
         return GenericResponse.builder().success(Boolean.TRUE);
     }
+
 }
