@@ -53,8 +53,7 @@ public class SyncImageController implements ISyncImageApi {
             //下一级包名
             String packName = ChineseUtil.chineseToPinyin(name);
             //生成文件夹
-            boolean isOpen = FileUtil.ensureGet(imageNode, packName);
-            RunTimeTool.printMethodResponseMsg("ensureGet", String.format("生成文件夹%s响应值%b", packName, isOpen));
+            FileUtil.ensureGet(imageNode, packName);
         }
         RunTimeTool.printMethodResponseMsg("syncImageName", Boolean.TRUE);
         return GenericResponse.builder().success(Boolean.TRUE);
