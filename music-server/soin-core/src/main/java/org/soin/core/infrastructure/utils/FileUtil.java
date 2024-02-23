@@ -2,13 +2,14 @@ package org.soin.core.infrastructure.utils;
 
 
 import org.soin.core.infrastructure.base.common.Assert;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
+import org.soin.core.infrastructure.base.constant.BaseConstant;
+import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * 时间日期处理工具
@@ -17,60 +18,65 @@ import java.util.List;
  * @version 1.0.0
  * @date 2024-01-08 15:12
  **/
+@Component
 public class FileUtil {
 
     /**
-     * 覆盖文件名称
+     * 转换文件名称
      *
-     * @param file 文件
-     * @return 覆盖后的文件
+     * @param fileName 文件名称
+     * @return 转换后的文件名称
      */
-    public static File coverFileName(File file) {
-        Assert.isNull(file, "file is null");
-        File parentFile = file.getParentFile();
-        String newFileName = ImageUtil.generateImageName(file.getName());
-        return new File(parentFile, newFileName);
+    public static String coverFileName(String fileName) {
+        Assert.isBlank(fileName, "fileName is null");
+        return ImageUtil.generateImageName(fileName);
     }
 
     /**
-     * 获取指定路径下的所有文件（包括子目录中的文件）。
+     * 确认获取文件夹
      *
-     * @param directoryPath 要遍历的目录路径
-     * @return 包含所有文件对象的列表
-     * @throws IOException 如果发生I/O错误
+     * @param rootNode 根目录
+     * @param fileName 文件夹名称
+     * @return 文件夹路径
      */
-    public static List<File> getAllFiles(String directoryPath) throws IOException {
-        List<File> allFiles = new ArrayList<>();
-        Path startingDir = Paths.get(directoryPath);
-
-        Files.walkFileTree(startingDir, new SimpleFileVisitor<>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-                allFiles.add(file.toFile()); // 将Path转换为File对象
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exc) {
-                // 忽略访问失败的文件
-                return FileVisitResult.CONTINUE;
-            }
-        });
-
-        return allFiles;
+    public static String ensureGet(String rootNode, String fileName) {
+        Assert.isBlank(rootNode, "node is null");
+        Assert.isBlank(fileName, "params is null");
+        return include(rootNode, fileName) ? (rootNode + BaseConstant.JOIN + fileName) : create(rootNode, fileName);
     }
 
+    /**
+     * 是否包含包名
+     *
+     * @param rootNode 根节点
+     * @param fileName 包名
+     * @return 是否包含包名
+     */
+    private static boolean include(String rootNode, String fileName) {
+        Path path = Paths.get(rootNode, fileName);
+        return Files.exists(path) && Files.isDirectory(path);
+    }
 
-    public static void main(String[] args) {
+    /**
+     * 创建文件夹
+     *
+     * @param rootNode 根路径
+     * @param fileName 文件夹名称
+     * @return 是否创建成功
+     */
+    private static String create(String rootNode, String fileName) {
+        String newPath = null;
         try {
-            List<File> allFiles = getAllFiles("D:\\image");
-            for (File file : allFiles) {
-                System.out.println(file.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            Path path = Files.createDirectories(Paths.get((rootNode + BaseConstant.JOIN + fileName)));
+            newPath = path.toAbsolutePath().toString();
+            RunTimeTool.printInfo(String.format("新建文件夹%s", newPath));
+        } catch (IOException ioException) {
+            RunTimeTool.printError("创建文件夹失败....");
+            ioException.printStackTrace();
         }
+        return newPath;
     }
+
 }
 
 

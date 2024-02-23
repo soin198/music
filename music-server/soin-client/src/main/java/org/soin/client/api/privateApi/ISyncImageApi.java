@@ -19,6 +19,7 @@ public interface ISyncImageApi {
      * 同步歌手头像图片名称
      *
      * @return 是否同步成功
+     * @apiNote 执行顺序（1）
      */
     @PostMapping("/syncImageName")
     GenericResponse<Boolean> syncImageName();

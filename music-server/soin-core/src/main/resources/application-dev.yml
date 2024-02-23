@@ -39,6 +39,11 @@ sms:
   accessSecret: YSMalsBGvDxkoFwB9rvaZtXLDXdDdw
   templateCode: SMS_173175531
   signName: xxx
-image:
+origin:
   local:
-    cache: D://image
+    imageNode: D://image
+    videoNode: D://video
+    audioNode: D://audio
+  prod:
+
+

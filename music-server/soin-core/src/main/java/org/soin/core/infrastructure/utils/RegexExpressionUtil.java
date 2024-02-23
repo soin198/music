@@ -1,5 +1,6 @@
 package org.soin.core.infrastructure.utils;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -91,6 +92,16 @@ public class RegexExpressionUtil {
     public static boolean isUniqueMoney(String param) {
         String regex = "^([1-9][0-9]*){1,3}$";
         return Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(param).matches();
+    }
+
+    /**
+     * 判断字符串是否包含中文
+     * @param param 验证字符串
+     * @return 是否包含中文
+     */
+    public static boolean containsChinese(String param) {
+        String regex = "[\\u4e00-\\u9fa5]";
+        return Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(param).find();
     }
 
 }

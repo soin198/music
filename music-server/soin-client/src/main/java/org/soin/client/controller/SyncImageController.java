@@ -6,6 +6,8 @@ import org.soin.core.domain.singer.serivce.SingerService;
 import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.base.response.GenericResponse;
+import org.soin.core.infrastructure.utils.ChineseUtil;
+import org.soin.core.infrastructure.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,10 +28,10 @@ public class SyncImageController implements ISyncImageApi {
     private final SingerService singerService;
 
     /**
-     * 图片跟目录
+     * 图片根目录
      */
-    @Value("${image.local.cache}")
-    private String path;
+    @Value("${origin.local.imageNode}")
+    private String imageNode;
 
     /**
      * 同步歌手头像图片名称
@@ -46,7 +48,8 @@ public class SyncImageController implements ISyncImageApi {
         }
         RunTimeTool.printInfo(String.format("待同步歌手数量%s...", list.size()));
         for (SingerVo singerVo : list) {
-
+            String name = singerVo.getName();
+            String path = FileUtil.ensureGet(imageNode, ChineseUtil.chineseToPinyin(name));
         }
         RunTimeTool.printMethodResponseMsg("syncImageName", Boolean.TRUE);
         return GenericResponse.builder().success(Boolean.TRUE);

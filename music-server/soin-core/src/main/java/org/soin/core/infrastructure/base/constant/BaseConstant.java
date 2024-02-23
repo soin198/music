@@ -31,4 +31,9 @@ public class BaseConstant {
      */
     public static final String SMS_SEND_RESULT_CODE = "ok";
 
+    /**
+     * 连接符
+     */
+    public static final String JOIN = "/";
+
 }

@@ -41,6 +41,7 @@
         <redis-version>2.7.3</redis-version>
         <mybatis-plus-version>3.5.3</mybatis-plus-version>
         <ali-sms-version>2.0.19</ali-sms-version>
+        <pinyin4j-version>2.5.1</pinyin4j-version>
     </properties>
 
     <dependencies>
