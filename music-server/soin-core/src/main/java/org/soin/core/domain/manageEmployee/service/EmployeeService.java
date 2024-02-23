@@ -5,7 +5,7 @@ import org.soin.core.domain.manageEmployee.entity.Employee;
 import org.soin.core.domain.manageEmployee.repository.IEmployeeRepository;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
 import org.soin.core.infrastructure.enums.RegionEnum;
-import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.utils.CacheUtil;
 import org.soin.core.infrastructure.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

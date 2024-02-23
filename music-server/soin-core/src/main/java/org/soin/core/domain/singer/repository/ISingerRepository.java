@@ -36,4 +36,11 @@ public interface ISingerRepository {
      * @return 歌手数据
      */
     Singer getOneByKeyId(Long singerId);
+
+    /**
+     * 获取所有的歌手
+     *
+     * @return 歌手列表
+     */
+    List<Singer> list();
 }

@@ -7,7 +7,7 @@ import org.soin.core.domain.music.serivce.MusicTreeService;
 import org.soin.core.domain.music.vo.MusicTreeVo;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
-import org.soin.core.infrastructure.utils.RunTimeTool;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;

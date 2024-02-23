@@ -7,7 +7,7 @@ import org.soin.core.domain.music.repository.IMusicRepository;
 import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.mapper.music.MusicMapper;
-import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.base.common.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

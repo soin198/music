@@ -3,7 +3,7 @@ package org.soin.core.infrastructure.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.soin.core.infrastructure.utils.RunTimeTool;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 
 import java.io.IOException;
 

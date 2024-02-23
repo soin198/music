@@ -8,7 +8,7 @@ import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.repository.ISingerRepository;
 import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.mapper.singer.SingerMapper;
-import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.base.common.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -61,6 +61,17 @@ public class SingerRepository implements ISingerRepository {
         QueryWrapper<Singer> wrapper = new QueryWrapper<>();
         wrapper.eq("id", singerId);
         return singerMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 获取所有的歌手
+     *
+     * @return 歌手列表
+     */
+    @Override
+    public List<Singer> list() {
+        QueryWrapper<Singer> wrapper = new QueryWrapper<>();
+        return singerMapper.selectList(wrapper);
     }
 }
 

@@ -7,7 +7,7 @@ import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.repository.ISingerRepository;
 import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.common.Page;
-import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.soin.core.infrastructure.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +52,18 @@ public class SingerService {
         SingerVo convert = ConvertUtil.convert(singer, SingerVo.class);
         convert.setBase64(ImageUtil.generate(convert.getPhoto()));
         return convert;
+    }
+
+    /**
+     * 获取所有的歌手
+     *
+     * @return 歌手列表
+     */
+    public List<SingerVo> list() {
+        List<Singer> list = iSingerRepository.list();
+        if (null == list || list.isEmpty()) {
+            return Lists.newArrayList();
+        }
+        return ConvertUtil.converts(list, SingerVo.class);
     }
 }

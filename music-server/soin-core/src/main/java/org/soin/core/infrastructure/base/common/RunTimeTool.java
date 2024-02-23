@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.utils;
+package org.soin.core.infrastructure.base.common;
 
 import cn.hutool.core.date.BetweenFormatter;
 import cn.hutool.core.date.DateUtil;

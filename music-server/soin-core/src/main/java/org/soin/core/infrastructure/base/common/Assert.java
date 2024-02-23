@@ -1,5 +1,6 @@
-package org.soin.core.infrastructure.utils;
+package org.soin.core.infrastructure.base.common;
 
+import org.soin.core.infrastructure.utils.StringUtil;
 import org.springframework.lang.Nullable;
 
 /**

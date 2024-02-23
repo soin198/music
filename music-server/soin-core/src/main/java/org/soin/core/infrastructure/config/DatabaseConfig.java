@@ -1,7 +1,7 @@
 package org.soin.core.infrastructure.config;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.soin.core.infrastructure.utils.RunTimeTool;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;

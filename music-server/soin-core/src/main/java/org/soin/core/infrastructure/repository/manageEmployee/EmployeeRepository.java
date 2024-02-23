@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.manageEmployee.entity.Employee;
 import org.soin.core.domain.manageEmployee.repository.IEmployeeRepository;
 import org.soin.core.infrastructure.mapper.manageEmployee.EmployeeMapper;
-import org.soin.core.infrastructure.utils.Assert;
+import org.soin.core.infrastructure.base.common.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -3,7 +3,7 @@ package org.soin.manage.contorller;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.manageEmployee.service.EmployeeService;
 import org.soin.core.infrastructure.base.response.GenericResponse;
-import org.soin.core.infrastructure.utils.RunTimeTool;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.manage.api.IEmployeeApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -2,7 +2,7 @@ package org.soin.client.common.exception;
 
 import org.soin.core.infrastructure.base.constant.CodeConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
-import org.soin.core.infrastructure.utils.RunTimeTool;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
