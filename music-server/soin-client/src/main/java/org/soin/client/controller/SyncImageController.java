@@ -2,6 +2,8 @@ package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.client.api.privateApi.ISyncImageApi;
+import org.soin.core.domain.database.entity.ImageDataBase;
+import org.soin.core.domain.database.service.ImageDataBaseService;
 import org.soin.core.domain.singer.serivce.SingerService;
 import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
@@ -10,6 +12,7 @@ import org.soin.core.infrastructure.utils.ChineseUtil;
 import org.soin.core.infrastructure.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +29,8 @@ import java.util.List;
 public class SyncImageController implements ISyncImageApi {
 
     private final SingerService singerService;
+
+    private final ImageDataBaseService imageDataBaseService;
 
     /**
      * 图片根目录
@@ -56,6 +61,24 @@ public class SyncImageController implements ISyncImageApi {
             FileUtil.ensureGet(imageNode, packName);
         }
         RunTimeTool.printMethodResponseMsg("syncImageName", Boolean.TRUE);
+        return GenericResponse.builder().success(Boolean.TRUE);
+    }
+
+    /**
+     * 同步图片大小
+     *
+     * @return 是否同步成功
+     */
+    @PostMapping("/syncSize")
+    @Override
+    public GenericResponse<Boolean> syncSize() {
+        List<ImageDataBase> list = imageDataBaseService.list();
+        for (ImageDataBase base : list) {
+            long size = FileUtil.size(base.getPath());
+            base.setSize(size);
+            boolean isOpen = imageDataBaseService.update(base);
+            RunTimeTool.printInfo(isOpen);
+        }
         return GenericResponse.builder().success(Boolean.TRUE);
     }
 

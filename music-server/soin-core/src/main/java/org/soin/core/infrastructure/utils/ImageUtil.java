@@ -30,9 +30,8 @@ public class ImageUtil {
      */
     @SuppressWarnings("all")
     public static String generate(String path) {
-        int index = path.lastIndexOf("/") + 1;
-        String imageName = path.substring(index);
-        File file = new File((BaseConstant.IMAGE_URL + "/" + imageName));
+        Assert.isBlank(path, "path is null");
+        File file = new File(BaseConstant.IMAGE_URL + "/" + path);
         if (!file.exists()) {
             return null;
         }
@@ -63,6 +62,5 @@ public class ImageUtil {
         String secureId = SecureUtil.generateRandomHash();
         return (secureId + "." + suffix);
     }
-
 
 }

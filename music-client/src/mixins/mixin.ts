@@ -35,12 +35,11 @@ export default function () {
 
   // 判断登录状态
   function checkStatus(status?: boolean) {
-    if (!token.value) {
-      if (status !== false)
-        (proxy as any).$message({
-          message: "请先登录",
-          type: "warning",
-        });
+    if (!token.value && status !== false) {
+      (proxy as any).$message({
+        message: "请先登录",
+        type: "error",
+      });
       return false;
     }
     return true;
@@ -121,7 +120,6 @@ export default function () {
   return {
     getUserSex,
     getSongTitle,
-    getSingerName,
     changeIndex,
     checkStatus,
     playMusic,

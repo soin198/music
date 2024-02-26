@@ -1,1 +1,1 @@
-export const MUSICNAME = "MUSIC";
+export const HOME_NAME = "MUSIC WORLD";

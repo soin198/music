@@ -1,6 +1,6 @@
 import {AREA} from "./area";
 import {Icon} from "./icon";
-import {MUSICNAME} from "./music-name";
+import {HOME_NAME} from "./music-name";
 import {NavName, HEADERNAVLIST, SIGNLIST, MENULIST} from "./nav";
 import {SingerType} from "./singer";
 import {SONGSTYLE} from "./songList";
@@ -12,7 +12,7 @@ import {SMS} from "./smsMessage";
 export {
     AREA,
     Icon,
-    MUSICNAME,
+    HOME_NAME,
     NavName,
     HEADERNAVLIST,
     RouterName,

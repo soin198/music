@@ -2,6 +2,7 @@ package org.soin.core.domain.singer.serivce;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.database.service.ImageDataBaseService;
 import org.soin.core.domain.singer.entity.Singer;
 import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.repository.ISingerRepository;
@@ -28,6 +29,11 @@ public class SingerService {
     private final ISingerRepository iSingerRepository;
 
     /**
+     * 视频库服务
+     */
+    private final ImageDataBaseService imageDataBaseService;
+
+    /**
      * 获取歌手分页列表
      *
      * @param singerParams 歌手列表查询数据源
@@ -36,7 +42,7 @@ public class SingerService {
     public Page<SingerVo> singerQuery(SingerParams singerParams) {
         int totalRows = iSingerRepository.count(singerParams);
         List<SingerVo> list = (totalRows > 0) ? iSingerRepository.singerQuery(singerParams) : Lists.newArrayList();
-        return new Page<>(totalRows, list.stream().peek(p -> p.setBase64(ImageUtil.generate(p.getPhoto()))).collect(Collectors.toList()));
+        return new Page<>(totalRows, list.stream().peek(p -> p.setBase64(ImageUtil.generate(p.getPath()))).collect(Collectors.toList()));
     }
 
     /**
@@ -50,7 +56,8 @@ public class SingerService {
         Singer singer = iSingerRepository.getOneByKeyId(singerId);
         Assert.isNull(singer, "singerId is invalid");
         SingerVo convert = ConvertUtil.convert(singer, SingerVo.class);
-        convert.setBase64(ImageUtil.generate(convert.getPhoto()));
+        String path = imageDataBaseService.pathQuery(singer.getImageId());
+        convert.setBase64(ImageUtil.generate(path));
         return convert;
     }
 

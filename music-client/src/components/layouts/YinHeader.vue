@@ -5,18 +5,21 @@
       <yin-icon :icon="iconList.ERJI"></yin-icon>
       <span>{{ musicName }}</span>
     </div>
-    <yin-header-nav class="yin-header-nav" :styleList="headerNavList" :activeName="activeNavName" @click="goPage"></yin-header-nav>
+    <yin-header-nav class="yin-header-nav" :styleList="headerNavList" :activeName="activeNavName"
+                    @click="goPage"></yin-header-nav>
     <!--搜索框-->
     <div class="header-search">
-      <el-input placeholder="搜索" :prefix-icon="Search" v-model="keywords" @keyup.enter="goSearch()" />
+      <el-input placeholder="搜索" :prefix-icon="Search" v-model="keywords" @keyup.enter="goSearch()"/>
     </div>
     <!--设置-->
     <yin-header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"></yin-header-nav>
     <el-dropdown class="user-wrap" v-if="token" trigger="click">
-      <el-image class="user" fit="contain" :src="photo" />
+      <el-image class="user" fit="contain" :src="photo"/>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item v-for="(item, index) in menuList" :key="index" @click.stop="goMenuList(item.path)">{{ item.name }}</el-dropdown-item>
+          <el-dropdown-item v-for="(item, index) in menuList" :key="index" @click.stop="goMenuList(item.path)">
+            {{ item.name }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -24,13 +27,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, getCurrentInstance, computed, reactive } from "vue";
-import { Search } from "@element-plus/icons-vue";
-import { useStore } from "vuex";
+import {defineComponent, ref, getCurrentInstance, computed, reactive} from "vue";
+import {Search} from "@element-plus/icons-vue";
+import {useStore} from "vuex";
 import YinIcon from "./YinIcon.vue";
 import YinHeaderNav from "./YinHeaderNav.vue";
 import mixin from "@/mixins/mixin";
-import { HEADERNAVLIST, SIGNLIST, MENULIST, Icon, MUSICNAME, RouterName, NavName } from "@/enums";
+import {HEADERNAVLIST, SIGNLIST, MENULIST, Icon, HOME_NAME, RouterName, NavName} from "@/enums";
 
 export default defineComponent({
   components: {
@@ -38,11 +41,11 @@ export default defineComponent({
     YinHeaderNav,
   },
   setup() {
-    const { proxy } = getCurrentInstance();
+    const {proxy} = getCurrentInstance();
     const store = useStore();
-    const { changeIndex, routerManager } = mixin();
+    const {changeIndex, routerManager} = mixin();
 
-    const musicName = ref(MUSICNAME);
+    const musicName = ref(HOME_NAME);
     const headerNavList = ref(HEADERNAVLIST); // 左侧导航栏
     const signList = ref(SIGNLIST); // 右侧导航栏
     const menuList = ref(MENULIST); // 用户下拉菜单项
@@ -57,10 +60,10 @@ export default defineComponent({
     function goPage(path, name) {
       if (!path && !name) {
         changeIndex(NavName.Home);
-        routerManager(RouterName.Home, { path: RouterName.Home });
+        routerManager(RouterName.Home, {path: RouterName.Home});
       } else {
         changeIndex(name);
-        routerManager(path, { path });
+        routerManager(path, {path});
       }
     }
 
@@ -68,15 +71,16 @@ export default defineComponent({
       if (path == RouterName.SignOut) {
         proxy.$store.commit("setToken", false);
         changeIndex(NavName.Home);
-        routerManager(RouterName.Home, { path: RouterName.Home });
+        routerManager(RouterName.Home, {path: RouterName.Home});
       } else {
-        routerManager(path, { path });
+        routerManager(path, {path});
       }
     }
+
     function goSearch() {
       if (keywords.value !== "") {
         proxy.$store.commit("setSearchWord", keywords.value);
-        routerManager(RouterName.Search, { path: RouterName.Search, query: { keywords: keywords.value } });
+        routerManager(RouterName.Search, {path: RouterName.Search, query: {keywords: keywords.value}});
       } else {
         (proxy as any).$message({
           message: "搜索内容不能为空",
@@ -117,6 +121,7 @@ export default defineComponent({
 @media screen and (max-width: $sm) {
   .header-logo {
     margin: 0 1rem;
+
     span {
       display: none;
     }
@@ -147,10 +152,12 @@ export default defineComponent({
   font-size: $font-size-logo;
   font-weight: bold;
   cursor: pointer;
+
   .icon {
     @include icon(1.9rem, $color-black);
     vertical-align: middle;
   }
+
   span {
     margin-left: 1rem;
   }
@@ -164,6 +171,7 @@ export default defineComponent({
 .header-search {
   margin: 0 20px;
   width: 100%;
+
   &::v-deep input {
     text-indent: 5px;
     max-width: $header-search-max-width;

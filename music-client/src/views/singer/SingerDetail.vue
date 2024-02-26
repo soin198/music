@@ -7,7 +7,6 @@
         <ul>
           <li v-if="singer.sex === 'MALE'">性别：男</li>
           <li v-if="singer.sex === 'WOMEN'">性别：女</li>
-          <li v-if="singer.sex === 'OTHER'">性别：组合</li>
           <li>生日：{{ singer.birth }}</li>
           <li>故乡：{{ singer.nationality }}</li>
         </ul>

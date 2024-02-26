@@ -1,5 +1,7 @@
 package org.soin.core.infrastructure.repository.database;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.database.entity.ImageDataBase;
 import org.soin.core.domain.database.repository.IImageDataBaseRepository;
@@ -8,6 +10,9 @@ import org.soin.core.infrastructure.mapper.database.ImageDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author J.FLa.Soin
@@ -40,6 +45,46 @@ public class ImageDataRepository implements IImageDataBaseRepository {
         data.setSize(size);
         data.setType(type);
         imageDataMapper.insert(data);
+    }
+
+    /**
+     * 根据图片库ID获取图片库
+     *
+     * @param keyId 图片库ID
+     * @return 图片库
+     */
+    @Override
+    public ImageDataBase findOne(Long keyId) {
+        Assert.isNull(keyId, "请提供图片库ID");
+        QueryWrapper<ImageDataBase> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", keyId);
+        return imageDataMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 获取图片库列表
+     *
+     * @return 图片库列表
+     */
+    @Override
+    public List<ImageDataBase> list() {
+        QueryWrapper<ImageDataBase> wrapper = new QueryWrapper<>();
+        List<ImageDataBase> list = imageDataMapper.selectList(wrapper);
+        return (null == list) ? Lists.newArrayList() : list;
+    }
+
+    /**
+     * 更新图片库
+     *
+     * @param imageDataBase 更新图片库
+     * @return 是否更新成功
+     */
+    @Override
+    public boolean update(ImageDataBase imageDataBase) {
+        Assert.isNull(imageDataBase, "请提供图片库");
+        imageDataBase.setLastModifiedDate(new Date());
+        imageDataMapper.updateById(imageDataBase);
+        return Boolean.TRUE;
     }
 
 

@@ -55,7 +55,7 @@ public class SingerController implements ISingerApi {
         SingerVo singerVo = singerService.singerQueryById(singerId);
         String build = DateUtil.format(singerVo.getBirth(), DateUtil.DATE_YEAR_MONTH_DAY);
         singerVo.setBirth(build);
-        RunTimeTool.printMethodResponseMsg("singerQueryById", singerVo);
+        RunTimeTool.printMethodResponseMsg("singerQueryById", singerVo.getName());
         return GenericResponse.builder().success(singerVo);
     }
 }

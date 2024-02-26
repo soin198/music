@@ -6,6 +6,7 @@ import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -93,6 +94,28 @@ public class FileUtil {
             RunTimeTool.printMethodResponseMsg("move", "文件移动失败");
         }
         return Boolean.TRUE;
+    }
+
+    /**
+     * 获取文件大小
+     *
+     * @param path 文件
+     * @return 文件大小
+     */
+    public static long size(String path) {
+        Assert.isBlank(path, "请提供文件路径");
+        Path fileUrl = Paths.get(BaseConstant.IMAGE_URL, path);
+        File file = fileUrl.toFile();
+        if (!file.exists()) {
+            throw new IllegalArgumentException("file is not exists");
+        }
+        long size = 0;
+        try {
+            size = Files.size(fileUrl);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return size;
     }
 
 }

@@ -9,6 +9,7 @@
         SELECT
         <include refid="QUERY_COLUMN"/>
         FROM `soin-music`.`t_singer` AS s01
+        LEFT JOIN t_image_database AS t01 ON s01.imageId = t01.id
         <include refid="SINGER_WHERE"/>
         ORDER BY s01.id DESC
         <include refid="LIMIT"/>
@@ -31,10 +32,10 @@
         WHEN s01.sex = 'WOMEN' THEN '女'
         WHEN s01.sex = 'OTHER' THEN '其他'
         END AS sex,
-        s01.photo,
         s01.birth,
         s01.nationality,
-        s01.resume
+        s01.resume,
+        t01.path
     </sql>
 
     <sql id="SINGER_WHERE">

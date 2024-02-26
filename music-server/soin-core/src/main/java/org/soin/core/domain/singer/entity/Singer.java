@@ -34,9 +34,9 @@ public class Singer extends BaseEntity implements Serializable {
     private Gender sex;
 
     /**
-     * 歌手头像
+     * 图片库ID
      */
-    private String photo;
+    private Long imageId;
 
     /**
      * 歌手生日

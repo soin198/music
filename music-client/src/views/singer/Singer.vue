@@ -1,7 +1,7 @@
 <template>
   <div class="play-list-container">
     <yin-nav :styleList="SingerType" :activeName="activeName" @click="handleChangeView"></yin-nav>
-    <play-list :playList="data" path="singer-detail"></play-list>
+    <play-list :playList="data" path="singer-detail"/>
     <el-pagination
         class="pagination"
         background
