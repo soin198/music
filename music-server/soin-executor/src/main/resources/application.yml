@@ -1,16 +1,15 @@
-server:
-  port: 8083
 spring:
   profiles:
-    active: executor-local
+    active: local
     group:
       dev:
-        - dev
-        - local
         - executor
         - executor-dev
-        - executor-local
-      prod:
-        - prod
+        - core
+        - core-dev
+      local:
         - executor
         - executor-local
+        - core
+        - core-local
+

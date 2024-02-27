@@ -1,14 +1,3 @@
-xxl:
-  job:
-    admin:
-      addresses: http://127.0.0.1:29999/xxl-job-admin
-    executor:
-      appname: soin-music-dev
-      address:
-      ip:
-      port: 9998
-      logpath: /data/xxl-job/jobhandler
-      logretentiondays: 30
-    accessToken: default_token
-
+server:
+  port: 8083
 

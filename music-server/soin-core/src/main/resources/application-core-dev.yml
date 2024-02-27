@@ -1,0 +1,47 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/soin-music?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: root
+    password: 199888yuan
+  banner:
+    charset: UTF-8
+  redis:
+    host: localhost
+    password: 123456
+    port: 6379
+    database: 0
+#swagger开关
+swagger:
+  switch: false
+#指定打印sql等级
+logging:
+  level:
+    soin:
+      biz:
+        mapper: INFO
+mybatis-plus:
+  mapper-locations: classpath:/org/soin/core/mapper/*.xml
+  configuration:
+    #初始化加载mapper日志输出（可取消）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #关闭mybatis-plus自动下划线驼峰转换
+    map-underscore-to-camel-case: false
+  global-config:
+    banner: false
+#阿里短信
+sms:
+  isOpen: false #短信开关
+  accessKeyId: LTAI80otsvrbJStp
+  accessSecret: YSMalsBGvDxkoFwB9rvaZtXLDXdDdw
+  templateCode: SMS_173175531
+  signName: xxx
+origin:
+  local:
+    imageNode: D://image
+    videoNode: D://video
+    audioNode: D://audio
+

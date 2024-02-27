@@ -1,7 +1,7 @@
-#配置应用环境
 spring:
-  profiles:
-    active: dev
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
 jwt:
   #过期时间半个小时
   expiration: 1800000

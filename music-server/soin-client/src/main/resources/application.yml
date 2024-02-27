@@ -1,11 +1,12 @@
-server:
-  port: 8081
 spring:
   profiles:
     active: local
     group:
       dev:
-        - dev
-        - local
-      prod:
-        - prod
+        - client
+        - core
+        - core-dev
+      local:
+        - client
+        - core
+        - core-local
