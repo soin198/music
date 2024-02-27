@@ -8,7 +8,7 @@
     <div class="control-box">
       <div class="info-box">
         <!--歌曲图片-->
-        <el-image class="song-bar-img" fit="contain" :src="attachImageUrl(songPic)" @click="goPlayerPage" />
+        <el-image class="song-bar-img" fit="contain" :src="attachImageUrl(songPic)" @click="goPlayerPage"/>
         <!--播放开始结束时间-->
         <div v-if="songId">
           <div class="song-info">{{ this.songTitle }} - {{ this.singerName }}</div>
@@ -29,7 +29,8 @@
           <yin-icon v-else :icon="iconList.JINGYIN"></yin-icon>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-slider class="yin-slider" style="height: 150px; margin: 10px 0" v-model="volume" :vertical="true"></el-slider>
+              <el-slider class="yin-slider" style="height: 150px; margin: 10px 0" v-model="volume"
+                         :vertical="true"></el-slider>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -37,16 +38,16 @@
       <div class="song-ctr song-edit">
         <!--收藏-->
         <yin-icon
-          class="yin-play-show"
-          :class="{ active: isCollection }"
-          :icon="isCollection ? iconList.like : iconList.dislike"
-          @click="changeCollection"
+            class="yin-play-show"
+            :class="{ active: isCollection }"
+            :icon="isCollection ? iconList.like : iconList.dislike"
+            @click="changeCollection"
         ></yin-icon>
         <!--下载-->
         <yin-icon
-          class="yin-play-show"
-          :icon="iconList.download"
-          @click="
+            class="yin-play-show"
+            :icon="iconList.download"
+            @click="
             downloadMusic({
               songUrl,
               songName: singerName + '-' + songTitle,
@@ -61,22 +62,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, ref, computed, onMounted, watch } from "vue";
-import { mapGetters, useStore } from "vuex";
+import {defineComponent, getCurrentInstance, ref, computed, onMounted, watch} from "vue";
+import {mapGetters, useStore} from "vuex";
 import mixin from "@/mixins/mixin";
 import YinIcon from "./YinIcon.vue";
-import { HttpManager } from "@/api";
-import { formatSeconds } from "@/utils";
-import { Icon, RouterName } from "@/enums";
+import {HttpManager} from "@/api";
+import {formatSeconds} from "@/utils";
+import {Icon, RouterName} from "@/enums";
+import {CollectManager} from "@/api/collect"
 
 export default defineComponent({
   components: {
     YinIcon,
   },
   setup() {
-    const { proxy } = getCurrentInstance();
+    const {proxy} = getCurrentInstance();
     const store = useStore();
-    const { routerManager, playMusic, checkStatus, downloadMusic } = mixin();
+    const {routerManager, playMusic, checkStatus, downloadMusic} = mixin();
 
     const isCollection = ref(false); // 是否收藏
 
@@ -104,14 +106,9 @@ export default defineComponent({
     async function changeCollection() {
       if (!checkStatus()) return;
 
-      const params = new URLSearchParams();
-      params.append("userId", userId.value);
-      params.append("type", "0"); // 0 代表歌曲， 1 代表歌单
-      params.append("songId", songId.value);
-
       const result = isCollection.value
-        ? ((await HttpManager.deleteCollection(userId.value, songId.value)) as ResponseBody)
-        : ((await HttpManager.setCollection(params)) as ResponseBody);
+          ? ((await CollectManager.cancelLike(userId.value, 1)) as ResponseBody)
+          : ((await CollectManager.saveLike(userId.value, 1)) as ResponseBody);
       (proxy as any).$message({
         message: result.message,
         type: result.type,
@@ -121,10 +118,18 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      if(songId.value) initCollection();
+      if (songId.value) initCollection();
     });
 
-    return { isCollection, playMusic, routerManager, checkStatus, attachImageUrl: HttpManager.attachImageUrl, changeCollection, downloadMusic };
+    return {
+      isCollection,
+      playMusic,
+      routerManager,
+      checkStatus,
+      attachImageUrl: HttpManager.attachImageUrl,
+      changeCollection,
+      downloadMusic
+    };
   },
   data() {
     return {
@@ -193,6 +198,7 @@ export default defineComponent({
     },
     // 控制音乐播放 / 暂停
     togglePlay() {
+      debugger
       this.$store.commit("setIsPlay", this.isPlay ? false : true);
     },
     changeTime() {
@@ -238,6 +244,8 @@ export default defineComponent({
     },
     // 选中播放
     toPlay(url) {
+      url="http://m801.music.126.net/20240227205639/07dff8c7b624c9d96801948432430001/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/33426615948/70c7/089b/9027/1f042d3747e957c9040e855270749b3c.m4a"
+      console.log(url)
       if (url && url !== this.songUrl) {
         const song = this.currentPlayList[this.currentPlayIndex];
         this.playMusic({
@@ -252,7 +260,7 @@ export default defineComponent({
       }
     },
     goPlayerPage() {
-      this.routerManager(RouterName.Lyric, { path: `${RouterName.Lyric}/${this.songId}` });
+      this.routerManager(RouterName.Lyric, {path: `${RouterName.Lyric}/${this.songId}`});
     },
   },
 });
