@@ -89,7 +89,7 @@ public class RunTimeTool {
      * @param message    执行信息
      */
     public static void printMethodMsg(String methodName, String message) {
-        LOGGER.info("请求方法：{}，{}", methodName, message);
+        LOGGER.info("请求方法：[{}]，[{}]", methodName, message);
     }
 
     /**
@@ -100,7 +100,7 @@ public class RunTimeTool {
      * @param params     入参参数
      */
     public static <TYPE> void printMethodMsg(String methodName, String message, Object... params) {
-        LOGGER.info("请求方法：{}，{}，请求参数：{}", methodName, message, JSONObject.toJSONString(params));
+        LOGGER.info("请求方法：[{}]，[{}]，请求参数：[{}]", methodName, message, JSONObject.toJSONString(params));
     }
 
     /**
@@ -110,7 +110,7 @@ public class RunTimeTool {
      * @param params     响应参数
      */
     public static void printMethodResponseMsg(String methodName, Object... params) {
-        LOGGER.info("响应方法：{}，响应参数：{}", methodName, JSONObject.toJSONString(params));
+        LOGGER.info("响应方法：[{}]，响应参数：[{}]", methodName, JSONObject.toJSONString(params));
     }
 
     /**
@@ -121,7 +121,7 @@ public class RunTimeTool {
      * @param startTime    执行器开始执行时间
      */
     public static void printTaskStartMsg(String executorName, String executorMsg, Date startTime) {
-        LOGGER.info("开始执行定时器：{}，{}，开始执行时间：{}", executorName, executorMsg, FORMAT.format(startTime));
+        LOGGER.info("开始执行定时器：[{}]，[{}]，开始执行时间：[{}]", executorName, executorMsg, FORMAT.format(startTime));
     }
 
     /**
@@ -132,7 +132,7 @@ public class RunTimeTool {
      */
     public static void printTaskEndMsg(String executorName, Date startTime) {
         Date now = new Date();
-        LOGGER.info("定时器：{}执行完成，完成时间：{}，耗时{}完成",
+        LOGGER.info("定时器：[{}]执行完成，完成时间：[{}]，耗时[{}]完成",
                 executorName,
                 FORMAT.format(now),
                 DateUtil.formatBetween(startTime, now, BetweenFormatter.Level.MILLISECOND));
@@ -145,7 +145,7 @@ public class RunTimeTool {
      * @param params       执行器响应参数
      */
     public static <TYPE> void printTaskResponse(String executorName, TYPE... params) {
-        LOGGER.info("定时器：{}执行完成，响应值{}", executorName, JSONObject.toJSONString(params));
+        LOGGER.info("定时器：[{}]执行完成，响应值[{}]", executorName, JSONObject.toJSONString(params));
     }
 
 }

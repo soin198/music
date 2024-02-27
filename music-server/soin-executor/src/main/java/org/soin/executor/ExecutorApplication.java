@@ -1,5 +1,6 @@
 package org.soin.executor;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0.0
  * @date 2024-01-08 17:43
  **/
-@SpringBootApplication(scanBasePackages = {"org.soin.executor.*"})
+@SpringBootApplication(scanBasePackages = {"org.soin.executor.*", "org.soin.core.*"})
+@MapperScan("org.soin.core.infrastructure.mapper")
 public class ExecutorApplication {
 
     public static void main(String[] args) {
