@@ -7,6 +7,7 @@
         <module>soin-manage</module>
         <module>soin-client</module>
         <module>soin-core</module>
+        <module>soin-executor</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -42,6 +43,7 @@
         <mybatis-plus-version>3.5.3</mybatis-plus-version>
         <ali-sms-version>2.0.19</ali-sms-version>
         <pinyin4j-version>2.5.1</pinyin4j-version>
+        <xxl-version>2.4.0</xxl-version>
     </properties>
 
     <dependencies>
