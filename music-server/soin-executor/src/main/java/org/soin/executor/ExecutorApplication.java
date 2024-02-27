@@ -16,7 +16,7 @@ public class ExecutorApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ExecutorApplication.class, args);
-        RunTimeTool.printInfo("ExecutorApplication start-up success....");
+        RunTimeTool.printInfo("executor module build success..");
     }
 
 }

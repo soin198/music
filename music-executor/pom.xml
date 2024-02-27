@@ -11,8 +11,8 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
-		<mysql-connector-java.version>8.0.29</mysql-connector-java.version>
+		<mybatis-version>2.2.2</mybatis-version>
+		<mysql-version>8.0.29</mysql-version>
 		<xxl-job-admin.version>2.4.0</xxl-job-admin.version>
 		<fastjson-version>1.2.47</fastjson-version>
 		<hutool-version>5.8.8</hutool-version>
@@ -25,12 +25,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<!-- starter-test：junit + spring-test + mockito -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- freemarker-starter -->
@@ -68,13 +62,14 @@
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>${mybatis-spring-boot-starter.version}</version>
+			<version>${mybatis-version}</version>
 		</dependency>
+
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql-connector-java.version}</version>
+			<version>${mysql-version}</version>
 		</dependency>
 
 		<!-- xxl-job-core -->

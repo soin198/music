@@ -18,7 +18,7 @@ public class ClientApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ClientApplication.class, args);
-        RunTimeTool.printInfo("WebSiteApplication start-up success....");
+        RunTimeTool.printInfo("client module build success..");
     }
 
 }

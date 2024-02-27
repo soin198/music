@@ -18,6 +18,6 @@ public class ManageApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ManageApplication.class, args);
-        RunTimeTool.printInfo("ManageApplication start-up success....");
+        RunTimeTool.printInfo("manage module build success..");
     }
 }
