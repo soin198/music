@@ -20,13 +20,13 @@ swagger:
 #指定打印sql等级
 logging:
   level:
-    org:
-      soin:
-        biz:
-          mapper: info
+    soin:
+      biz:
+        mapper: INFO
 mybatis-plus:
   mapper-locations: classpath:/org/soin/core/mapper/*.xml
   configuration:
+    #初始化加载mapper日志输出（可取消）
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #关闭mybatis-plus自动下划线驼峰转换
     map-underscore-to-camel-case: false
@@ -45,5 +45,4 @@ origin:
     videoNode: D://video
     audioNode: D://audio
   prod:
-
 

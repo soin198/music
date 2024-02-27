@@ -1,4 +1,4 @@
-package org.soin.core.infrastructure.config;
+package org.soin.executor.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
