@@ -8,7 +8,7 @@ export default {
     songUrl: "", // 音乐 URL
     songPic: `/img/songPic/tubiao.jpg`, // 歌曲图片
     singerName: "", //  歌手名
-    lyric: [], // 处理后的歌词数据
+    compose: [], // 处理后的歌词数据
 
     /** 音乐播放信息 */
     isPlay: false, // 播放状态
@@ -30,7 +30,7 @@ export default {
     songUrl: (state) => state.songUrl,
     songPic: (state) => state.songPic,
     singerName: (state) => state.singerName,
-    lyric: (state) => state.lyric,
+    compose: (state) => state.compose,
 
     isPlay: (state) => state.isPlay,
     playBtnIcon: (state) => state.playBtnIcon,
@@ -54,7 +54,7 @@ export default {
     setSongUrl: (state, songUrl) => {
       state.songUrl = songUrl;
     },
-    setSongPic: (state, songPic) => {
+    setMusicImage: (state, songPic) => {
       state.songPic = songPic;
     },
     setSingerName: (state, singerName) => {
@@ -63,10 +63,9 @@ export default {
     setAutoNext: (state, autoNext) => {
       state.autoNext = autoNext;
     },
-    setLyric: (state, lyric) => {
-      state.lyric = lyric;
+    setCompose: (state, compose) => {
+      state.compose = compose;
     },
-
     setIsPlay: (state, isPlay) => {
       state.isPlay = isPlay;
     },
@@ -97,15 +96,23 @@ export default {
     },
   },
   actions: {
-    playMusic: ({ commit }, { id, url, pic, index, songTitle, singerName, lyric, currentSongList }) => {
-      commit("setSongId", id);
-      commit("setSongUrl", url);
-      commit("setSongPic", pic);
+    playMusic: ({commit}, {musicId, musicName, singerName, compose, index, musicImage, audio, musicList}) => {
+      console.log(musicId)
+      console.log(musicName)
+      console.log(compose)
+      console.log(musicImage)
+      console.log(audio)
+      console.log(musicList)
+      commit("setSongId", musicId);
+      commit("setSongTitle", musicName);
+      commit("setCompose", compose);
       commit("setCurrentPlayIndex", index);
-      commit("setSongTitle", songTitle);
+      commit("setMusicImage", musicImage);
+      commit("setSongUrl", audio);
       commit("setSingerName", singerName);
-      commit("setLyric", lyric);
-      commit("setCurrentPlayList", currentSongList);
+      commit("setCurrentPlayList", musicList);
     },
   },
+
+
 };

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.client.api.IMusicApi;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.serivce.MusicService;
+import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.response.GenericResponse;
@@ -40,5 +41,19 @@ public class MusicController implements IMusicApi {
         Page<MusicVo> page = musicService.page(musicParams);
         RunTimeTool.printMethodResponseMsg("page", page.getTotalRows());
         return GenericResponse.builder().success(page);
+    }
+
+    /**
+     * 根据歌曲ID获取评论页数据
+     *
+     * @param musicId 音乐ID
+     * @return 评论页数据
+     */
+    @Override
+    public GenericResponse<MusicComposeVo> musicComposeQuery(Long musicId) {
+        RunTimeTool.printMethodMsg("musicComposeQuery", "获取歌曲评论页数据", musicId);
+        MusicComposeVo musicComposeVo = musicService.musicComposeQuery(musicId);
+        RunTimeTool.printMethodResponseMsg("musicComposeQuery", musicComposeVo.getMusicName());
+        return GenericResponse.builder().success(musicComposeVo);
     }
 }

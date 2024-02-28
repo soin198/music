@@ -14,7 +14,7 @@
             pic: item.pic,
             index: index,
             name: item.name,
-            lyric: item.lyric,
+            compose: item.compose,
             currentSongList: currentPlayList,
           })">
           {{ getSongTitle(item.name) }}

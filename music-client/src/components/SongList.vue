@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <el-table highlight-current-row :data="dataList" @row-click="handleClick">
+    <el-table highlight-current-row :data="dataList" @row-click="openMusic">
       <el-table-column prop="musicName" label="歌曲"/>
       <el-table-column prop="singerName" label="歌手"/>
       <el-table-column prop="resume" label="专辑"/>
@@ -64,20 +64,30 @@ export default defineComponent({
       return list;
     });
 
-    function handleClick(row) {
+    function openMusic(music) {
+      console.log(singerName.value)
       playMusic({
-        id: row.id,
-        url: row.url,
-        pic: row.pic,
-        index: row.index,
-        name: row.name,
-        lyric: row.lyric,
-        currentSongList: songList.value,
+        //音乐ID
+        musicId: music.musicId,
+        //音乐名称
+        musicName: music.musicName,
+        //歌手名称
+        singerName: singerName.value,
+        //歌词
+        compose: music.compose,
+        //索引
+        index: 1,
+        //歌曲图片
+        musicImage: music.imagePath,
+        //歌曲音频
+        audio: music.audio,
+        //当前歌曲列表
+        musicList: songList.value
       });
     }
 
     function handleEdit(row) {
-      console.log("row", row);
+      console.log(11111);
     }
 
     return {
@@ -87,7 +97,7 @@ export default defineComponent({
       songUrl,
       singerName,
       songTitle,
-      handleClick,
+      openMusic,
       handleEdit,
       downloadMusic,
     };

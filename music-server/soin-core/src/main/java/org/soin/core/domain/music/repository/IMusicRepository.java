@@ -1,6 +1,7 @@
 package org.soin.core.domain.music.repository;
 
 import org.soin.core.domain.music.params.MusicParams;
+import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 
@@ -18,4 +19,12 @@ public interface IMusicRepository {
      * @return 歌单列表
      */
     Page<MusicVo> page(MusicParams musicParams);
+
+    /**
+     * 根据歌曲ID获取评论页数据
+     *
+     * @param musicId 音乐ID
+     * @return 评论页数据
+     */
+    MusicComposeVo musicComposeQuery(Long musicId);
 }

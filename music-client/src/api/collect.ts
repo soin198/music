@@ -6,7 +6,7 @@ const CollectManager = {
     // 取消我喜欢
     cancelLike: (userId, musicId) => post(`/music/cancelLike?userId=${userId}&musicId=${musicId}`),
     //是否我喜欢
-    isLike: (userId, musicId) => get(`/music/cancelLike?userId=${userId}&musicId=${musicId}`),
+    isLike: (userId, musicId) => get(`/music/isLike?userId=${userId}&musicId=${musicId}`),
 
 };
 

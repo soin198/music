@@ -8,7 +8,7 @@
     <div class="control-box">
       <div class="info-box">
         <!--歌曲图片-->
-        <el-image class="song-bar-img" fit="contain" :src="attachImageUrl(songPic)" @click="goPlayerPage"/>
+        <el-image class="song-bar-img" fit="contain" :src="songPic" @click="goPlayerPage"/>
         <!--播放开始结束时间-->
         <div v-if="songId">
           <div class="song-info">{{ this.songTitle }} - {{ this.singerName }}</div>
@@ -16,21 +16,21 @@
         </div>
       </div>
       <div class="song-ctr">
-        <yin-icon class="yin-play-show" :icon="playStateList[playStateIndex]" @click="changePlayState"></yin-icon>
+        <yin-icon class="yin-play-show" :icon="playStateList[playStateIndex]" @click="changePlayState"/>
         <!--上一首-->
-        <yin-icon class="yin-play-show" :icon="iconList.SHANGYISHOU" @click="prev"></yin-icon>
+        <yin-icon class="yin-play-show" :icon="iconList.SHANGYISHOU" @click="prev"/>
         <!--播放-->
         <yin-icon :icon="playBtnIcon" @click="togglePlay"></yin-icon>
         <!--下一首-->
-        <yin-icon class="yin-play-show" :icon="iconList.XIAYISHOU" @click="next"></yin-icon>
+        <yin-icon class="yin-play-show" :icon="iconList.XIAYISHOU" @click="next"/>
         <!--音量-->
         <el-dropdown class="yin-play-show" trigger="click">
-          <yin-icon v-if="volume !== 0" :icon="iconList.YINLIANG"></yin-icon>
+          <yin-icon v-if="volume !== 0" :icon="iconList.YINLIANG"/>
           <yin-icon v-else :icon="iconList.JINGYIN"></yin-icon>
           <template #dropdown>
             <el-dropdown-menu>
               <el-slider class="yin-slider" style="height: 150px; margin: 10px 0" v-model="volume"
-                         :vertical="true"></el-slider>
+                         :vertical="true"/>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -39,9 +39,9 @@
         <!--收藏-->
         <yin-icon
             class="yin-play-show"
-            :class="{ active: isCollection }"
-            :icon="isCollection ? iconList.like : iconList.dislike"
-            @click="changeCollection"
+            :class="{ active: isShow }"
+            :icon="isShow ? iconList.like : iconList.dislike"
+            @click="converter"
         ></yin-icon>
         <!--下载-->
         <yin-icon
@@ -62,80 +62,82 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, getCurrentInstance, ref, computed, onMounted, watch} from "vue";
+import {defineComponent, ref, computed, onMounted, watch} from "vue";
 import {mapGetters, useStore} from "vuex";
 import mixin from "@/mixins/mixin";
 import YinIcon from "./YinIcon.vue";
-import {HttpManager} from "@/api";
 import {formatSeconds} from "@/utils";
 import {Icon, RouterName} from "@/enums";
 import {CollectManager} from "@/api/collect"
+import {ElMessage} from "element-plus";
 
 export default defineComponent({
   components: {
     YinIcon,
   },
   setup() {
-    const {proxy} = getCurrentInstance();
     const store = useStore();
     const {routerManager, playMusic, checkStatus, downloadMusic} = mixin();
-
-    const isCollection = ref(false); // 是否收藏
+    // 是否收藏
+    const isShow = ref(false);
 
     const userId = computed(() => store.getters.userId);
     const songId = computed(() => store.getters.songId);
     const token = computed(() => store.getters.token);
-
     watch(songId, () => {
-      initCollection();
+      likeBuild();
     });
+
     watch(token, (value) => {
-      if (!value) isCollection.value = false;
+      if (!value) isShow.value = false;
     });
 
-    async function initCollection() {
+    async function likeBuild() {
       if (!checkStatus(false)) return;
-
-      const params = new URLSearchParams();
-      params.append("userId", userId.value);
-      params.append("type", "0"); // 0 代表歌曲， 1 代表歌单
-      params.append("songId", songId.value);
-      isCollection.value = ((await HttpManager.isCollection(params)) as ResponseBody).data;
+      isShow.value = ((await CollectManager.isLike(userId.value, songId.value)) as Response).items;
     }
 
-    async function changeCollection() {
-      if (!checkStatus()) return;
-
-      const result = isCollection.value
-          ? ((await CollectManager.cancelLike(userId.value, 1)) as ResponseBody)
-          : ((await CollectManager.saveLike(userId.value, 1)) as ResponseBody);
-      (proxy as any).$message({
-        message: result.message,
-        type: result.type,
-      });
-
-      if (result.data == true || result.data == false) isCollection.value = result.data;
+    //切换收藏
+    async function converter() {
+      //判断是否登录
+      if (!checkStatus()) {
+        return;
+      }
+      const {code} = (isShow.value)
+          //取消收藏
+          ? (await CollectManager.cancelLike(userId.value, 1)) as Response
+          //收藏
+          : (await CollectManager.saveLike(userId.value, 1)) as Response;
+      if (code === 200) {
+        ElMessage.success("感谢您的喜欢~")
+        isShow.value = true;
+      } else {
+        ElMessage.success("操作失败~")
+        isShow.value = false;
+      }
     }
 
     onMounted(() => {
-      if (songId.value) initCollection();
+      if (songId.value) likeBuild();
     });
 
     return {
-      isCollection,
+      isShow,
       playMusic,
       routerManager,
       checkStatus,
-      attachImageUrl: HttpManager.attachImageUrl,
-      changeCollection,
+      converter,
       downloadMusic
     };
   },
   data() {
     return {
+      //开始时间
       startTime: "00:00",
+      //结束时间
       endTime: "00:00",
-      nowTime: 0, // 进度条的位置
+      // 进度条的位置
+      nowTime: 0,
       toggle: true,
       volume: 50,
       playState: Icon.XUNHUAN,
@@ -198,7 +200,6 @@ export default defineComponent({
     },
     // 控制音乐播放 / 暂停
     togglePlay() {
-      debugger
       this.$store.commit("setIsPlay", this.isPlay ? false : true);
     },
     changeTime() {
@@ -244,19 +245,18 @@ export default defineComponent({
     },
     // 选中播放
     toPlay(url) {
-      url="http://m801.music.126.net/20240227205639/07dff8c7b624c9d96801948432430001/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/33426615948/70c7/089b/9027/1f042d3747e957c9040e855270749b3c.m4a"
-      console.log(url)
       if (url && url !== this.songUrl) {
         const song = this.currentPlayList[this.currentPlayIndex];
         this.playMusic({
-          id: song.id,
-          url,
-          pic: song.pic,
-          index: this.currentPlayIndex,
-          name: song.name,
-          lyric: song.lyric,
-          currentSongList: this.currentPlayList,
-        });
+          musicId: song.musicId,
+          musicName: song.musicName,
+          singerName: "IU",
+          compose: song.compose,
+          index: 0,
+          musicImage: song.imagePath,
+          audio: song.audio,
+          musicList: [],
+        })
       }
     },
     goPlayerPage() {

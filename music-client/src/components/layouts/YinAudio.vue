@@ -1,5 +1,5 @@
 <template>
-  <audio :src="attachImageUrl(songUrl)" controls="controls" :ref="player" preload="true" @canplay="canplay" @timeupdate="timeupdate" @ended="ended">
+  <audio src="http://m704.music.126.net/20240228214131/e0fea00c62e2266161dc0783038dadfc/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/9554427305/fd06/b09d/4bd0/cd1813d26fb0b6e3cb5d8bd44cfd5af0.m4a?authSecret=0000018defdc0a0c09fe0aaba4fa8626" controls="controls" :ref="player" preload="true" @canplay="canplay" @timeupdate="timeupdate" @ended="ended">
     <!--（1）属性：controls，preload（2）事件：canplay，timeupdate，ended（3）方法：play()，pause() -->
     <!--controls：向用户显示音频控件（播放/暂停/进度条/音量）-->
     <!--preload：属性规定是否在页面加载后载入音频-->

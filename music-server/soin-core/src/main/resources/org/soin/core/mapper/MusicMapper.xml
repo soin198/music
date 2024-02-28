@@ -9,11 +9,15 @@
         tm.id AS musicId,
         tm.musicName,
         tm.resume,
-        tm.compose
+        tm.compose,
+        img.path AS imagePath,
+        aud.path AS audioPath
         FROM
         t_singer ts
         LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
         LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        LEFT JOIN t_image_database img ON tm.imageId = img.id
+        LEFT JOIN t_audio_database aud ON tm.audioId = aud.id
         <where>
             <if test="singerId != null">
                 AND tmcs.singerId = #{singerId}
@@ -41,5 +45,21 @@
         <if test="pageSize &gt; 0">LIMIT ${start}, ${pageSize}</if>
     </sql>
 
+    <!-- 根据歌曲ID获取评论页数据 -->
+    <select id="customQuery" resultType="org.soin.core.domain.music.vo.MusicComposeVo">
+        SELECT ts.`name` AS singerName,
+        tm.musicName AS musicName,
+        tm.compose AS compose,
+        tid.path AS imagePath
+        FROM t_music tm
+        LEFT JOIN t_music_connect_singer tmcs ON tm.id = tmcs.musicId
+        LEFT JOIN t_singer ts ON tmcs.singerId = ts.id
+        LEFT JOIN t_image_database tid ON tm.imageId = tid.id
+        <where>
+            <if test="musicId != null">
+                AND tm.id = #{musicId}
+            </if>
+        </where>
+    </select>
 
 </mapper>

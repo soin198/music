@@ -46,20 +46,27 @@ export default function () {
   }
 
   // 播放
-  function playMusic({ id, url, pic, index, name, lyric, currentSongList }) {
-    const songTitle = getSongTitle(name);
-    const singerName = getSingerName(name);
+  function playMusic({musicId, musicName, singerName, compose, index, musicImage, audio, musicList}) {
     proxy.$store.dispatch("playMusic", {
-      id,
-      url,
-      pic,
-      index,
-      songTitle,
-      singerName,
-      lyric,
-      currentSongList,
+      //音乐ID
+      musicId: musicId,
+      //音乐名称
+      musicName: musicName,
+      //歌手名称
+      singerName: singerName,
+      //歌词
+      compose: compose,
+      //索引
+      index: index,
+      //歌曲图片
+      musicImage: musicImage,
+      //歌曲音频
+      audio: audio,
+      //当前歌曲列表
+      musicList: musicList,
     });
   }
+
 
   // 下载
   async function downloadMusic({ songUrl, songName }) {

@@ -12,9 +12,9 @@ import java.io.Serializable;
  * @date 2024-02-22 15:13
  **/
 @Data
-public class MusicVo implements Serializable {
+public class MusicComposeVo implements Serializable {
 
-    private static final long serialVersionUID = 8826938656344364994L;
+    private static final long serialVersionUID = 2045002506491200923L;
 
     /**
      * 歌手名称
@@ -22,19 +22,9 @@ public class MusicVo implements Serializable {
     private String singerName;
 
     /**
-     * 歌曲主键
-     */
-    private Long musicId;
-
-    /**
      * 歌曲名称
      */
     private String musicName;
-
-    /**
-     * 歌曲说明
-     */
-    private String resume;
 
     /**
      * 歌词
@@ -46,9 +36,5 @@ public class MusicVo implements Serializable {
      */
     private String imagePath;
 
-    /**
-     * 歌曲音频
-     */
-    private String audioPath;
 
 }

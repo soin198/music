@@ -1,8 +1,10 @@
 package org.soin.core.infrastructure.mapper.music;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.soin.core.domain.music.entity.Music;
 import org.soin.core.domain.music.params.MusicParams;
+import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.domain.music.vo.MusicVo;
 
 import java.util.List;
@@ -31,4 +33,11 @@ public interface MusicMapper extends BaseMapper<Music> {
      */
     List<MusicVo> page(MusicParams musicParams);
 
+    /**
+     * 根据歌曲ID获取评论页数据
+     *
+     * @param musicId 音乐ID
+     * @return 评论页数据
+     */
+    MusicComposeVo customQuery(@Param("musicId") Long musicId);
 }

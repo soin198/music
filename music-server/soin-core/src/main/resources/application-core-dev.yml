@@ -41,7 +41,7 @@ sms:
   signName: xxx
 origin:
   local:
-    imageNode: D://image
-    videoNode: D://video
-    audioNode: D://audio
+    imageNode: D:/static/image
+    videoNode: D:/static/video
+    audioNode: D:/static/audio
 

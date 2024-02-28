@@ -3,6 +3,7 @@ package org.soin.core.domain.music.serivce;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.repository.IMusicRepository;
+import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.common.Assert;
@@ -30,5 +31,15 @@ public class MusicService {
     public Page<MusicVo> page(MusicParams musicParams) {
         Assert.isNull(musicParams, "数据异常");
         return iMusicRepository.page(musicParams);
+    }
+
+    /**
+     * 根据歌曲ID获取评论页数据
+     *
+     * @param musicId 音乐ID
+     * @return 评论页数据
+     */
+    public MusicComposeVo musicComposeQuery(Long musicId) {
+        return iMusicRepository.musicComposeQuery(musicId);
     }
 }

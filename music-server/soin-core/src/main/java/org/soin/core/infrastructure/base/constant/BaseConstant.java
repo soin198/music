@@ -24,7 +24,7 @@ public class BaseConstant {
     /**
      * 本地图片路径
      */
-    public static final String IMAGE_URL = "D:/image";
+    public static final String IMAGE_URL = "D:/static/image";
 
     /**
      * 短信发送响应码

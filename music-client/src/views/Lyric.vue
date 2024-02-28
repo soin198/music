@@ -1,9 +1,9 @@
 <template>
   <div class="song-container">
-    <el-image class="song-pic" fit="contain" :src="attachImageUrl(songPic)" />
+    <el-image class="song-pic" fit="contain" :src="data.imagePath"/>
     <ul class="song-info">
-      <li>歌手：{{ singerName }}</li>
-      <li>歌曲：{{ songTitle }}</li>
+      <li>歌手：{{ data.singerName }}</li>
+      <li>歌曲：{{ data.musicName }}</li>
     </ul>
   </div>
   <div class="container">
@@ -11,8 +11,8 @@
       <div class="song-lyric">
         <transition-group name="lyric-fade">
           <!--有歌词-->
-          <ul :style="{ top: lrcTop }" class="has-lyric" v-if="lyricArr.length" key="has-lyric">
-            <li v-for="(item, index) in lyricArr" :key="index">
+          <ul :style="{ top: composeRule }" class="has-lyric" v-if="currentCompose.length" key="has-lyric">
+            <li v-for="(item, index) in currentCompose" :key="index">
               {{ item[1] }}
             </li>
           </ul>
@@ -28,43 +28,71 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
-import { useStore } from "vuex";
+import {computed, defineComponent, ref, watch, onMounted} from "vue";
+import {useStore} from "vuex";
 import Comment from "@/components/Comment.vue";
-import { parseLyric } from "@/utils";
-import { HttpManager } from "@/api";
+import {parseLyric} from "@/utils";
+import {HttpManager} from "@/api";
+import {ElMessage} from "element-plus/es";
+import {MusicManager} from "@/api/music"
 
 export default defineComponent({
   components: {
     Comment,
   },
   setup() {
+    const data = ref({
+      singerName: null,
+      musicName: null,
+      compose: null,
+      imagePath: null
+    })
     const store = useStore();
-
-    const lrcTop = ref("80px"); // 歌词滑动
-    const lyricArr = ref([]); // 当前歌曲的歌词
-    const songId = computed(() => store.getters.songId); // 歌曲ID
-    const lyric = computed(() => store.getters.lyric); // 歌词
-    const currentPlayList = computed(() => store.getters.currentPlayList); // 存放的音乐
-    const currentPlayIndex = computed(() => store.getters.currentPlayIndex); // 当前歌曲在歌曲列表的位置
+    // 歌词滑动
+    const composeRule = ref("80px");
+    // 当前歌曲的歌词
+    const currentCompose = ref([]);
+    // 歌曲ID
+    const songId = computed(() => store.getters.songId);
+    // 歌词
+    const compose = computed(() => store.getters.compose);
+    // 存放的音乐
+    const currentPlayList = computed(() => store.getters.currentPlayList);
+    // 当前歌曲在歌曲列表的位置
+    const currentPlayIndex = computed(() => store.getters.currentPlayIndex);
     const curTime = computed(() => store.getters.curTime);
-    const songTitle = computed(() => store.getters.songTitle); // 歌名
-    const singerName = computed(() => store.getters.singerName); // 歌手名
-    const songPic = computed(() => store.getters.songPic); // 歌曲图片
+    // 歌名
+    const songTitle = computed(() => store.getters.songTitle);
+    // 歌手名
+    const singerName = computed(() => store.getters.singerName);
+    // 歌曲图片
+    const songPic = computed(() => store.getters.songPic);
+
+    onMounted(async () => {
+      const {code, items, message} = await MusicManager.musicComposeQuery(songId.value) as Response
+      if (code === 200) {
+        data.value = items;
+        console.log(data.value.compose)
+      } else {
+        ElMessage.error(message)
+      }
+    })
+
+
     watch(songId, () => {
-      lyricArr.value = parseLyric(currentPlayList.value[currentPlayIndex.value].lyric);
+      currentCompose.value = parseLyric(data.value.compose);
     });
     // 处理歌词位置及颜色
     watch(curTime, () => {
-      if (lyricArr.value.length !== 0) {
-        for (let i = 0; i < lyricArr.value.length; i++) {
-          if (curTime.value >= lyricArr.value[i][0]) {
-            for (let j = 0; j < lyricArr.value.length; j++) {
+      if (currentCompose.value.length !== 0) {
+        for (let i = 0; i < currentCompose.value.length; i++) {
+          if (curTime.value >= currentCompose.value[i][0]) {
+            for (let j = 0; j < currentCompose.value.length; j++) {
               (document.querySelectorAll(".has-lyric li") as NodeListOf<HTMLElement>)[j].style.color = "#000";
               (document.querySelectorAll(".has-lyric li") as NodeListOf<HTMLElement>)[j].style.fontSize = "14px";
             }
             if (i >= 0) {
-              lrcTop.value = -i * 30 + 50 + "px";
+              composeRule.value = -i * 30 + 50 + "px";
               (document.querySelectorAll(".has-lyric li") as NodeListOf<HTMLElement>)[i].style.color = "#95d2f6";
               (document.querySelectorAll(".has-lyric li") as NodeListOf<HTMLElement>)[i].style.fontSize = "18px";
             }
@@ -73,14 +101,15 @@ export default defineComponent({
       }
     });
 
-    lyricArr.value = lyric.value ? parseLyric(lyric.value) : [];
+    currentCompose.value = compose.value ? parseLyric(compose.value) : [];
 
     return {
+      data,
       songPic,
       singerName,
       songTitle,
-      lrcTop,
-      lyricArr,
+      composeRule,
+      currentCompose,
       songId,
       attachImageUrl: HttpManager.attachImageUrl,
     };
@@ -107,6 +136,7 @@ export default defineComponent({
 
   .song-info {
     width: 300px;
+
     li {
       width: 100%;
       line-height: 40px;
@@ -118,6 +148,7 @@ export default defineComponent({
 
 .lyric-container {
   font-family: $font-family;
+
   .song-lyric {
     position: relative;
     min-height: 300px;
@@ -125,9 +156,11 @@ export default defineComponent({
     overflow: auto;
     border-radius: 12px;
     background-color: $color-light-grey;
+
     .has-lyric {
       position: absolute;
       transition: all 1s;
+
       li {
         width: 100%;
         height: 40px;
@@ -136,6 +169,7 @@ export default defineComponent({
         line-height: 40px;
       }
     }
+
     .no-lyric {
       position: absolute;
       margin: 100px 0;

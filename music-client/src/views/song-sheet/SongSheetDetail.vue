@@ -108,7 +108,6 @@ export default defineComponent({
     getSongId(songListId.value); // 获取歌单里面的歌曲ID
 
     return {
-      songDetails,
       rank,
       score,
       disabledRank,

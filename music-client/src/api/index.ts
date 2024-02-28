@@ -20,8 +20,6 @@ const HttpManager = {
     // 返回的指定用户ID的收藏列表
     getCollectionOfUser: (userId) => get(`collection/detail?userId=${userId}`),
 
-    isCollection: (params) => post(`collection/status`, params),
-
     // =======================> 评分 API
     // 提交评分
     setRank: (params) => post(`rankList/add`, params),
