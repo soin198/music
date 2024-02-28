@@ -51,4 +51,19 @@ public class MusicLikeController implements IMusicLikeApi {
         return GenericResponse.builder().success(isOpen);
     }
 
+    /**
+     * 验证是否喜欢此音乐
+     *
+     * @param userId  收藏人ID
+     * @param musicId 歌曲ID
+     * @return 是否喜欢
+     */
+    @Override
+    public GenericResponse<Boolean> isLike(Long userId, Long musicId) {
+        RunTimeTool.printMethodMsg("isLike", String.format("用户ID：%s，验证歌曲%s是否添加到我喜欢", userId, musicId));
+        boolean isOpen = musicLikeService.getOne(userId, musicId);
+        RunTimeTool.printMethodResponseMsg("isLike", isOpen);
+        return GenericResponse.builder().success(isOpen);
+    }
+
 }

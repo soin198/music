@@ -19,10 +19,6 @@ const HttpManager = {
     // =======================> 收藏 API
     // 返回的指定用户ID的收藏列表
     getCollectionOfUser: (userId) => get(`collection/detail?userId=${userId}`),
-    // 添加收藏的歌曲 type: 0 代表歌曲， 1 代表歌单
-    setCollection: (params) => post(`collection/add`, params),
-
-    deleteCollection: (userId, songId) => deletes(`collection/delete?userId=${userId}&&songId=${songId}`),
 
     isCollection: (params) => post(`collection/status`, params),
 

@@ -2,6 +2,7 @@ package org.soin.client.api;
 
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,17 @@ public interface IMusicLikeApi {
     @PostMapping("/cancelLike")
     GenericResponse<Boolean> cancelLike(@RequestParam(value = "userId") Long userId,
                                         @RequestParam(value = "musicId") Long musicId);
+
+    /**
+     * 验证是否喜欢此音乐
+     *
+     * @param userId  收藏人ID
+     * @param musicId 歌曲ID
+     * @return 是否喜欢
+     */
+    @GetMapping("/isLike")
+    GenericResponse<Boolean> isLike(@RequestParam(value = "userId") Long userId,
+                                    @RequestParam(value = "musicId") Long musicId);
 
 
 }

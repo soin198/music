@@ -1,6 +1,10 @@
 package org.soin.core.domain.music.repository;
 
 
+import org.soin.core.domain.music.entity.MusicLike;
+
+import java.util.Optional;
+
 /**
  * @author J.FLa.Soin
  * @version 1.0.0
@@ -25,4 +29,13 @@ public interface IMusicLikeRepository {
      * @return 是否取消成功
      */
     boolean cancelLike(Long userId, Long musicId);
+
+    /**
+     * 获取歌曲收藏数据
+     *
+     * @param userId  收藏人ID
+     * @param musicId 歌曲ID
+     * @return 歌曲喜欢数据
+     */
+    Optional<MusicLike> getOne(Long userId, Long musicId);
 }
