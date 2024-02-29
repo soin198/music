@@ -44,11 +44,11 @@ public class MusicVo implements Serializable {
     /**
      * 歌曲图片
      */
-    private String imagePath;
+    private String image;
 
     /**
      * 歌曲音频
      */
-    private String audioPath;
+    private String audio;
 
 }

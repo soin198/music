@@ -65,7 +65,6 @@ export default defineComponent({
     });
 
     function openMusic(music) {
-      console.log(singerName.value)
       playMusic({
         //音乐ID
         musicId: music.musicId,
@@ -78,7 +77,7 @@ export default defineComponent({
         //索引
         index: 1,
         //歌曲图片
-        musicImage: music.imagePath,
+        musicImage: music.image,
         //歌曲音频
         audio: music.audio,
         //当前歌曲列表

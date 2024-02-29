@@ -22,6 +22,8 @@ public class MusicService {
 
     private final IMusicRepository iMusicRepository;
 
+    private final CommentService commentService;
+
     /**
      * 获取歌曲分页
      *
@@ -41,5 +43,17 @@ public class MusicService {
      */
     public MusicComposeVo musicComposeQuery(Long musicId) {
         return iMusicRepository.musicComposeQuery(musicId);
+    }
+
+    /**
+     * 提交音乐评论
+     *
+     * @param userId  人员ID
+     * @param musicId 音乐ID
+     * @param content 评论内容
+     * @return 是否评论成功
+     */
+    public boolean submitComment(Long userId, Long musicId, String content) {
+        return commentService.submitComment(userId, musicId, content);
     }
 }

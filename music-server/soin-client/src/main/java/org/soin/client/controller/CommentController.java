@@ -1,6 +1,14 @@
 package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.soin.client.api.ICommentApi;
+import org.soin.client.api.dto.CommentDTO;
+import org.soin.core.domain.music.params.MusicCommentParams;
+import org.soin.core.domain.music.serivce.CommentService;
+import org.soin.core.domain.music.serivce.MusicService;
+import org.soin.core.domain.music.vo.MusicCommentVo;
+import org.soin.core.infrastructure.base.common.Page;
+import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,64 +21,43 @@ import org.springframework.web.bind.annotation.*;
  * @date 2024-01-08 15:30
  **/
 @RestController
-@RequestMapping("/comment")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CommentController {
+public class CommentController implements ICommentApi {
+
+    /**
+     * 音乐服务
+     */
+    private final MusicService musicService;
 
     /**
      * 评论服务
-     *//*
-    private final ICommentService commentService;
+     */
+    private final CommentService commentService;
 
-    *//**
-     * 提交对应歌曲评论
+    /**
+     * 获取歌曲评论列表
      *
-     * @param submitParams 提交评论参数
-     * @return 评论是否提交成功
-     *//*
-    @PostMapping("/submit")
-    public GenericResponse<?> submitComment(@RequestBody @Valid CommentForm submitParams) {
-        Assert.notNull(submitParams, "评论内容不可为空!");
-        boolean isOpen = commentService.submit(submitParams);
-        return GenericResponse.builder().success(isOpen);
+     * @param params 查询数据源
+     * @return 评论列表
+     */
+    @Override
+    public GenericResponse<Page<MusicCommentVo>> page(MusicCommentParams params) {
+        Page<MusicCommentVo> page = commentService.page(params);
+        return GenericResponse.builder().success(page);
     }
 
-    *//**
-     * 根据主键删除对应评论
+    /**
+     * 评论歌曲
      *
-     * @param keyId 删除对应评论
-     * @return 是否删除成功
-     *//*
-    @GetMapping("/delete")
-    public GenericResponse<?> deleteByKey(@RequestParam(value = "keyId") Long keyId) {
-        boolean isOpen = commentService.deleteByKey(keyId);
+     * @param params 评论参数
+     * @return 是否评论成功
+     */
+    @Override
+    public GenericResponse<Boolean> submitComment(CommentDTO params) {
+        Long userId = params.getUserId();
+        Long musicId = params.getMusicId();
+        String content = params.getContent();
+        boolean isOpen = musicService.submitComment(userId, musicId, content);
         return GenericResponse.builder().success(isOpen);
     }
-
-    *//**
-     * 对评论点赞
-     *
-     * @param keyId 评论主键
-     * @return 是否点赞成功
-     *//*
-    @PostMapping("/like")
-    public GenericResponse<?> commentOfLike(@RequestParam(value = "keyId") Long keyId) {
-        Assert.notNull(keyId, "请正确选择需要点赞的评论");
-        boolean isOpen = commentService.commentOfLike(keyId);
-        return GenericResponse.builder().success(isOpen);
-    }
-
-    *//**
-     * 获取歌曲的评论列表
-     *
-     * @param musicId 音乐ID
-     * @return 对应的评论列表
-     *//*
-    @GetMapping("/getCommentsByMusicId")
-    public GenericResponse<?> getCommentsByMusicId(@RequestParam(value = "musicId") Long musicId) {
-        Assert.notNull(musicId, "请提供对应的音乐ID");
-        Page<Object> list = commentService.getCommentsByMusicId(musicId);
-        return GenericResponse.builder().success(list);
-    }*/
-
 }

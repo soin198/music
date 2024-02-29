@@ -10,8 +10,8 @@
         tm.musicName,
         tm.resume,
         tm.compose,
-        img.path AS imagePath,
-        aud.path AS audioPath
+        img.path AS image,
+        aud.path AS audio
         FROM
         t_singer ts
         LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId

@@ -50,7 +50,6 @@ export default defineComponent({
     const rank = ref(0);
     const disabledRank = ref(false);
     const assistText = ref("评价");
-    // const evaluateList = ref(["很差", "较差", "还行", "推荐", "力推"]);
     const songDetails = computed(() => store.getters.songDetails); // 单个歌单信息
     const userId = computed(() => store.getters.userId);
 

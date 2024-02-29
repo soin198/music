@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.soin.core.infrastructure.mapper.music.CommentMapper">
+
+    <!-- 统计当前歌曲评论总数 -->
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_comment tc
+        LEFT JOIN t_custom tc2 ON tc.userId = tc2.id
+        LEFT JOIN t_image_database tid ON tc2.phone = tid.id
+        <include refid="WHERE"/>
+    </select>
+
+    <!-- 获取当前歌曲评论列表 -->
+    <select id="list" resultType="org.soin.core.domain.music.vo.MusicCommentVo">
+        SELECT tc2.id AS userId,
+        tc2.username AS nickName,
+        tc.content,
+        tc.click,
+        tid.path AS photo
+        FROM t_comment tc
+        LEFT JOIN t_custom tc2 ON tc.userId = tc2.id
+        LEFT JOIN t_image_database tid ON tc2.phone = tid.id
+        <include refid="WHERE"/>
+        <include refid="LIMIT"/>
+    </select>
+
+    <sql id="WHERE">
+        <where>
+            <if test="musicId != null">
+                AND tc.musicId =#{musicId}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="LIMIT">
+        <if test="pageSize &gt; 0">LIMIT ${start}, ${pageSize}</if>
+    </sql>
+    
+</mapper>

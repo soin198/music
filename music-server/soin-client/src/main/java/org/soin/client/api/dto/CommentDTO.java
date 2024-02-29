@@ -21,6 +21,7 @@ public class CommentDTO implements Serializable {
     /**
      * 人员ID
      */
+    @NotNull(message = "请提供评论人ID")
     private Long userId;
 
     /**

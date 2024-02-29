@@ -35,7 +35,7 @@ public class Comment extends BaseEntity implements Serializable {
     private String content;
 
     /**
-     * 点赞数量
+     * 点击数
      */
-    private Integer upClick;
+    private Integer click;
 }

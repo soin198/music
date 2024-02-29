@@ -27,6 +27,11 @@ public class BaseConstant {
     public static final String IMAGE_URL = "D:/static/image";
 
     /**
+     * 本地音频路径
+     */
+    public static final String AUDIO_URL = "D:/static/audio";
+
+    /**
      * 短信发送响应码
      */
     public static final String SMS_SEND_RESULT_CODE = "ok";
