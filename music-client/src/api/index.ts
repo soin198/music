@@ -35,17 +35,6 @@ const HttpManager = {
     deleteComment: (id) => get(`comment/delete?id=${id}`),
     // 点赞
     setSupport: (params) => post(`comment/like`, params),
-    // 返回所有评论
-    getAllComment: (type, id) => {
-        let url = "";
-        if (type === 1) {
-            url = `comment/songList/detail?songListId=${id}`;
-        } else if (type === 0) {
-            url = `comment/song/detail?songId=${id}`;
-        }
-        return get(url);
-    },
-
     // =======================> 歌曲 API
     // 返回指定歌曲ID的歌曲
     getSongOfId: (id) => get(`song/detail?id=${id}`),

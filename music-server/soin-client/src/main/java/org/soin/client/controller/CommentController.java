@@ -8,6 +8,7 @@ import org.soin.core.domain.music.serivce.CommentService;
 import org.soin.core.domain.music.serivce.MusicService;
 import org.soin.core.domain.music.vo.MusicCommentVo;
 import org.soin.core.infrastructure.base.common.Page;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,9 @@ public class CommentController implements ICommentApi {
      */
     @Override
     public GenericResponse<Page<MusicCommentVo>> page(MusicCommentParams params) {
+        RunTimeTool.printMethodMsg("page", "获取歌曲评论列表", params);
         Page<MusicCommentVo> page = commentService.page(params);
+        RunTimeTool.printMethodResponseMsg("page", page.getTotalRows());
         return GenericResponse.builder().success(page);
     }
 
@@ -54,10 +57,12 @@ public class CommentController implements ICommentApi {
      */
     @Override
     public GenericResponse<Boolean> submitComment(CommentDTO params) {
+        RunTimeTool.printMethodMsg("submitComment", "提交歌曲评论", params);
         Long userId = params.getUserId();
         Long musicId = params.getMusicId();
         String content = params.getContent();
         boolean isOpen = musicService.submitComment(userId, musicId, content);
+        RunTimeTool.printMethodResponseMsg("submitComment", isOpen);
         return GenericResponse.builder().success(isOpen);
     }
 }
