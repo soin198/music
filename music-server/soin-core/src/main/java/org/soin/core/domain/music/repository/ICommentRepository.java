@@ -28,4 +28,20 @@ public interface ICommentRepository {
      * @return 是否添加成功
      */
     boolean insert(Long userId, Long musicId, String content);
+
+    /**
+     * 评论点赞
+     *
+     * @param commentId 评论ID
+     * @return 是否点赞成功
+     */
+    boolean click(Long commentId);
+
+    /**
+     * 删除评论
+     *
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    boolean delete(Long commentId);
 }

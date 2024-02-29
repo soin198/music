@@ -32,6 +32,11 @@ public class MusicCommentVo implements Serializable {
     private String photo;
 
     /**
+     * 评论ID
+     */
+    private Long commentId;
+
+    /**
      * 内容
      */
     private String content;

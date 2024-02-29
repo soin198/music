@@ -16,6 +16,7 @@
     <select id="list" resultType="org.soin.core.domain.music.vo.MusicCommentVo">
         SELECT tc2.id AS userId,
         tc2.username AS nickName,
+        tc.id AS commentId,
         tc.content,
         tc.click,
         tid.path AS photo

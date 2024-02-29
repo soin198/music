@@ -1,4 +1,4 @@
-import {getBaseURL, get, post, deletes} from "./request";
+import {getBaseURL, get, post} from "./request";
 
 const HttpManager = {
     attachImageUrl: (url) => url ? `${getBaseURL()}/${url}` : "https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png",
@@ -27,14 +27,6 @@ const HttpManager = {
     getRankOfSongListId: (songListId) => get(`rankList?songListId=${songListId}`),
     // 获取指定用户的歌单评分
     getUserRank: (consumerId, songListId) => get(`/rankList/user?consumerId=${consumerId}&songListId=${songListId}`),
-
-    // =======================> 评论 API
-    // 添加评论
-    setComment: (params) => post(`comment/add`, params),
-    // 删除评论
-    deleteComment: (id) => get(`comment/delete?id=${id}`),
-    // 点赞
-    setSupport: (params) => post(`comment/like`, params),
     // =======================> 歌曲 API
     // 返回指定歌曲ID的歌曲
     getSongOfId: (id) => get(`song/detail?id=${id}`),

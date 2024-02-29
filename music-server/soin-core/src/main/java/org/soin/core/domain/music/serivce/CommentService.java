@@ -41,4 +41,24 @@ public class CommentService {
     protected boolean submitComment(Long userId, Long musicId, String content) {
         return iCommentRepository.insert(userId, musicId, content);
     }
+
+    /**
+     * 评论点赞
+     *
+     * @param commentId 评论ID
+     * @return 是否点赞成功
+     */
+    protected boolean click(Long commentId) {
+        return iCommentRepository.click(commentId);
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    protected boolean delete(Long commentId) {
+        return iCommentRepository.delete(commentId);
+    }
 }

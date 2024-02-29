@@ -32,8 +32,25 @@ public interface ICommentApi {
      * @param params 评论参数
      * @return 是否评论成功
      */
-    @PostMapping("submit")
+    @PostMapping("/submit")
     GenericResponse<Boolean> submitComment(@RequestBody CommentDTO params);
 
+    /**
+     * 评论点赞
+     *
+     * @param commentId 评论ID
+     * @return 是否点赞成功
+     */
+    @PostMapping("/click")
+    GenericResponse<Boolean> click(@RequestParam(value = "commentId") Long commentId);
+
+    /**
+     * 删除评论
+     *
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    @PostMapping("/omit")
+    GenericResponse<Boolean> omit(@RequestParam(value = "commentId") Long commentId);
 
 }

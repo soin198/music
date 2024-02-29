@@ -65,4 +65,32 @@ public class CommentController implements ICommentApi {
         RunTimeTool.printMethodResponseMsg("submitComment", isOpen);
         return GenericResponse.builder().success(isOpen);
     }
+
+    /**
+     * 评论点赞
+     *
+     * @param commentId 评论ID
+     * @return 是否点赞成功
+     */
+    @Override
+    public GenericResponse<Boolean> click(Long commentId) {
+        RunTimeTool.printMethodMsg("click", String.format("评论：%s点赞", commentId));
+        boolean isOpen = musicService.click(commentId);
+        RunTimeTool.printMethodResponseMsg("click", isOpen);
+        return GenericResponse.builder().success(isOpen);
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    @Override
+    public GenericResponse<Boolean> omit(Long commentId) {
+        RunTimeTool.printMethodMsg("omit", "删除评论", commentId);
+        boolean isOpen = musicService.omit(commentId);
+        RunTimeTool.printMethodResponseMsg("omit", isOpen);
+        return GenericResponse.builder().success(isOpen);
+    }
 }

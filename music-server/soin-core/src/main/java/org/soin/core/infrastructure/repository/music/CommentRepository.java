@@ -11,6 +11,7 @@ import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.mapper.music.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class CommentRepository implements ICommentRepository {
      * @return 是否添加成功
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean insert(Long userId, Long musicId, String content) {
         Assert.isNull(userId, "请提供人员ID");
         Assert.isNull(musicId, "请提供音乐ID");
@@ -60,6 +62,38 @@ public class CommentRepository implements ICommentRepository {
         comment.setClick(0);
         return commentMapper.insert(comment) > 0;
     }
+
+    /**
+     * 评论点赞
+     *
+     * @param commentId 评论ID
+     * @return 是否点赞成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean click(Long commentId) {
+        Assert.isNull(commentId, "请正确点击点赞的评论");
+        Comment comment = commentMapper.selectById(commentId);
+        Assert.isNull(comment, "commentId is invalid");
+        Integer click = comment.getClick();
+        comment.setClick(click + 1);
+        return commentMapper.updateById(comment) > 0;
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean delete(Long commentId) {
+        Assert.isNull(commentId, "请选择想要删除的评论");
+        return commentMapper.deleteById(commentId) > 0;
+    }
+
+
 }
 
 

@@ -86,33 +86,3 @@ export function post(url, data = {}) {
     );
   });
 }
-
-/**
- * 封装delete请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-export function deletes(url, data = {}) {
-  return new Promise((resolve, reject) => {
-    axios.delete(url, data).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
-    );
-  });
-}
-
-/**
- * 封装put请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-export function put(url, data = {}) {
-  return new Promise((resolve, reject) => {
-    axios.put(url, data).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
-    );
-  });
-}
