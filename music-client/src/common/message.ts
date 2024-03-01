@@ -5,12 +5,12 @@ import Swal from 'sweetalert2'
  * @param message 展示信息
  */
 async function success(message: string) {
-    message = (null != message && message != "") ? message : "操作成功 🎉";
+    message = (null != message && message != "") ? message : "操作成功";
     await Swal.fire({
         // 出现位置
         position: "top",
         //展示内容
-        title: message,
+        title: (message + "🎉"),
         // 不显示确认按钮
         showConfirmButton: false,
         //弹出颜色
@@ -38,12 +38,12 @@ async function success(message: string) {
  * @param message 展示信息
  */
 async function error(message: string) {
-    message = (null != message && message != "") ? message : "操作失败 😢";
+    message = (null != message && message != "") ? message : "操作失败";
     await Swal.fire({
         // 出现位置
         position: "top",
         //展示内容
-        title: message,
+        title: (message + "😢"),
         // 不显示确认按钮
         showConfirmButton: false,
         //弹出颜色
@@ -72,7 +72,7 @@ async function error(message: string) {
  * @param message 展示信息
  */
 async function warning(message: string) {
-    if (null == message || message == ""){
+    if (null == message || message == "") {
         return;
     }
     await Swal.fire({

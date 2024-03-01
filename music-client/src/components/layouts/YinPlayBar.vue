@@ -114,9 +114,9 @@ export default defineComponent({
       const {code} = (await CollectManager.cancelLike(userId.value, songId.value)) as Response;
       if (code === 200) {
         await likeBuild();
-        await success("取消成功 🎉");
+        await success("取消成功");
       } else {
-        await error("取消失败 😢");
+        await error("取消失败");
       }
     }
 
@@ -131,7 +131,7 @@ export default defineComponent({
       }
       const {code} = (await CollectManager.saveLike(userId.value, songId.value)) as Response;
       if (code === 200) {
-        await success("收藏成功 🎉");
+        await success("收藏成功");
         await likeBuild();
       } else {
         await error("收藏失败 😢");
