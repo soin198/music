@@ -69,7 +69,8 @@ import YinIcon from "./YinIcon.vue";
 import {formatSeconds} from "@/utils";
 import {Icon, RouterName} from "@/enums";
 import {CollectManager} from "@/api/collect"
-import {ElMessage} from "element-plus";
+import {error, success} from "@/common/message";
+import {sleep} from "@/common/retarder"
 
 export default defineComponent({
   components: {
@@ -91,6 +92,7 @@ export default defineComponent({
     watch(token, (value) => {
       if (!value) isShow.value = false;
     });
+
     async function likeBuild() {
       if (!checkStatus(false)) {
         return;
@@ -101,40 +103,39 @@ export default defineComponent({
     /**
      * 取消我喜欢
      */
-    function cancelLike() {
-      setTimeout(async () => {
-        //判断是否登录
-        if (!checkStatus()) {
-          return;
-        }
-        const {code} = (await CollectManager.cancelLike(userId.value, songId.value)) as Response;
-        if (code === 200) {
-          ElMessage.success("取消成功~")
-          await likeBuild();
-        } else {
-          ElMessage.error("操作失败~")
-
-        }
-      }, 200);
+    async function cancelLike() {
+      //阻塞
+      await sleep(1000);
+      //判断是否登录
+      if (!checkStatus()) {
+        return;
+      }
+      //执行函数
+      const {code} = (await CollectManager.cancelLike(userId.value, songId.value)) as Response;
+      if (code === 200) {
+        await likeBuild();
+        await success("取消成功 🎉");
+      } else {
+        await error("取消失败 😢");
+      }
     }
 
     /**
      * 添加我喜欢
      */
-    function saveLike() {
-      setTimeout(async () => {
-        //判断是否登录
-        if (!checkStatus()) {
-          return;
-        }
-        const {code} = (await CollectManager.saveLike(userId.value, songId.value)) as Response;
-        if (code === 200) {
-          ElMessage.success("感谢您的喜欢~")
-          await likeBuild();
-        } else {
-          ElMessage.error("收藏失败~")
-        }
-      }, 200)
+    async function saveLike() {
+      await sleep(1000);
+      //判断是否登录
+      if (!checkStatus()) {
+        return;
+      }
+      const {code} = (await CollectManager.saveLike(userId.value, songId.value)) as Response;
+      if (code === 200) {
+        await success("收藏成功 🎉");
+        await likeBuild();
+      } else {
+        await error("收藏失败 😢");
+      }
     }
 
     onMounted(() => {
