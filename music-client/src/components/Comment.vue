@@ -9,7 +9,7 @@
   </div>
   <ul class="popular">
     <li v-for="(comment, index) in commentList" :key="index">
-      <el-image class="popular-img" fit="contain" :src="comment.photo"/>
+      <el-image class="popular-img" fit="contain" :src="comment.userPic"/>
       <div class="popular-msg">
         <ul>
           <li class="name">{{ comment.nickName }}</li>

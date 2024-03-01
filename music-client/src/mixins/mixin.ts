@@ -15,29 +15,16 @@ export default function () {
   const store = useStore();
   const token = computed(() => store.getters.token);
 
-  function getUserSex(sex) {
-    if (sex === 0) {
-      return "女";
-    } else if (sex === 1) {
-      return "男";
-    }
-  }
-
   // 获取歌曲名
   function getSongTitle(str) {
     return str.split("-")[1];
-  }
-
-  // 获取歌手名
-  function getSingerName(str) {
-    return str.split("-")[0];
   }
 
   // 判断登录状态
   function checkStatus(status?: boolean) {
     if (!token.value && status !== false) {
       (proxy as any).$message({
-        message: "请先登录",
+        message: "登录失效....",
         type: "error",
       });
       return false;
@@ -125,7 +112,6 @@ export default function () {
   }
 
   return {
-    getUserSex,
     getSongTitle,
     changeIndex,
     checkStatus,

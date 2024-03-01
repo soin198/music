@@ -36,7 +36,6 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const {getUserSex} = mixin();
     const data = ref([]);
     const totalRows = ref(0);
     const singer = ref({
@@ -82,7 +81,6 @@ export default defineComponent({
     return {
       data,
       attachImageUrl: HttpManager.attachImageUrl,
-      getUserSex,
       singer
     };
   },
