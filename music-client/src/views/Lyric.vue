@@ -72,7 +72,6 @@ export default defineComponent({
       const {code, items, message} = await MusicManager.musicComposeQuery(songId.value) as Response
       if (code === 200) {
         data.value = items;
-        console.log(data.value.compose)
       } else {
         ElMessage.error(message)
       }

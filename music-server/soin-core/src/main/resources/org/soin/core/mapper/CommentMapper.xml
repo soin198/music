@@ -24,6 +24,7 @@
         LEFT JOIN t_custom tc2 ON tc.userId = tc2.id
         LEFT JOIN t_image_database tid ON tc2.phone = tid.id
         <include refid="WHERE"/>
+        ORDER BY tc.createDate DESC
         <include refid="LIMIT"/>
     </select>
 

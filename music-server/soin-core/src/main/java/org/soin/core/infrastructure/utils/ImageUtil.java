@@ -63,4 +63,9 @@ public class ImageUtil {
         return (secureId + "." + suffix);
     }
 
+    public static void main(String[] args) {
+        String generateImageName = generateImageName("潮酷男女原创_再叫我大哥，我教你梳中分_1_妄自提笔_来自小红书网页版.jpg");
+        System.out.println(generateImageName);
+    }
+
 }

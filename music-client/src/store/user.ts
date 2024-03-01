@@ -7,7 +7,7 @@ export default {
     getters: {
         userId: (state) => state.userId,
         username: (state) => state.username,
-        userPic: (state) => state.photo,
+        photo: (state) => state.photo,
     },
     mutations: {
         setUserId: (state, userId) => {

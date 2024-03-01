@@ -8,6 +8,8 @@ import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
 import org.soin.core.domain.cilentCustom.vo.CustomVo;
 import org.soin.core.domain.cilentCustom.vo.LoginVo;
+import org.soin.core.domain.database.entity.ImageDataBase;
+import org.soin.core.domain.database.service.ImageDataBaseService;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
@@ -40,6 +42,11 @@ public class CustomService {
     private final CustomAreaService customAreaService;
 
     /**
+     * 图片库服务
+     */
+    private final ImageDataBaseService imageDataBaseService;
+
+    /**
      * 前台登录站点
      *
      * @param username 用户名
@@ -55,9 +62,11 @@ public class CustomService {
         Assert.isNull(custom, "密码错误，请重试");
         LoginVo loginVo = new LoginVo();
         Long customId = custom.getId();
+        Long imageId = custom.getImageId();
         loginVo.setUserId(customId);
-        loginVo.setUsername(custom.getUsername());
-        loginVo.setPhoto(ImageUtil.generate(custom.getPhoto()));
+        loginVo.setUsername(custom.getNickname());
+        ImageDataBase photo = imageDataBaseService.findOne(imageId).orElseThrow(() -> new IllegalArgumentException("imageId is invalid"));
+        loginVo.setPhoto(ImageUtil.generate(photo.getURL()));
         String token = CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_1800.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
         loginVo.setToken(token);
         return loginVo;

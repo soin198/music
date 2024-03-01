@@ -97,7 +97,6 @@ export default {
   },
   actions: {
     playMusic: ({commit}, {musicId, musicName, singerName, compose, index, musicImage, audio, musicList}) => {
-      console.log(audio)
       commit("setSongId", musicId);
       commit("setSongTitle", musicName);
       commit("setCompose", compose);

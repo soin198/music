@@ -11,8 +11,8 @@
     <div class="header-search">
       <el-input placeholder="搜索" :prefix-icon="Search" v-model="keywords" @keyup.enter="goSearch()"/>
     </div>
-    <!--设置-->
-    <yin-header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"></yin-header-nav>
+    <!-- 如果没登录展示登录注册 -->
+    <yin-header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"/>
     <el-dropdown class="user-wrap" v-if="token" trigger="click">
       <el-image class="user" fit="contain" :src="photo"/>
       <template #dropdown>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, getCurrentInstance, computed, reactive} from "vue";
+import {defineComponent, ref, getCurrentInstance, computed, reactive,onMounted} from "vue";
 import {Search} from "@element-plus/icons-vue";
 import {useStore} from "vuex";
 import YinIcon from "./YinIcon.vue";

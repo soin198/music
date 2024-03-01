@@ -33,6 +33,11 @@ public class Custom extends BaseEntity implements Serializable {
     private String password;
 
     /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
      * 性别
      */
     private Gender sex;
@@ -40,7 +45,7 @@ public class Custom extends BaseEntity implements Serializable {
     /**
      * 头像
      */
-    private String photo;
+    private Long imageId;
 
     /**
      * 电话号码

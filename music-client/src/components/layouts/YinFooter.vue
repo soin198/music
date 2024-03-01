@@ -12,8 +12,8 @@ import { defineComponent, readonly } from "vue";
 export default defineComponent({
   setup() {
     const footerList = readonly([
-      "关于 | 帮助 | 条款 | 反馈",
-      "Copyright © 2024 soin-music",
+/*      "关于 | 帮助 | 条款 | 反馈",
+      "Copyright © 2024 J.FLa.soin",*/
     ]);
 
     return { footerList };
