@@ -41,7 +41,7 @@
             class="yin-play-show"
             :class="{ active: isShow }"
             :icon="isShow ? iconList.like : iconList.dislike"
-            @click="converter"
+            @click="isShow ? cancelLike() : saveLike()"
         ></yin-icon>
         <!--下载-->
         <yin-icon
@@ -91,30 +91,50 @@ export default defineComponent({
     watch(token, (value) => {
       if (!value) isShow.value = false;
     });
-
     async function likeBuild() {
-      if (!checkStatus(false)) return;
+      if (!checkStatus(false)) {
+        return;
+      }
       isShow.value = ((await CollectManager.isLike(userId.value, songId.value)) as Response).items;
     }
 
-    //切换收藏
-    async function converter() {
-      //判断是否登录
-      if (!checkStatus()) {
-        return;
-      }
-      const {code} = (isShow.value)
-          //取消收藏
-          ? (await CollectManager.cancelLike(userId.value, 1)) as Response
-          //收藏
-          : (await CollectManager.saveLike(userId.value, 1)) as Response;
-      if (code === 200) {
-        ElMessage.success("感谢您的喜欢~")
-        isShow.value = true;
-      } else {
-        ElMessage.success("操作失败~")
-        isShow.value = false;
-      }
+    /**
+     * 取消我喜欢
+     */
+    function cancelLike() {
+      setTimeout(async () => {
+        //判断是否登录
+        if (!checkStatus()) {
+          return;
+        }
+        const {code} = (await CollectManager.cancelLike(userId.value, songId.value)) as Response;
+        if (code === 200) {
+          ElMessage.success("取消成功~")
+          await likeBuild();
+        } else {
+          ElMessage.error("操作失败~")
+
+        }
+      }, 200);
+    }
+
+    /**
+     * 添加我喜欢
+     */
+    function saveLike() {
+      setTimeout(async () => {
+        //判断是否登录
+        if (!checkStatus()) {
+          return;
+        }
+        const {code} = (await CollectManager.saveLike(userId.value, songId.value)) as Response;
+        if (code === 200) {
+          ElMessage.success("感谢您的喜欢~")
+          await likeBuild();
+        } else {
+          ElMessage.error("收藏失败~")
+        }
+      }, 200)
     }
 
     onMounted(() => {
@@ -126,7 +146,8 @@ export default defineComponent({
       playMusic,
       routerManager,
       checkStatus,
-      converter,
+      cancelLike,
+      saveLike,
       downloadMusic
     };
   },
