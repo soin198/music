@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside class="album-slide">
-      <el-image class="singer-img" fit="contain" :src="singer.base64"/>
+      <el-image class="singer-img" fit="contain" :src="singer.singerPic"/>
       <div class="album-info">
         <h2>基本资料</h2>
         <ul>
@@ -42,8 +42,8 @@ export default defineComponent({
     const singer = ref({
       id: null,
       name: null,
+      singerPic: null,
       sex: null,
-      base64: null,
       birth: null,
       nationality: null,
       resume: null

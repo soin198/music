@@ -65,8 +65,8 @@ public class CustomService {
         Long imageId = custom.getImageId();
         loginVo.setUserId(customId);
         loginVo.setUsername(custom.getNickname());
-        ImageDataBase photo = imageDataBaseService.findOne(imageId).orElseThrow(() -> new IllegalArgumentException("imageId is invalid"));
-        loginVo.setPhoto(ImageUtil.generate(photo.getURL()));
+        String path = imageDataBaseService.pathQuery(imageId);
+        loginVo.setPhoto(ImageUtil.generate(path));
         String token = CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_1800.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
         loginVo.setToken(token);
         return loginVo;

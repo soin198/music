@@ -64,8 +64,7 @@ public class MusicRepository implements IMusicRepository {
         Assert.isNull(musicId, "musicId is null");
         MusicComposeVo composeVo = musicMapper.customQuery(musicId);
         Assert.isNull(composeVo, "数据异常");
-        String base64 = ImageUtil.generate(composeVo.getImagePath());
-        composeVo.setImagePath(base64);
+        composeVo.setImage(ImageUtil.generate(composeVo.getImage()));
         return composeVo;
     }
 }

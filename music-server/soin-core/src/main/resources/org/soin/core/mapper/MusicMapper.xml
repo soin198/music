@@ -10,7 +10,7 @@
         tm.musicName,
         tm.resume,
         tm.compose,
-        img.path AS image,
+        CONCAT(img.path,'/',img.name) AS image,
         aud.path AS audio
         FROM
         t_singer ts
@@ -50,7 +50,7 @@
         SELECT ts.`name` AS singerName,
         tm.musicName AS musicName,
         tm.compose AS compose,
-        tid.path AS imagePath
+        CONCAT(tid.path,'/',tid.name) AS image
         FROM t_music tm
         LEFT JOIN t_music_connect_singer tmcs ON tm.id = tmcs.musicId
         LEFT JOIN t_singer ts ON tmcs.singerId = ts.id

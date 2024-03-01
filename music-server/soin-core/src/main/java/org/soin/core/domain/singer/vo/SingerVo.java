@@ -34,12 +34,7 @@ public class SingerVo implements Serializable {
     /**
      * 歌手头像
      */
-    private String path;
-
-    /**
-     * 图片渲染
-     */
-    private String base64;
+    private String singerPic;
 
     /**
      * 歌手生日

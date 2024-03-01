@@ -31,11 +31,12 @@
         WHEN s01.sex = 'MALE' THEN '男'
         WHEN s01.sex = 'WOMEN' THEN '女'
         WHEN s01.sex = 'OTHER' THEN '其他'
-        END AS sex,
+        END
+        AS sex,
         s01.birth,
         s01.nationality,
         s01.resume,
-        t01.path
+        CONCAT(t01.path,'/',t01.name) AS singerPic
     </sql>
 
     <sql id="SINGER_WHERE">

@@ -9,11 +9,13 @@ import org.soin.core.domain.music.vo.MusicCommentVo;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.mapper.music.CommentMapper;
+import org.soin.core.infrastructure.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author J.FLa.Soin
@@ -38,7 +40,7 @@ public class CommentRepository implements ICommentRepository {
         Long musicId = params.getMusicId();
         int rows = commentMapper.count(musicId);
         List<MusicCommentVo> list = (rows > 0) ? commentMapper.list(params) : Lists.newArrayList();
-        return new Page<>(rows, list);
+        return new Page<>(rows, list.stream().peek(item -> item.setUserPic(ImageUtil.generate(item.getUserPic()))).collect(Collectors.toList()));
     }
 
     /**

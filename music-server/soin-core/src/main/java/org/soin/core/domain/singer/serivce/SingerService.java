@@ -42,7 +42,7 @@ public class SingerService {
     public Page<SingerVo> singerQuery(SingerParams singerParams) {
         int totalRows = iSingerRepository.count(singerParams);
         List<SingerVo> list = (totalRows > 0) ? iSingerRepository.singerQuery(singerParams) : Lists.newArrayList();
-        return new Page<>(totalRows, list.stream().peek(p -> p.setBase64(ImageUtil.generate(p.getPath()))).collect(Collectors.toList()));
+        return new Page<>(totalRows, list.stream().peek(p -> p.setSingerPic(ImageUtil.generate(p.getSingerPic()))).collect(Collectors.toList()));
     }
 
     /**
@@ -57,7 +57,7 @@ public class SingerService {
         Assert.isNull(singer, "singerId is invalid");
         SingerVo convert = ConvertUtil.convert(singer, SingerVo.class);
         String path = imageDataBaseService.pathQuery(singer.getImageId());
-        convert.setBase64(ImageUtil.generate(path));
+        convert.setSingerPic(ImageUtil.generate(path));
         return convert;
     }
 

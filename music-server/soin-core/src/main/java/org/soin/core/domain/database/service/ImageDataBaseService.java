@@ -34,27 +34,17 @@ public class ImageDataBaseService {
     }
 
     /**
-     * 根据图片库ID获取图片库
-     *
-     * @param keyId 图片库ID
-     * @return 图片库
-     */
-    public Optional<ImageDataBase> findOne(Long keyId) {
-        Assert.isNull(keyId, "请提供图片库ID");
-        ImageDataBase data = imageDataBaseRepository.findOne(keyId);
-        return Optional.ofNullable(data);
-    }
-
-    /**
      * 根据图片库ID获取图片路径
      *
      * @param keyId 图片库ID
      * @return 图片库路径
      */
     public String pathQuery(Long keyId) {
-        return this.findOne(keyId)
-                .orElseThrow(() -> new IllegalArgumentException("图片库ID无效"))
-                .getPath();
+        Assert.isNull(keyId, "请提供图片库ID");
+        ImageDataBase imageDataBase = Optional.ofNullable(imageDataBaseRepository
+                .findOne(keyId))
+                .orElseThrow(() -> new IllegalArgumentException("图片库ID无效"));
+        return imageDataBase.getPath() + "/" + imageDataBase.getName();
     }
 
     /**

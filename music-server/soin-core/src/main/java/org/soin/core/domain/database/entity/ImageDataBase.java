@@ -62,15 +62,5 @@ public class ImageDataBase extends BaseEntity implements Serializable {
         JPEG;
     }
 
-    /**
-     * 获取URL完整路径
-     *
-     * @return 图片完整路径
-     */
-    @SuppressWarnings("all")
-    public String getURL() {
-        return (this.path + "/" + this.name);
-    }
-
 
 }

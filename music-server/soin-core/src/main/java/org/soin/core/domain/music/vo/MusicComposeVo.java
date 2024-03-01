@@ -34,7 +34,7 @@ public class MusicComposeVo implements Serializable {
     /**
      * 歌曲图片
      */
-    private String imagePath;
+    private String image;
 
 
 }

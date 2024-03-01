@@ -1,6 +1,6 @@
 <template>
   <div class="song-container">
-    <el-image class="song-pic" fit="contain" :src="data.imagePath"/>
+    <el-image class="song-pic" fit="contain" :src="data.image"/>
     <ul class="song-info">
       <li>歌手：{{ data.singerName }}</li>
       <li>歌曲：{{ data.musicName }}</li>
@@ -45,7 +45,7 @@ export default defineComponent({
       singerName: null,
       musicName: null,
       compose: null,
-      imagePath: null
+      image: null
     })
     const store = useStore();
     // 歌词滑动

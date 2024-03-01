@@ -8,7 +8,7 @@
         SELECT count(*)
         FROM t_comment tc
         LEFT JOIN t_custom tc2 ON tc.userId = tc2.id
-        LEFT JOIN t_image_database tid ON tc2.phone = tid.id
+        LEFT JOIN t_image_database tid ON tc2.imageId = tid.id
         <include refid="WHERE"/>
     </select>
 
@@ -19,10 +19,10 @@
         tc.id AS commentId,
         tc.content,
         tc.click,
-        tid.path AS photo
+        CONCAT(tid.path,'/',tid.name) AS userPic
         FROM t_comment tc
         LEFT JOIN t_custom tc2 ON tc.userId = tc2.id
-        LEFT JOIN t_image_database tid ON tc2.phone = tid.id
+        LEFT JOIN t_image_database tid ON tc2.imageId = tid.id
         <include refid="WHERE"/>
         ORDER BY tc.createDate DESC
         <include refid="LIMIT"/>
