@@ -3,6 +3,7 @@ import { useStore } from "vuex";
 import { LocationQueryRaw } from "vue-router";
 import { RouterName } from "@/enums";
 import { HttpManager } from "@/api";
+import {success,error} from "@/common/message";
 
 interface routerOptions {
   path?: string;
@@ -23,10 +24,8 @@ export default function () {
   // 判断登录状态
   function checkStatus(status?: boolean) {
     if (!token.value && status !== false) {
-      (proxy as any).$message({
-        message: "登录失效....",
-        type: "error",
-      });
+      error("请登录")
+      routerManager(RouterName.SignIn, {path: RouterName.SignIn});
       return false;
     }
     return true;

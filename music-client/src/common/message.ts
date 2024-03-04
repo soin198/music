@@ -66,7 +66,6 @@ async function error(message: string) {
     });
 }
 
-
 /**
  * 警告
  * @param message 展示信息

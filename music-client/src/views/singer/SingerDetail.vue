@@ -35,6 +35,7 @@ export default defineComponent({
     SongList,
   },
   setup() {
+
     const store = useStore();
     const data = ref([]);
     const totalRows = ref(0);
@@ -55,8 +56,8 @@ export default defineComponent({
     const singerId = computed(() => store.getters.singerId) as any;
     params.singerId = singerId.value;
 
-    async function singerQueryById(singerId) {
-      const {code, items, message} = (await SingerManager.singerQueryById(singerId)) as Response;
+    async function singerQueryById() {
+      const {code, items, message} = (await SingerManager.singerQueryById(singerId.value)) as Response;
       if (code === 200) {
         singer.value = items;
       } else {
@@ -75,7 +76,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      await Promise.all([page(), singerQueryById(singerId.value)]);
+      await Promise.all([page(), singerQueryById()]);
     });
 
     return {

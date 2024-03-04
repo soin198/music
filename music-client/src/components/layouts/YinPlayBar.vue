@@ -267,6 +267,7 @@ export default defineComponent({
     },
     // 选中播放
     toPlay(url) {
+      console.log(url)
       if (url && url !== this.songUrl) {
         const song = this.currentPlayList[this.currentPlayIndex];
         this.playMusic({

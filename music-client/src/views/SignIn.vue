@@ -97,8 +97,7 @@ export default defineComponent({
       }
       const {code, message} = (await SmsManager.getCode(codeLoginForm.phone, SMS.LOGIN)) as Response;
       if (200 === code) {
-        await success("发送成功 ")
-        ElMessage.success("发送成功")
+        await success("发送成功")
       } else {
         ElMessage.error(message)
       }
@@ -124,7 +123,7 @@ export default defineComponent({
 
     //登录成功处理
     function successLogin(items) {
-      success("登录成功 🎉")
+      success("登录成功")
       proxy.$store.commit("setUserId", items.userId);
       proxy.$store.commit("setUsername", items.username);
       proxy.$store.commit("setPhoto", items.photo);
