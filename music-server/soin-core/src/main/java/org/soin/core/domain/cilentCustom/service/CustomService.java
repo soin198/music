@@ -2,15 +2,17 @@ package org.soin.core.domain.cilentCustom.service;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.bo.CustomBo;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
 import org.soin.core.domain.cilentCustom.vo.CustomVo;
 import org.soin.core.domain.cilentCustom.vo.LoginVo;
-import org.soin.core.domain.database.entity.ImageDataBase;
 import org.soin.core.domain.database.service.ImageDataBaseService;
+import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.base.common.Assert;
+import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.enums.CommonTimeEnum;
 import org.soin.core.infrastructure.enums.RegionEnum;
@@ -19,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 用户服务
@@ -148,5 +152,18 @@ public class CustomService {
      */
     public Custom phoneQuery(String phone) {
         return customRepository.getUserByPhone(phone);
+    }
+
+    /**
+     * 获取获取列表分页
+     *
+     * @param params 查询数据源
+     * @return 客户分页列表
+     */
+    public Page<CustomVo> page(CustomParams params) {
+        int rows = customRepository.count(params);
+        List<CustomVo> list = (rows > 0) ? customRepository.list(params) : Lists.newArrayList();
+        list = list.stream().peek(item -> item.setPhoto(ImageUtil.generate(item.getPhoto()))).collect(Collectors.toList());
+        return new Page<>(rows, list);
     }
 }

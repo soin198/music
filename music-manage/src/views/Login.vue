@@ -1,13 +1,13 @@
 <template>
   <div class="login-container">
-    <div class="title">{{ nusicName }}</div>
+    <div class="title">24.music</div>
     <div class="login">
-      <el-form :model="ruleForm" :rules="rules">
+      <el-form>
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="username"></el-input>
+          <el-input v-model.trim="userName" placeholder="请输入用户名"/>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter="submitForm"></el-input>
+          <el-input type="password" placeholder="请输入密码" v-model.trim="secretKey" @keyup.enter="submitForm"/>
         </el-form-item>
         <el-form-item>
           <el-button class="login-btn" type="primary" @click="submitForm">登录</el-button>
@@ -18,44 +18,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, ref, reactive } from "vue";
+import {defineComponent, reactive, ref} from "vue";
 import mixin from "@/mixins/mixin";
-import { HttpManager } from "@/api/index";
-import { RouterName, MUSICNAME } from "@/enums";
+import {RouterName} from "@/enums";
+import {CoreManager} from "@/api/core"
+import {Message} from "@/message/CustomMessage"
 
 export default defineComponent({
   setup() {
-    const { proxy } = getCurrentInstance();
-    const { routerManager } = mixin();
-
-    const nusicName = ref(MUSICNAME);
-    const ruleForm = reactive({
-      username: "admin",
-      password: "123",
-    });
+    const {routerManager} = mixin();
+    const userName = ref("")
+    const secretKey = ref("")
     const rules = reactive({
-      username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-      password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+      username: [{required: true, message: "请输入用户名", trigger: "blur"}],
+      password: [{required: true, message: "请输入密码", trigger: "blur"}],
     });
 
     async function submitForm() {
-      let params = new URLSearchParams();
-      params.append("username", ruleForm.username);
-      params.append("password", ruleForm.password);
-      const {code, message} = (await HttpManager.login(params)) as Response;
-      (proxy as any).$message({
-        message: message,
-        type: "error",
-      });
+      const {code, message} = (await CoreManager.login(userName.value, secretKey.value)) as Response;
       if (code === 200) {
+        Message.success("登录成功")
         routerManager(RouterName.Info, {path: RouterName.Info});
+      } else {
+        Message.error(message)
       }
     }
+
     return {
-      nusicName,
-      ruleForm,
       rules,
       submitForm,
+      userName,
+      secretKey
     };
   },
 });
@@ -92,6 +85,7 @@ export default defineComponent({
   padding: 40px;
   border-radius: 5px;
   background: #fff;
+
 }
 
 .login-btn {

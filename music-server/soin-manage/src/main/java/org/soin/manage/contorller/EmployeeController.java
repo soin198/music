@@ -2,6 +2,7 @@ package org.soin.manage.contorller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.manageEmployee.service.EmployeeService;
+import org.soin.core.domain.manageEmployee.vo.LoginVo;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.manage.api.IEmployeeApi;
@@ -27,10 +28,13 @@ public class EmployeeController implements IEmployeeApi {
      * @return token
      */
     @Override
-    public GenericResponse<String> login(String username, String password) {
+    public GenericResponse<LoginVo> login(String username, String password) {
         RunTimeTool.printMethodMsg("login", "后台员工登录", username, password);
+        LoginVo loginVo = new LoginVo();
         String token = employeeService.login(username, password);
+        loginVo.setEmployeeId(1L);
+        loginVo.setToken(token);
         RunTimeTool.printMethodResponseMsg("login", token);
-        return GenericResponse.builder().success(token);
+        return GenericResponse.builder().success(loginVo);
     }
 }

@@ -46,8 +46,7 @@ import YinLoginLogo from "@/components/layouts/YinLoginLogo.vue";
 import {CoreManager} from "@/api/core";
 import {NavName, RouterName, SignInRules, SMS, CodeLoginRules} from "@/enums";
 import {SmsManager} from "@/api/sms";
-import {success} from "@/common/message"
-import {ElMessage} from "element-plus/es";
+import {Message} from "@/message/CustomMessage";
 
 export default defineComponent({
   components: {
@@ -81,7 +80,7 @@ export default defineComponent({
       if (200 === code) {
         successLogin(items);
       } else {
-        ElMessage.error(message);
+        Message.error(message);
       }
     }
 
@@ -97,9 +96,9 @@ export default defineComponent({
       }
       const {code, message} = (await SmsManager.getCode(codeLoginForm.phone, SMS.LOGIN)) as Response;
       if (200 === code) {
-        await success("发送成功")
+        Message.success("发送成功，请在5分钟内使用")
       } else {
-        ElMessage.error(message)
+        Message.error(message)
       }
     }
 
@@ -117,13 +116,13 @@ export default defineComponent({
       if (code === 200) {
         successLogin(items);
       } else {
-        ElMessage.error(message)
+        Message.error(message)
       }
     }
 
     //登录成功处理
     function successLogin(items) {
-      success("登录成功")
+      Message.success("登录成功")
       proxy.$store.commit("setUserId", items.userId);
       proxy.$store.commit("setUsername", items.username);
       proxy.$store.commit("setPhoto", items.photo);

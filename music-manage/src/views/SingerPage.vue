@@ -21,7 +21,7 @@
       <el-table-column label="歌手" prop="name" width="120" align="center"></el-table-column>
       <el-table-column label="性别" prop="sex" width="60" align="center">
         <template v-slot="scope">
-          <div>{{ changeSex(scope.row.sex) }}</div>
+          <div>{{ (scope.row.sex) }}</div>
         </template>
       </el-table-column>
       <el-table-column label="出生" prop="birth" width="120" align="center">
@@ -145,7 +145,7 @@ export default defineComponent({
   },
   setup() {
     const { proxy } = getCurrentInstance();
-    const { changeSex, routerManager, beforeImgUpload } = mixin();
+    const { routerManager, beforeImgUpload } = mixin();
 
     const tableData = ref([]); // 记录歌曲，用于显示
     const tempDate = ref([]); // 记录歌曲，用于搜索时能临时记录一份歌曲列表
@@ -354,9 +354,7 @@ export default defineComponent({
       handleSelectionChange,
       handleImgSuccess,
       beforeImgUpload,
-      saveEdit,
       attachImageUrl: HttpManager.attachImageUrl,
-      changeSex,
       getBirth,
       uploadUrl,
       goSongPage,

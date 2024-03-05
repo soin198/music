@@ -1,9 +1,12 @@
 package org.soin.core.infrastructure.repository.clientCustom;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.mapper.clientCustom.CustomMapper;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.utils.RegexExpressionUtil;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author J.FLa.Soin
@@ -143,6 +147,32 @@ public class CustomRepository implements ICustomRepository {
         wrapper.eq("phone", phone);
         wrapper.eq("deleted", Boolean.FALSE);
         return customMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 统计用户总数
+     *
+     * @param params 统计数据源
+     * @return 用户总数
+     */
+    @Override
+    public int count(CustomParams params) {
+        return customMapper.count(params);
+    }
+
+    /**
+     * 查询用户列表
+     *
+     * @param params 查询数据源
+     * @return 用户列表
+     */
+    @Override
+    public List<CustomVo> list(CustomParams params) {
+        List<CustomVo> list = customMapper.list(params);
+        if (null == list || list.isEmpty()) {
+            return Lists.newArrayList();
+        }
+        return list;
     }
 
 }

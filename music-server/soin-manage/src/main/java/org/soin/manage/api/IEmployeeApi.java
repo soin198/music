@@ -1,5 +1,6 @@
 package org.soin.manage.api;
 
+import org.soin.core.domain.manageEmployee.vo.LoginVo;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,10 @@ public interface IEmployeeApi {
      *
      * @param username 用户名
      * @param password 密码
-     * @return token
+     * @return 登录参数
      */
     @PostMapping("/login")
-    GenericResponse<String> login(@RequestParam(value = "username") String username,
-                                  @RequestParam(value = "password") String password);
+    GenericResponse<LoginVo> login(@RequestParam(value = "username") String username,
+                                   @RequestParam(value = "password") String password);
 
 }

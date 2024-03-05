@@ -3,9 +3,6 @@ import { get, post, deletes, getBaseURL } from './request'
 const HttpManager = {
   // 获取图片信息
   attachImageUrl: (url) => `${getBaseURL()}/${url}`,
-  // =======================> 管理员 API
-  // 是否登录成功
-  login: (params) => post(`/employee/login`, params),
 
   // =======================> 用户 API
   // 返回所有用户

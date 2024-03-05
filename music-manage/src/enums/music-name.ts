@@ -1,1 +1,1 @@
-export const MUSICNAME = 'MUSIC'
+export const MUSICNAME = '24.music'

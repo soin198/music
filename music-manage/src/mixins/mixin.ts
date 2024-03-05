@@ -10,21 +10,6 @@ interface routerOptions {
 export default function () {
   const { proxy } = getCurrentInstance();
   const uploadTypes = ref(["jpg", "jpeg", "png", "gif"]);
-
-  function changeSex(value) {
-    if (value === 0) {
-      return "女";
-    } else if (value === 1) {
-      return "男";
-    } else if (value === 2) {
-      return "组合";
-    } else if (value === 3) {
-      return "不明";
-    } else if (value === "男" || value === "女") {
-      return value;
-    }
-  }
-
   function beforeImgUpload(file) {
     const ltCode = 2;
     const isLt2M = file.size / 1024 / 1024 < ltCode;
@@ -36,7 +21,7 @@ export default function () {
     if (!isLt2M) {
       (proxy as any).$message.error(`上传头像图片大小不能超过 ${ltCode}MB!`);
     }
-    
+
     return isExistFileType && isLt2M;
   }
 
@@ -86,5 +71,5 @@ export default function () {
     proxy.$router.go(step);
   }
 
-  return { changeSex, routerManager, goBack, beforeImgUpload, beforeSongUpload };
+  return { routerManager, goBack, beforeImgUpload, beforeSongUpload };
 }

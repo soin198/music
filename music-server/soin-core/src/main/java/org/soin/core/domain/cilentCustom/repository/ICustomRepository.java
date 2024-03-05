@@ -1,6 +1,10 @@
 package org.soin.core.domain.cilentCustom.repository;
 
 import org.soin.core.domain.cilentCustom.entity.Custom;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.manageEmployee.params.CustomParams;
+
+import java.util.List;
 
 /**
  * @author J.FLa.Soin
@@ -61,4 +65,20 @@ public interface ICustomRepository {
      * @return 用户信息
      */
     Custom getUserByPhone(String phone);
+
+    /**
+     * 统计用户总数
+     *
+     * @param params 统计数据源
+     * @return 用户总数
+     */
+    int count(CustomParams params);
+
+    /**
+     * 查询用户列表
+     *
+     * @param params 查询数据源
+     * @return 用户列表
+     */
+    List<CustomVo> list(CustomParams params);
 }

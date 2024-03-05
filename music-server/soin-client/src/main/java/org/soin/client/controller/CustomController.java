@@ -42,7 +42,7 @@ public class CustomController implements ICustomApi {
         Assert.isBlank(username, "请输入用户名");
         Assert.isBlank(username, "请输入密码");
         LoginVo vo = customService.login(username, password);
-        RunTimeTool.printMethodResponseMsg("login", vo);
+        RunTimeTool.printMethodResponseMsg("login", vo.getToken());
         return GenericResponse.builder().success(vo);
     }
 
