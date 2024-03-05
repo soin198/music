@@ -1,4 +1,4 @@
-package org.soin.core.domain.cilentCustom.vo;
+package org.soin.core.domain.cilentCustom.vo.reception;
 
 import lombok.Data;
 

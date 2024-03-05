@@ -1,7 +1,6 @@
-package org.soin.core.domain.cilentCustom.vo;
+package org.soin.core.domain.cilentCustom.vo.backstage;
 
 import lombok.Data;
-import org.soin.core.domain.cilentCustom.entity.Custom;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,14 +21,9 @@ public class CustomVo implements Serializable {
     private String username;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
      * 性别
      */
-    private Custom.Gender sex;
+    private String sex;
 
     /**
      * 头像
@@ -55,20 +49,5 @@ public class CustomVo implements Serializable {
      * 简介
      */
     private String resume;
-
-    /**
-     * 省份
-     */
-    private Integer province;
-
-    /**
-     * 城市
-     */
-    private Integer city;
-
-    /**
-     * 区/县
-     */
-    private Integer region;
 
 }

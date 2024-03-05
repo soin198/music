@@ -1,6 +1,6 @@
 package org.soin.client.api;
 
-import org.soin.core.domain.cilentCustom.vo.LoginVo;
+import org.soin.core.domain.cilentCustom.vo.reception.LoginVo;
 import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;

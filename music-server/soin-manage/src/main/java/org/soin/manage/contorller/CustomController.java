@@ -2,7 +2,7 @@ package org.soin.manage.contorller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.service.CustomService;
-import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.backstage.CustomVo;
 import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.common.RunTimeTool;

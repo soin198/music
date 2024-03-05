@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
-import org.soin.core.domain.cilentCustom.vo.CustomVo;
 import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.mapper.clientCustom.CustomMapper;
 import org.soin.core.infrastructure.base.common.Assert;
@@ -167,9 +166,9 @@ public class CustomRepository implements ICustomRepository {
      * @return 用户列表
      */
     @Override
-    public List<CustomVo> list(CustomParams params) {
-        List<CustomVo> list = customMapper.list(params);
-        if (null == list || list.isEmpty()) {
+    public List<org.soin.core.domain.cilentCustom.vo.backstage.CustomVo> list(CustomParams params) {
+        List<org.soin.core.domain.cilentCustom.vo.backstage.CustomVo> list = customMapper.list(params);
+        if (null == list) {
             return Lists.newArrayList();
         }
         return list;

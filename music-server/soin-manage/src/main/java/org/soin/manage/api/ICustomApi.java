@@ -1,6 +1,6 @@
 package org.soin.manage.api;
 
-import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.backstage.CustomVo;
 import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
