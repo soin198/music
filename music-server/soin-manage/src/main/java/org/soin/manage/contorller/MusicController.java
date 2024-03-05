@@ -1,6 +1,9 @@
 package org.soin.manage.contorller;
 
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.music.serivce.MusicService;
+import org.soin.core.infrastructure.base.common.Assert;
+import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.manage.api.IMusicApi;
 import org.soin.manage.api.dto.MusicCreateDTO;
@@ -17,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MusicController implements IMusicApi {
 
+    private final MusicService musicService;
+
     /**
      * 创建音乐
      *
@@ -27,6 +32,15 @@ public class MusicController implements IMusicApi {
      */
     @Override
     public GenericResponse<Boolean> create(MultipartFile audio, MultipartFile image, MusicCreateDTO musicCreateDTO) {
-        return null;
+        RunTimeTool.printMethodMsg("create", "创建音乐", musicCreateDTO);
+        Assert.isNull(audio, "请提供音乐音频");
+        Assert.isNull(image, "请提供音频封面");
+        Long singerId = musicCreateDTO.getSingerId();
+        String musicName = musicCreateDTO.getMusicName();
+        String resume = musicCreateDTO.getResume();
+        String compose = musicCreateDTO.getCompose();
+        boolean isOpen = musicService.create(audio, image, singerId, musicName, resume, compose);
+        RunTimeTool.printMethodResponseMsg("create", isOpen);
+        return GenericResponse.builder().success(isOpen);
     }
 }

@@ -27,4 +27,16 @@ public interface IMusicRepository {
      * @return 评论页数据
      */
     MusicComposeVo musicComposeQuery(Long musicId);
+
+    /**
+     * 创建音乐
+     *
+     * @param musicName 音乐名称
+     * @param resume    音乐简介
+     * @param compose   歌词
+     * @param audioId   音频库ID
+     * @param imageId   图片库ID
+     * @return 音乐主键
+     */
+    Long create(String musicName, String resume, String compose, Long audioId, Long imageId);
 }

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.database.entity.ImageDataBase;
-import org.soin.core.domain.database.repository.IImageDataBaseRepository;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.mapper.database.ImageDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.List;
  **/
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ImageDataRepository implements IImageDataBaseRepository {
+public class ImageDataRepository implements org.soin.core.domain.database.repository.ImageDataRepository {
 
     private final ImageDataMapper imageDataMapper;
 
@@ -32,10 +31,11 @@ public class ImageDataRepository implements IImageDataBaseRepository {
      * @param name 文件名称
      * @param size 文件大小
      * @param type 文件类型
+     * @return 图片库ID
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insert(String path, String name, long size, ImageDataBase.Type type) {
+    public Long create(String path, String name, long size, ImageDataBase.Type type) {
         Assert.isBlank(path, "请提供文件路径");
         Assert.isBlank(name, "请提供文件名称");
         Assert.isNull(type, "请提供文件类型");
@@ -45,6 +45,7 @@ public class ImageDataRepository implements IImageDataBaseRepository {
         data.setSize(size);
         data.setType(type);
         imageDataMapper.insert(data);
+        return data.getId();
     }
 
     /**

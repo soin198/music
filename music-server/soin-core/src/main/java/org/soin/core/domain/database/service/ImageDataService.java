@@ -2,7 +2,7 @@ package org.soin.core.domain.database.service;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.database.entity.ImageDataBase;
-import org.soin.core.domain.database.repository.IImageDataBaseRepository;
+import org.soin.core.domain.database.repository.ImageDataRepository;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ import java.util.Optional;
  * @version 1.0.0
  * @date 2024-02-23 16:39
  **/
-@Service(value = "ImageDataBaseService")
+@Service(value = "ImageDataService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ImageDataBaseService {
+public class ImageDataService {
 
-    private final IImageDataBaseRepository imageDataBaseRepository;
+    private final ImageDataRepository imageDataRepository;
 
     /**
      * 添加图片库数据
@@ -28,9 +28,10 @@ public class ImageDataBaseService {
      * @param name 文件名称
      * @param size 文件大小
      * @param type 文件类型
+     * @return 图片库ID
      */
-    public void insert(String path, String name, long size, ImageDataBase.Type type) {
-        imageDataBaseRepository.insert(path, name, size, type);
+    public Long create(String path, String name, long size, ImageDataBase.Type type) {
+        return imageDataRepository.create(path, name, size, type);
     }
 
     /**
@@ -41,7 +42,7 @@ public class ImageDataBaseService {
      */
     public String pathQuery(Long keyId) {
         Assert.isNull(keyId, "请提供图片库ID");
-        ImageDataBase imageDataBase = Optional.ofNullable(imageDataBaseRepository
+        ImageDataBase imageDataBase = Optional.ofNullable(imageDataRepository
                 .findOne(keyId))
                 .orElseThrow(() -> new IllegalArgumentException("图片库ID无效"));
         return imageDataBase.getPath() + "/" + imageDataBase.getName();
@@ -53,7 +54,7 @@ public class ImageDataBaseService {
      * @return 图片库列表
      */
     public List<ImageDataBase> list() {
-        return imageDataBaseRepository.list();
+        return imageDataRepository.list();
     }
 
     /**
@@ -63,6 +64,6 @@ public class ImageDataBaseService {
      * @return 是否更新成功
      */
     public boolean update(ImageDataBase imageDataBase) {
-        return imageDataBaseRepository.update(imageDataBase);
+        return imageDataRepository.update(imageDataBase);
     }
 }

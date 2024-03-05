@@ -105,18 +105,3 @@ export function deletes(url, data = {}) {
         );
     });
 }
-
-/**
- * 封装put请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-export function put(url, data = {}) {
-    return new Promise((resolve, reject) => {
-        axios.put(baseURL + url, data).then(
-            response => resolve(response.data),
-            error => reject(error)
-        );
-    });
-}

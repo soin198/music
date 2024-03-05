@@ -89,7 +89,7 @@ public class RunTimeTool {
      * @param message    执行信息
      */
     public static void printMethodMsg(String methodName, String message) {
-        LOGGER.info("请求方法：[{}]，[{}]", methodName, message);
+        LOGGER.info("访问连接，请求方法：[{}]，[{}]", methodName, message);
     }
 
     /**
@@ -100,7 +100,7 @@ public class RunTimeTool {
      * @param params     入参参数
      */
     public static <TYPE> void printMethodMsg(String methodName, String message, Object... params) {
-        LOGGER.info("请求方法：[{}]，[{}]，请求参数：[{}]", methodName, message, JSONObject.toJSONString(params));
+        LOGGER.info("访问连接，请求方法：[{}]，[{}]，请求参数：[{}]", methodName, message, JSONObject.toJSONString(params));
     }
 
     /**
@@ -110,7 +110,7 @@ public class RunTimeTool {
      * @param params     响应参数
      */
     public static void printMethodResponseMsg(String methodName, Object... params) {
-        LOGGER.info("响应方法：[{}]，响应参数：[{}]", methodName, JSONObject.toJSONString(params));
+        LOGGER.info("响应方法：[{}]，响应值：[{}]", methodName, JSONObject.toJSONString(params));
     }
 
     /**

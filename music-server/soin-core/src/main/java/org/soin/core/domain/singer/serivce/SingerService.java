@@ -2,7 +2,7 @@ package org.soin.core.domain.singer.serivce;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.soin.core.domain.database.service.ImageDataBaseService;
+import org.soin.core.domain.database.service.ImageDataService;
 import org.soin.core.domain.singer.entity.Singer;
 import org.soin.core.domain.singer.params.SingerParams;
 import org.soin.core.domain.singer.repository.ISingerRepository;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +32,7 @@ public class SingerService {
     /**
      * 视频库服务
      */
-    private final ImageDataBaseService imageDataBaseService;
+    private final ImageDataService imageDataService;
 
     /**
      * 获取歌手分页列表
@@ -56,7 +57,7 @@ public class SingerService {
         Singer singer = iSingerRepository.getOneByKeyId(singerId);
         Assert.isNull(singer, "singerId is invalid");
         SingerVo convert = ConvertUtil.convert(singer, SingerVo.class);
-        String path = imageDataBaseService.pathQuery(singer.getImageId());
+        String path = imageDataService.pathQuery(singer.getImageId());
         convert.setSingerPic(ImageUtil.generate(path));
         return convert;
     }
@@ -74,4 +75,13 @@ public class SingerService {
         return ConvertUtil.converts(list, SingerVo.class);
     }
 
+    /**
+     * 根据歌手ID获取歌手
+     *
+     * @param singerId 歌手ID
+     * @return 歌手
+     */
+    public Optional<Singer> findOne(Long singerId) {
+        return Optional.ofNullable(iSingerRepository.getOneByKeyId(singerId));
+    }
 }

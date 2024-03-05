@@ -2,6 +2,7 @@ package org.soin.core.infrastructure.repository.music;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.music.entity.Music;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.repository.IMusicRepository;
 import org.soin.core.domain.music.vo.MusicComposeVo;
@@ -66,6 +67,33 @@ public class MusicRepository implements IMusicRepository {
         Assert.isNull(composeVo, "数据异常");
         composeVo.setImage(ImageUtil.generate(composeVo.getImage()));
         return composeVo;
+    }
+
+    /**
+     * 创建音乐
+     *
+     * @param musicName 音乐名称
+     * @param resume    音乐简介
+     * @param compose   歌词
+     * @param audioId   音频库ID
+     * @param imageId   图片库ID
+     * @return 音乐主键
+     */
+    @Override
+    public Long create(String musicName, String resume, String compose, Long audioId, Long imageId) {
+        Assert.isBlank(musicName, "请提供音乐名称");
+        Assert.isBlank(resume, "请提供音乐简介");
+        Assert.isBlank(compose, "请提供歌词");
+        Assert.isNull(audioId, "请提供视频库ID");
+        Assert.isNull(imageId, "请提供图片库ID");
+        Music music = new Music();
+        music.setMusicName(musicName);
+        music.setResume(resume);
+        music.setCompose(compose);
+        music.setAudioId(audioId);
+        music.setImageId(imageId);
+        music.setEnable(Boolean.TRUE);
+        return music.getId();
     }
 }
 

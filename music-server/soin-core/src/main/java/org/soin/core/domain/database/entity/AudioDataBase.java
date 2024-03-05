@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import org.soin.core.infrastructure.base.common.BaseEntity;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * 音频库
@@ -39,9 +41,25 @@ public class AudioDataBase extends BaseEntity implements Serializable {
     /**
      * 音频类型
      */
-    private ImageDataBase.Type type;
+    private Type type;
 
     public enum Type {
+
+        /**
+         * MP3
+         */
+        MP3;
+
+        /**
+         * 匹配音频类型
+         *
+         * @param suffix 后缀
+         * @return 音频类型
+         */
+        public static Type match(String suffix) {
+            String type = suffix.toLowerCase(Locale.ROOT);
+            return Arrays.stream(Type.values()).filter(item -> item.name().equals(type)).findFirst().orElseThrow(() -> new IllegalArgumentException("音频类型错误"));
+        }
 
     }
 

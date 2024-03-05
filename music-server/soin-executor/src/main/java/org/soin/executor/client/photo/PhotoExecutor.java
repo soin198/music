@@ -3,7 +3,7 @@ package org.soin.executor.client.photo;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.database.entity.ImageDataBase;
-import org.soin.core.domain.database.service.ImageDataBaseService;
+import org.soin.core.domain.database.service.ImageDataService;
 import org.soin.core.domain.singer.serivce.SingerService;
 import org.soin.core.domain.singer.vo.SingerVo;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
@@ -33,7 +33,7 @@ public class PhotoExecutor {
     /**
      * 图片库服务
      */
-    private final ImageDataBaseService imageDataBaseService;
+    private final ImageDataService imageDataService;
 
     /**
      * 图片根目录
@@ -76,7 +76,7 @@ public class PhotoExecutor {
     public void sizeBuild() {
         Date time = new Date();
         RunTimeTool.printTaskStartMsg("sizeBuild", "同步图片大小", time);
-        List<ImageDataBase> list = imageDataBaseService.list();
+        List<ImageDataBase> list = imageDataService.list();
         if (null == list || list.isEmpty()) {
             RunTimeTool.printWarn("暂无文件需要同步...");
             return;
@@ -84,7 +84,7 @@ public class PhotoExecutor {
         for (ImageDataBase base : list) {
             long size = FileUtil.size(base.getPath());
             base.setSize(size);
-            boolean isOpen = imageDataBaseService.update(base);
+            boolean isOpen = imageDataService.update(base);
             RunTimeTool.printMethodResponseMsg("imageDataBaseService.update", isOpen);
         }
         RunTimeTool.printTaskEndMsg("sizeBuild", time);

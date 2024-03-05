@@ -36,4 +36,19 @@ public class Music extends BaseEntity implements Serializable {
      */
     private String compose;
 
+    /**
+     * 音频库ID
+     */
+    private Long audioId;
+
+    /**
+     * 图片库ID
+     */
+    private Long imageId;
+
+    /**
+     * 是否可用
+     */
+    private Boolean enable;
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0.0
  * @date 2024-02-23 16:39
  **/
-public interface IImageDataBaseRepository {
+public interface ImageDataRepository {
 
     /**
      * 添加图片库数据
@@ -18,8 +18,9 @@ public interface IImageDataBaseRepository {
      * @param name 文件名称
      * @param size 文件大小
      * @param type 文件类型
+     * @return 图片库ID
      */
-    void insert(String path, String name, long size, ImageDataBase.Type type);
+    Long create(String path, String name, long size, ImageDataBase.Type type);
 
     /**
      * 根据图片库ID获取图片库

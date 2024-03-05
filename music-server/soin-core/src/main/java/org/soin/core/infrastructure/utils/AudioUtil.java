@@ -23,7 +23,7 @@ public class AudioUtil {
     public static final List<String> AUDIO_TYPE = List.of("mp3");
 
     /**
-     * 生成base64图片
+     * 生成base64音频流
      *
      * @param path 图片路径
      * @return base64
@@ -52,9 +52,9 @@ public class AudioUtil {
      * 生成唯一音频名称
      *
      * @param audioName 音频名称
-     * @return 图片名称
+     * @return 音频名称
      */
-    public static String generateImageName(String audioName) {
+    public static String generateName(String audioName) {
         int index = audioName.indexOf('.');
         String suffix = audioName.substring(index + 1);
         boolean contains = AUDIO_TYPE.contains(suffix);

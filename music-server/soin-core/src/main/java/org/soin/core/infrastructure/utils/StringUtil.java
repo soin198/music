@@ -1,6 +1,8 @@
 package org.soin.core.infrastructure.utils;
 
 
+import org.soin.core.infrastructure.base.common.Assert;
+
 /**
  * 字符串处理工具
  *
@@ -27,6 +29,18 @@ public class StringUtil {
             }
         }
         return Boolean.FALSE;
+    }
+
+    /**
+     * 获取文件后缀
+     *
+     * @param val 数据源
+     * @return 文件后缀
+     */
+    public static String getSuffix(String val) {
+        Assert.isBlank(val, "params is null");
+        int index = val.indexOf('.');
+        return val.substring(index + 1);
     }
 
 }

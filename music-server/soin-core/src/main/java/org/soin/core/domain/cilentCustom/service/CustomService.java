@@ -9,7 +9,7 @@ import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
 import org.soin.core.domain.cilentCustom.vo.CustomVo;
 import org.soin.core.domain.cilentCustom.vo.LoginVo;
-import org.soin.core.domain.database.service.ImageDataBaseService;
+import org.soin.core.domain.database.service.ImageDataService;
 import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.base.common.Page;
@@ -48,7 +48,7 @@ public class CustomService {
     /**
      * 图片库服务
      */
-    private final ImageDataBaseService imageDataBaseService;
+    private final ImageDataService imageDataService;
 
     /**
      * 前台登录站点
@@ -69,7 +69,7 @@ public class CustomService {
         Long imageId = custom.getImageId();
         loginVo.setUserId(customId);
         loginVo.setUsername(custom.getNickname());
-        String path = imageDataBaseService.pathQuery(imageId);
+        String path = imageDataService.pathQuery(imageId);
         loginVo.setPhoto(ImageUtil.generate(path));
         String token = CacheUtil.secureGet(customId, String.class, t -> JwtUtil.generateToken(customId), CommonTimeEnum.SECS_1800.getSecond(), TimeUnit.SECONDS, RegionEnum.CLIENT);
         loginVo.setToken(token);
