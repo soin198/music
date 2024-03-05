@@ -7,7 +7,7 @@
 		<version>2.7.3</version>
 		<relativePath />
 	</parent>
-	<artifactId>xxl-job-admin</artifactId>
+	<artifactId>music-executor</artifactId>
 	<packaging>jar</packaging>
 
 	<properties>
