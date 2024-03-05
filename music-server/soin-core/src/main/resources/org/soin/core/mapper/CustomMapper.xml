@@ -7,7 +7,7 @@
         FROM t_custom
     </select>
 
-    <select id="list" resultType="org.soin.core.domain.cilentCustom.vo.backstage.CustomVo">
+    <select id="list" resultType="org.soin.core.domain.cilentCustom.vo.CustomVo">
         SELECT tc.id,
                tc.username,
                tc.nickname,

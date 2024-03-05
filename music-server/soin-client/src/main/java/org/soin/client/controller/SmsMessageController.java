@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.soin.client.api.ISmsMessageApi;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.service.CustomService;
-import org.soin.core.domain.cilentCustom.vo.reception.LoginVo;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.domain.sms.serivce.SmsMessageService;
 import org.soin.core.infrastructure.base.response.GenericResponse;

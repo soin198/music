@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 /**
  * @author J.FLa.Soin
  * @version 1.0.0
  * @date 2024-01-31 14:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/employee")
+@RequestMapping(BaseConstant.BASE_BACKSTAGE_SERVICE_URL + "/employee")
 public interface IEmployeeApi {
 
     /**

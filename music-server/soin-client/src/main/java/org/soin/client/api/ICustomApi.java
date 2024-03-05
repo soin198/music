@@ -1,8 +1,8 @@
 package org.soin.client.api;
 
 import org.soin.client.api.dto.RegisterDTO;
-import org.soin.core.domain.cilentCustom.vo.reception.CustomVo;
-import org.soin.core.domain.cilentCustom.vo.reception.LoginVo;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.Map;
  * @version 1.0.0
  * @date 2024-01-31 14:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/custom/authority")
+@RequestMapping(BaseConstant.BASE_CLIENT_SERVICE_URL + "/custom/authority")
 public interface ICustomApi {
 
     /**

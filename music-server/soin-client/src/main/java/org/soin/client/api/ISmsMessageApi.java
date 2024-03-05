@@ -1,6 +1,6 @@
 package org.soin.client.api;
 
-import org.soin.core.domain.cilentCustom.vo.reception.LoginVo;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.domain.sms.entity.SmsMessage;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0.0
  * @date 2024-01-31 14:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/sms")
+@RequestMapping(BaseConstant.BASE_CLIENT_SERVICE_URL + "/sms")
 public interface ISmsMessageApi {
 
     /**

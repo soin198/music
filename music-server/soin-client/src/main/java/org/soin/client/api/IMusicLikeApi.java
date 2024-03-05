@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version 1.0.0
  * @date 2024-02-27 15:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/music")
+@RequestMapping(BaseConstant.BASE_CLIENT_SERVICE_URL + "/music")
 public interface IMusicLikeApi {
 
     /**

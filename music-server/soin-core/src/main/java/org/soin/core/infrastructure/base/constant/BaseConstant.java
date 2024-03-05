@@ -14,7 +14,12 @@ public class BaseConstant {
     /**
      * 公共URL
      */
-    public static final String BASE_SERVICE_URL = "/api";
+    public static final String BASE_CLIENT_SERVICE_URL = "/api/client";
+
+    /**
+     * 公共URL
+     */
+    public static final String BASE_BACKSTAGE_SERVICE_URL = "/api/backstage";
 
     /**
      * 通用查询数量

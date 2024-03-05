@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.cilentCustom.bo.CustomBo;
 import org.soin.core.domain.cilentCustom.entity.Custom;
 import org.soin.core.domain.cilentCustom.repository.ICustomRepository;
-import org.soin.core.domain.cilentCustom.vo.reception.LoginVo;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.domain.database.service.ImageDataBaseService;
 import org.soin.core.domain.manageEmployee.params.CustomParams;
 import org.soin.core.infrastructure.base.common.Assert;
@@ -101,10 +102,10 @@ public class CustomService {
      * @param userId 人员ID
      * @return 用户
      */
-    public org.soin.core.domain.cilentCustom.vo.reception.CustomVo getOne(Long userId) {
+    public CustomVo getOne(Long userId) {
         Assert.isNull(userId, "请提供userId");
         Custom custom = customRepository.getOne(userId);
-        return ConvertUtil.convert(custom, org.soin.core.domain.cilentCustom.vo.reception.CustomVo.class);
+        return ConvertUtil.convert(custom, CustomVo.class);
     }
 
     /**
@@ -159,9 +160,9 @@ public class CustomService {
      * @param params 查询数据源
      * @return 客户分页列表
      */
-    public Page<org.soin.core.domain.cilentCustom.vo.backstage.CustomVo> page(CustomParams params) {
+    public Page<CustomVo> page(CustomParams params) {
         int rows = customRepository.count(params);
-        List<org.soin.core.domain.cilentCustom.vo.backstage.CustomVo> list = (rows > 0) ? customRepository.list(params) : Lists.newArrayList();
+        List<CustomVo> list = (rows > 0) ? customRepository.list(params) : Lists.newArrayList();
         list = list.stream().peek(item -> item.setPhoto(ImageUtil.generate(item.getPhoto()))).collect(Collectors.toList());
         return new Page<>(rows, list);
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0.0
  * @date 2024-01-31 14:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/base/singer")
+@RequestMapping(BaseConstant.BASE_CLIENT_SERVICE_URL + "/base/singer")
 public interface ISingerApi {
 
     /**

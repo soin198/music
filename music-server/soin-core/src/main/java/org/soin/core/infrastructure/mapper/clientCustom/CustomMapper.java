@@ -2,7 +2,7 @@ package org.soin.core.infrastructure.mapper.clientCustom;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.soin.core.domain.cilentCustom.entity.Custom;
-import org.soin.core.domain.cilentCustom.vo.backstage.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
 import org.soin.core.domain.manageEmployee.params.CustomParams;
 
 import java.util.List;

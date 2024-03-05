@@ -5,8 +5,8 @@ import org.soin.client.api.ICustomApi;
 import org.soin.client.api.dto.RegisterDTO;
 import org.soin.core.domain.cilentCustom.bo.CustomBo;
 import org.soin.core.domain.cilentCustom.service.CustomService;
-import org.soin.core.domain.cilentCustom.vo.reception.CustomVo;
-import org.soin.core.domain.cilentCustom.vo.reception.LoginVo;
+import org.soin.core.domain.cilentCustom.vo.CustomVo;
+import org.soin.core.domain.cilentCustom.vo.LoginVo;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.soin.core.infrastructure.base.common.Assert;
@@ -72,7 +72,7 @@ public class CustomController implements ICustomApi {
     public GenericResponse<CustomVo> detailsQuery(Long userId) {
         RunTimeTool.printMethodMsg("detailsQuery", "获取用户信息", userId);
         Assert.isNull(userId, "登录失效，请重新登录");
-        org.soin.core.domain.cilentCustom.vo.reception.CustomVo customVo = customService.getOne(userId);
+        CustomVo customVo = customService.getOne(userId);
         RunTimeTool.printMethodResponseMsg("detailsQuery", customVo);
         return GenericResponse.builder().success(customVo);
     }

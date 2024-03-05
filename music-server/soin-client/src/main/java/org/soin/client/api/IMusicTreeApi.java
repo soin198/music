@@ -15,7 +15,7 @@ import java.util.List;
  * @version 1.0.0
  * @date 2024-01-31 14:37
  **/
-@RequestMapping(BaseConstant.BASE_SERVICE_URL + "/music/tree")
+@RequestMapping(BaseConstant.BASE_CLIENT_SERVICE_URL + "/music/tree")
 public interface IMusicTreeApi {
 
     /**
