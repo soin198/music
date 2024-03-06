@@ -1,9 +1,18 @@
 <template>
   <div class="container">
-    <div class="handle-box">
-      <el-button type="primary" @click="centerDialogVisible = true">添加歌手</el-button>
-    </div>
-    <el-table height="550px" size="small" :data="data">
+    <el-form :inline="true" size="small">
+      <el-form-item label="歌曲名称">
+        <el-input v-model.trim="params.musicName" placeholder="请输入歌曲名称" clearable/>
+      </el-form-item>
+      <el-form-item label="歌手名称">
+        <el-input v-model.trim="params.singerName" placeholder="请输入歌手名称" clearable/>
+      </el-form-item>
+      <el-button type="primary" size="small" @click="page(1)">查询</el-button>
+    </el-form>
+    <el-table size="small"
+              :data="data"
+              v-loading="loading"
+              element-loading-text="数据加载中...">
       <el-table-column label="歌曲图片" :width="150" align="center">
         <template v-slot="scope">
           <div class="singer-img">
@@ -24,7 +33,6 @@
       </el-table-column>
       <el-table-column label="操作" :width="150" align="center">
         <template v-slot="scope">
-          <el-button @click="editRow(scope.row)">编辑</el-button>
           <el-button type="danger" @click="deleteRow(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -40,83 +48,17 @@
     >
     </el-pagination>
   </div>
-
-  <!-- 添加 -->
-  <el-dialog title="添加歌手" v-model="centerDialogVisible">
-    <el-form label-width="80px" :model="registerForm" :rules="singerRule">
-      <el-form-item label="歌手名" prop="name">
-        <el-input v-model="registerForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="性别" prop="sex">
-        <el-radio-group v-model="registerForm.sex">
-          <el-radio :label="0">女</el-radio>
-          <el-radio :label="1">男</el-radio>
-          <el-radio :label="2">保密</el-radio>
-          <el-radio :label="2">组合</el-radio>
-          <el-radio :label="3">不明</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="故乡" prop="location">
-        <el-input v-model="registerForm.location"></el-input>
-      </el-form-item>
-      <el-form-item label="出生日期" prop="birth">
-        <el-date-picker type="date" v-model="registerForm.birth"></el-date-picker>
-      </el-form-item>
-      <el-form-item label="歌手介绍" prop="introduction">
-        <el-input type="textarea" v-model="registerForm.introduction"></el-input>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addsinger">确 定</el-button>
-      </span>
-    </template>
-  </el-dialog>
-
-  <!-- 编辑弹出框 -->
-  <el-dialog title="编辑" v-model="editVisible">
-    <el-form label-width="60px" :model="editForm" :rules="singerRule">
-      <el-form-item label="歌手" prop="name">
-        <el-input v-model="editForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="性别" prop="sex">
-        <el-radio-group v-model="editForm.sex">
-          <el-radio :label="0">女</el-radio>
-          <el-radio :label="1">男</el-radio>
-          <el-radio :label="2">保密</el-radio>
-          <el-radio :label="2">组合</el-radio>
-          <el-radio :label="3">不明</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="出生" prop="birth">
-        <el-date-picker type="date" v-model="editForm.birth"></el-date-picker>
-      </el-form-item>
-      <el-form-item label="地区" prop="location">
-        <el-input v-model="editForm.location"></el-input>
-      </el-form-item>
-      <el-form-item label="简介" prop="introduction">
-        <el-input type="textarea" v-model="editForm.introduction"></el-input>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="editVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveEdit">确 定</el-button>
-      </span>
-    </template>
-  </el-dialog>
-
   <!-- 删除提示框 -->
-  <yin-del-dialog :delVisible="delVisible" @confirm="confirm" @cancelRow="delVisible = $event"></yin-del-dialog>
+  <yin-del-dialog :delVisible="delVisible" @confirm="confirm" @cancelRow="delVisible = $event"/>
 </template>
 
 <script lang="ts">
-import {defineComponent, getCurrentInstance, ref, reactive, onMounted} from "vue";
+import {defineComponent, ref, reactive, onMounted} from "vue";
 import YinDelDialog from "@/components/dialog/YinDelDialog.vue";
 import {HttpManager} from "@/api/index";
 import {getBirth} from "@/utils";
 import {MusicManager} from "@/api/music"
+import {Message} from "@/message/CustomMessage"
 
 export default defineComponent({
   components: {
@@ -131,7 +73,8 @@ export default defineComponent({
     })
     const data = ref([]);
     const totalRows = ref(0);
-    const {proxy} = getCurrentInstance();
+    const loading = ref(false)
+    const delVisible = ref(false)
     onMounted(() => {
       page(1);
     })
@@ -141,12 +84,14 @@ export default defineComponent({
      * @param val 当前页码
      */
     async function page(val) {
+      loading.value = true
       params.page = val
       const {code, items} = (await MusicManager.page(params)) as Response;
       if (code === 200) {
         data.value = items.data
         totalRows.value = items.totalRows
       }
+      loading.value = false
     }
 
     // 获取当前页
@@ -154,90 +99,20 @@ export default defineComponent({
       page(val);
     }
 
-    function uploadUrl(id) {
-      return HttpManager.attachImageUrl(`/singer/avatar/update?id=${id}`);
-    }
-
-
-    /**
-     * 添加
-     */
-    const centerDialogVisible = ref(false);
-    const registerForm = reactive({
-      name: "",
-      sex: "",
-      birth: new Date(),
-      location: "",
-      introduction: "",
-    });
-    const singerRule = reactive({
-      name: [{required: true, trigger: "change"}],
-      sex: [{required: true, trigger: "change"}],
-    });
-
-    /**
-     * 编辑
-     */
-    const editVisible = ref(false);
-    const editForm = reactive({
-      id: "",
-      name: "",
-      sex: "",
-      pic: "",
-      birth: new Date(),
-      location: "",
-      introduction: "",
-    });
-
-    function editRow(row) {
-      editVisible.value = true;
-      editForm.id = row.id;
-      editForm.name = row.name;
-      editForm.sex = row.sex;
-      editForm.pic = row.pic;
-      editForm.birth = row.birth;
-      editForm.location = row.location;
-      editForm.introduction = row.introduction;
-    }
-
-    async function saveEdit() {
-      try {
-        let datetime = getBirth(new Date(editForm.birth));
-        let params = new URLSearchParams();
-        params.append("id", editForm.id);
-        params.append("name", editForm.name);
-        params.append("sex", editForm.sex);
-        params.append("birth", datetime);
-        params.append("location", editForm.location);
-        params.append("introduction", editForm.introduction);
-
-        const result = (await HttpManager.updateSingerMsg(params)) as ResponseBody;
-        (proxy as any).$message({
-          message: result.message,
-          type: result.type,
-        });
-
-        if (result.success) page(1);
-        editVisible.value = false;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
     /**
      * 删除
      */
     const idx = ref(-1); // 记录当前要删除的行
     const multipleSelection = ref([]); // 记录当前要删除的列表
-    const delVisible = ref(false); // 显示删除框
 
     async function confirm() {
-      const result = (await HttpManager.deleteSinger(idx.value)) as ResponseBody;
-      (proxy as any).$message({
-        message: result.message,
-        type: result.type,
-      });
-      if (result.success) page(1);
+      const {code, message} = (await HttpManager.deleteSinger(idx.value)) as Response;
+      if (code === 200) {
+        Message.success("禁用成功")
+        await page(1);
+      } else {
+        Message.error(message)
+      }
       delVisible.value = false;
     }
 
@@ -258,17 +133,11 @@ export default defineComponent({
       data,
       totalRows,
       params,
-      centerDialogVisible,
-      editVisible,
+      page,
+      loading,
       delVisible,
-      registerForm,
-      editForm,
-      singerRule,
       deleteAll,
-      attachImageUrl: HttpManager.attachImageUrl,
       getBirth,
-      uploadUrl,
-      editRow,
       changeVal,
       confirm,
       deleteRow,

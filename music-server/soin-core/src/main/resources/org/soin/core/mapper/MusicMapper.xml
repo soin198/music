@@ -41,10 +41,10 @@
                 AND ts.id = #{singerId}
             </if>
             <if test="singerName != null and singerName != ''">
-                AND ts.name = #{singerName}
+                AND ts.name LIKE CONCAT('%',#{singerName},'%')
             </if>
             <if test="musicName != null and musicName != ''">
-                AND tm.musicName = #{musicName}
+                AND tm.musicName LIKE CONCAT('%',#{musicName},'%')
             </if>
         </where>
     </sql>

@@ -23,15 +23,15 @@ public interface MusicMapper extends BaseMapper<Music> {
      * @param musicParams 歌曲统计数据源
      * @return 歌曲总数
      */
-    int count(MusicParams musicParams);
+    int count(MusicParams params);
 
     /**
      * 获取歌曲分页
      *
-     * @param musicParams 歌曲查询数据源
+     * @param params 歌曲查询数据源
      * @return 歌单列表
      */
-    List<MusicBO> page(MusicParams musicParams);
+    List<MusicBO> page(MusicParams params);
 
     /**
      * 根据歌曲ID获取评论页数据

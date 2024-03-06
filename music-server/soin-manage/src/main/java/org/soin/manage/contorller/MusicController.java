@@ -59,10 +59,11 @@ public class MusicController implements IMusicApi {
      */
     @Override
     public GenericResponse<Page<MusicVo>> page(MusicParams params) {
+        RunTimeTool.printMethodMsg("page", "获取歌曲分页列表", params);
         Page<MusicBO> page = musicService.page(params);
         int rows = page.getTotalRows();
         List<MusicBO> data = page.getData();
-        List<MusicVo> list = ConvertUtil.converts(data, MusicVo.class);
-        return GenericResponse.builder().success(new Page<>(rows, list));
+        RunTimeTool.printMethodResponseMsg("page", rows);
+        return GenericResponse.builder().success(new Page<>(rows, ConvertUtil.converts(data, MusicVo.class)));
     }
 }

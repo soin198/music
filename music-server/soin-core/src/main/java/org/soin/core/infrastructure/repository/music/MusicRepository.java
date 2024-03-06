@@ -33,22 +33,20 @@ public class MusicRepository implements IMusicRepository {
     /**
      * 获取歌曲分页
      *
-     * @param musicParams 歌曲查询数据源
+     * @param params 歌曲查询数据源
      * @return 歌单列表
      */
     @Override
-    public Page<MusicBO> page(MusicParams musicParams) {
-        Assert.isNull(musicParams, "请提供查询数据源");
+    public Page<MusicBO> page(MusicParams params) {
+        Assert.isNull(params, "请提供查询数据源");
         Page<MusicBO> page = new Page<>(0, Lists.newArrayList());
-        int totalRows = musicMapper.count(musicParams);
-        List<MusicBO> list = (totalRows > 0) ? musicMapper.page(musicParams) : Lists.newArrayList();
+        int totalRows = musicMapper.count(params);
+        List<MusicBO> list = (totalRows > 0) ? musicMapper.page(params) : Lists.newArrayList();
         if (totalRows == 0) {
             return page;
         }
         List<MusicBO> musicVos = list.stream().peek(music -> {
-            //图片转换
             music.setImage(ImageUtil.generate(music.getImage()));
-            //音频转换
             music.setAudio(AudioUtil.generate(music.getAudio()));
         }).collect(Collectors.toList());
         return new Page<>(totalRows, musicVos);

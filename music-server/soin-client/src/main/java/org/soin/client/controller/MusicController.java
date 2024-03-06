@@ -9,7 +9,6 @@ import org.soin.core.domain.music.serivce.MusicService;
 import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.response.GenericResponse;
-import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,6 @@ public class MusicController implements IMusicApi {
     @Override
     public GenericResponse<Page<MusicVo>> page(MusicParams musicParams) {
         RunTimeTool.printMethodMsg("page", "获取歌曲分页列表", musicParams);
-        Assert.isNull(musicParams, "数据异常");
         Page<MusicBO> page = musicService.page(musicParams);
         int rows = page.getTotalRows();
         List<MusicBO> list = page.getData();
