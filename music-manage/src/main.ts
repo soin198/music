@@ -6,6 +6,7 @@ import store from "./store";
 import "element-plus/dist/index.css";
 import "./assets/css/main.css";
 import "./assets/icons/iconfont.js";
+import naive from 'naive-ui'
 
 import { Store } from "vuex";
 declare module "@vue/runtime-core" {
@@ -18,4 +19,4 @@ declare module "@vue/runtime-core" {
   }
 }
 
-createApp(App).use(store).use(router).use(ElementPlus).mount("#app");
+createApp(App).use(store).use(router).use(naive).use(ElementPlus).mount("#app");
