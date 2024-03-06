@@ -2,13 +2,11 @@ package org.soin.core.infrastructure.repository.music;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.music.bo.MusicBO;
 import org.soin.core.domain.music.entity.Music;
-import org.soin.core.domain.music.params.BackstageMusicParams;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.repository.IMusicRepository;
-import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.domain.music.vo.MusicComposeVo;
-import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.mapper.music.MusicMapper;
 import org.soin.core.infrastructure.base.common.Assert;
@@ -39,36 +37,21 @@ public class MusicRepository implements IMusicRepository {
      * @return 歌单列表
      */
     @Override
-    public Page<MusicVo> page(MusicParams musicParams) {
+    public Page<MusicBO> page(MusicParams musicParams) {
         Assert.isNull(musicParams, "请提供查询数据源");
+        Page<MusicBO> page = new Page<>(0, Lists.newArrayList());
         int totalRows = musicMapper.count(musicParams);
-        List<MusicVo> list = (totalRows > 0) ? musicMapper.page(musicParams) : Lists.newArrayList();
-        List<MusicVo> musicVos = list.stream().peek(music -> {
+        List<MusicBO> list = (totalRows > 0) ? musicMapper.page(musicParams) : Lists.newArrayList();
+        if (totalRows == 0) {
+            return page;
+        }
+        List<MusicBO> musicVos = list.stream().peek(music -> {
             //图片转换
-            String imagePath = music.getImage();
-            String base64 = ImageUtil.generate(imagePath);
-            music.setImage(base64);
+            music.setImage(ImageUtil.generate(music.getImage()));
             //音频转换
-            String audioPath = music.getAudio();
-            String audio64 = AudioUtil.generate(audioPath);
-            music.setAudio(audio64);
+            music.setAudio(AudioUtil.generate(music.getAudio()));
         }).collect(Collectors.toList());
         return new Page<>(totalRows, musicVos);
-    }
-
-    /**
-     * 获取歌曲分页列表
-     *
-     * @param params 分页查询数据源
-     * @return 歌曲分页
-     */
-    @Override
-    public Page<BackstageMusicVo> page(BackstageMusicParams params) {
-        Assert.isNull(params, "请提供查询数据源");
-        int totalRows = musicMapper.backstageCount(params);
-        List<BackstageMusicVo> list = (totalRows > 0) ? musicMapper.backstagePage(params) : Lists.newArrayList();
-        list = list.stream().peek(item -> item.setImage(ImageUtil.generate(item.getImage()))).collect(Collectors.toList());
-        return new Page<>(totalRows, list);
     }
 
     /**

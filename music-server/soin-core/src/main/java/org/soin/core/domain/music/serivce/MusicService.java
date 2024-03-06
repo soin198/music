@@ -5,12 +5,10 @@ import org.soin.core.domain.database.entity.AudioDataBase;
 import org.soin.core.domain.database.entity.ImageDataBase;
 import org.soin.core.domain.database.service.AudioDataService;
 import org.soin.core.domain.database.service.ImageDataService;
-import org.soin.core.domain.music.params.BackstageMusicParams;
+import org.soin.core.domain.music.bo.MusicBO;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.repository.IMusicRepository;
-import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.domain.music.vo.MusicComposeVo;
-import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.domain.singer.entity.Singer;
 import org.soin.core.domain.singer.serivce.SingerService;
 import org.soin.core.infrastructure.base.common.Page;
@@ -59,23 +57,12 @@ public class MusicService {
     private final MusicConnectSingerService musicConnectSingerService;
 
     /**
-     * 获取歌曲分页
-     *
-     * @param musicParams 歌曲查询数据源
-     * @return 歌单列表
-     */
-    public Page<MusicVo> page(MusicParams musicParams) {
-        Assert.isNull(musicParams, "数据异常");
-        return iMusicRepository.page(musicParams);
-    }
-
-    /**
      * 获取歌曲分页列表
      *
      * @param params 分页查询数据源
      * @return 歌曲分页
      */
-    public Page<BackstageMusicVo> page(BackstageMusicParams params) {
+    public Page<MusicBO> page(MusicParams params) {
         Assert.isNull(params, "数据异常");
         return iMusicRepository.page(params);
     }

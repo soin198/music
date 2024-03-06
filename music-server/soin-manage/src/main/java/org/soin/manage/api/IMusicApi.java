@@ -1,11 +1,11 @@
 package org.soin.manage.api;
 
-import org.soin.core.domain.music.params.BackstageMusicParams;
-import org.soin.core.domain.music.vo.BackstageMusicVo;
+import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.manage.api.dto.MusicCreateDTO;
+import org.soin.manage.api.vo.MusicVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +40,6 @@ public interface IMusicApi {
      * @return 歌曲分页
      */
     @PostMapping("/page")
-    GenericResponse<Page<BackstageMusicVo>> page(@RequestBody BackstageMusicParams params);
+    GenericResponse<Page<MusicVo>> page(@RequestBody MusicParams params);
 
 }

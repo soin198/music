@@ -1,10 +1,8 @@
 package org.soin.core.domain.music.repository;
 
-import org.soin.core.domain.music.params.BackstageMusicParams;
+import org.soin.core.domain.music.bo.MusicBO;
 import org.soin.core.domain.music.params.MusicParams;
-import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.domain.music.vo.MusicComposeVo;
-import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 
 /**
@@ -15,20 +13,12 @@ import org.soin.core.infrastructure.base.common.Page;
 public interface IMusicRepository {
 
     /**
-     * 获取歌曲分页
-     *
-     * @param musicParams 歌曲查询数据源
-     * @return 歌单列表
-     */
-    Page<MusicVo> page(MusicParams musicParams);
-
-    /**
      * 获取歌曲分页列表
      *
      * @param params 分页查询数据源
      * @return 歌曲分页
      */
-    Page<BackstageMusicVo> page(BackstageMusicParams params);
+    Page<MusicBO> page(MusicParams params);
 
     /**
      * 根据歌曲ID获取评论页数据

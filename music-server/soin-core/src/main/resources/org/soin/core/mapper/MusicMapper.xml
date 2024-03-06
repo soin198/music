@@ -8,73 +8,43 @@
         SELECT
         COUNT(*)
         FROM
-        t_singer ts
-        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
-        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        t_music tm
+        LEFT JOIN t_music_connect_singer tmcs ON tm.id = tmcs.musicId
+        LEFT JOIN t_singer ts ON tmcs.singerId = ts.id
         <include refid="WHERE"/>
     </select>
 
     <select id="page"
             parameterType="org.soin.core.domain.music.params.MusicParams"
-            resultType="org.soin.core.domain.music.vo.MusicVo">
+            resultType="org.soin.core.domain.music.bo.MusicBO">
         SELECT
-        ts.`name` AS singerName,
         tm.id AS musicId,
+        ts.`name` AS singerName,
         tm.musicName,
         tm.resume,
         tm.compose,
-        CONCAT(img.path,'/',img.name) AS image,
+        CONCAT( img.path, '/', img.NAME ) AS image,
         aud.path AS audio
         FROM
-        t_singer ts
-        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
-        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        t_music tm
+        LEFT JOIN t_music_connect_singer tmcs ON tm.id = tmcs.musicId
+        LEFT JOIN t_singer ts ON tmcs.singerId = ts.id
         LEFT JOIN t_image_database img ON tm.imageId = img.id
         LEFT JOIN t_audio_database aud ON tm.audioId = aud.id
         <include refid="WHERE"/>
         <include refid="LIMIT"/>
     </select>
 
-    <!-- 统计歌曲总数 -->
-    <select id="backstageCount" resultType="java.lang.Integer">
-        SELECT
-        COUNT(*)
-        FROM
-        t_singer ts
-        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
-        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
-        <where>
-            1=1
-        </where>
-    </select>
-
-    <select id="backstagePage"
-            parameterType="org.soin.core.domain.music.params.BackstageMusicParams"
-            resultType="org.soin.core.domain.music.vo.BackstageMusicVo">
-        SELECT
-        ts.`name` AS singerName,
-        tm.id AS musicId,
-        tm.musicName,
-        tm.resume,
-        CONCAT(img.path,'/',img.name) AS image
-        FROM
-        t_singer ts
-        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
-        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
-        LEFT JOIN t_image_database img ON tm.imageId = img.id
-        <where>
-            1=1
-        </where>
-        <include refid="LIMIT"/>
-    </select>
-
     <sql id="WHERE">
         <where>
             <if test="singerId != null">
-                AND tmcs.singerId = #{singerId}
+                AND ts.id = #{singerId}
             </if>
-            <if test="musicId != null">
-                AND tm.id = #{musicId}
+            <if test="singerName != null and singerName != ''">
+                AND ts.name = #{singerName}
+            </if>
+            <if test="musicName != null and musicName != ''">
+                AND tm.musicName = #{musicName}
             </if>
         </where>
     </sql>

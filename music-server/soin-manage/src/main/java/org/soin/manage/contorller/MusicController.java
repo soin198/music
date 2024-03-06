@@ -1,19 +1,22 @@
 package org.soin.manage.contorller;
 
 import lombok.RequiredArgsConstructor;
-import org.soin.core.domain.music.params.BackstageMusicParams;
+import org.soin.core.domain.music.bo.MusicBO;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.serivce.MusicService;
-import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.base.response.GenericResponse;
+import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.soin.manage.api.IMusicApi;
 import org.soin.manage.api.dto.MusicCreateDTO;
+import org.soin.manage.api.vo.MusicVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author J.FLa.Soin
@@ -55,8 +58,11 @@ public class MusicController implements IMusicApi {
      * @return 歌曲分页
      */
     @Override
-    public GenericResponse<Page<BackstageMusicVo>> page(BackstageMusicParams params) {
-        Page<BackstageMusicVo> page = musicService.page(params);
-        return GenericResponse.builder().success(page);
+    public GenericResponse<Page<MusicVo>> page(MusicParams params) {
+        Page<MusicBO> page = musicService.page(params);
+        int rows = page.getTotalRows();
+        List<MusicBO> data = page.getData();
+        List<MusicVo> list = ConvertUtil.converts(data, MusicVo.class);
+        return GenericResponse.builder().success(new Page<>(rows, list));
     }
 }

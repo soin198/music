@@ -2,17 +2,21 @@ package org.soin.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.soin.client.api.IMusicApi;
+import org.soin.client.api.vo.MusicVo;
+import org.soin.core.domain.music.bo.MusicBO;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.serivce.MusicService;
 import org.soin.core.domain.music.vo.MusicComposeVo;
-import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.core.infrastructure.base.common.Assert;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
+import org.soin.core.infrastructure.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 歌曲控制层
@@ -38,9 +42,11 @@ public class MusicController implements IMusicApi {
     public GenericResponse<Page<MusicVo>> page(MusicParams musicParams) {
         RunTimeTool.printMethodMsg("page", "获取歌曲分页列表", musicParams);
         Assert.isNull(musicParams, "数据异常");
-        Page<MusicVo> page = musicService.page(musicParams);
-        RunTimeTool.printMethodResponseMsg("page", page.getTotalRows());
-        return GenericResponse.builder().success(page);
+        Page<MusicBO> page = musicService.page(musicParams);
+        int rows = page.getTotalRows();
+        List<MusicBO> list = page.getData();
+        RunTimeTool.printMethodResponseMsg("page", rows);
+        return GenericResponse.builder().success(new Page<>(rows, ConvertUtil.converts(list, MusicVo.class)));
     }
 
     /**

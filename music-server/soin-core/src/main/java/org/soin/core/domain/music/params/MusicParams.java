@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.soin.core.infrastructure.base.common.BaseParams;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -21,7 +20,16 @@ public class MusicParams extends BaseParams implements Serializable {
     /**
      * 歌手Id
      */
-    @NotNull(message = "请提供歌手ID")
     private Long singerId;
+
+    /**
+     * 歌手名称
+     */
+    private String singerName;
+
+    /**
+     * 歌曲名称
+     */
+    private String musicName;
 
 }

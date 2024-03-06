@@ -1,8 +1,8 @@
 package org.soin.client.api;
 
+import org.soin.client.api.vo.MusicVo;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.vo.MusicComposeVo;
-import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
