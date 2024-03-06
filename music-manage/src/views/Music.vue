@@ -12,11 +12,11 @@
     <el-table size="small"
               :data="data"
               v-loading="loading"
-              element-loading-text="数据加载中...">
+              element-loading-text="加载中...">
       <el-table-column label="歌曲图片" :width="150" align="center">
         <template v-slot="scope">
           <div class="singer-img">
-            <img :src="scope.row.image" :width="50" :height="50"/>
+            <img :src="scope.row.image" :width="50" :height="50" alt="加载失败..."/>
           </div>
         </template>
       </el-table-column>
@@ -47,6 +47,9 @@
         @current-change="changeVal"
     >
     </el-pagination>
+
+    <!-- 添加歌曲 -->
+    <el-dialog></el-dialog>
   </div>
   <!-- 删除提示框 -->
   <yin-del-dialog :delVisible="delVisible" @confirm="confirm" @cancelRow="delVisible = $event"/>
