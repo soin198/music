@@ -1,5 +1,8 @@
 package org.soin.manage.api;
 
+import org.soin.core.domain.music.params.BackstageMusicParams;
+import org.soin.core.domain.music.vo.BackstageMusicVo;
+import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.constant.BaseConstant;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.manage.api.dto.MusicCreateDTO;
@@ -29,5 +32,14 @@ public interface IMusicApi {
     GenericResponse<Boolean> create(@RequestParam(value = "audio") MultipartFile audio,
                                     @RequestParam(value = "image") MultipartFile image,
                                     @RequestBody MusicCreateDTO musicCreateDTO);
+
+    /**
+     * 获取歌曲分页列表
+     *
+     * @param params 分页查询数据源
+     * @return 歌曲分页
+     */
+    @PostMapping("/page")
+    GenericResponse<Page<BackstageMusicVo>> page(@RequestBody BackstageMusicParams params);
 
 }

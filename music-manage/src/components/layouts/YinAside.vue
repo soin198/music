@@ -1,27 +1,41 @@
 <template>
   <div class="sidebar">
     <el-menu
-      class="sidebar-el-menu"
-      background-color="#ffffff"
-      active-text-color="#30a4fc"
-      default-active="2"
-      router
-      :collapse="collapse"
+        class="sidebar-el-menu"
+        background-color="#ffffff"
+        active-text-color="#30a4fc"
+        default-active="2"
+        router
+        :collapse="collapse"
     >
       <el-menu-item index="info">
-        <el-icon><pie-chart /></el-icon>
+        <el-icon>
+          <pie-chart/>
+        </el-icon>
         <span>系统首页</span>
       </el-menu-item>
       <el-menu-item index="consumer">
-        <el-icon><User /></el-icon>
+        <el-icon>
+          <User/>
+        </el-icon>
         <span>用户管理</span>
       </el-menu-item>
       <el-menu-item index="singer">
-        <el-icon><mic /></el-icon>
+        <el-icon>
+          <mic/>
+        </el-icon>
         <span>歌手管理</span>
       </el-menu-item>
+      <el-menu-item index="music">
+        <el-icon>
+          <mic/>
+        </el-icon>
+        <span>歌曲管理</span>
+      </el-menu-item>
       <el-menu-item index="songList">
-        <el-icon><Document /></el-icon>
+        <el-icon>
+          <Document/>
+        </el-icon>
         <span>歌单管理</span>
       </el-menu-item>
     </el-menu>
@@ -29,8 +43,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { PieChart, Mic, Document, User } from "@element-plus/icons-vue";
+import {ref} from "vue";
+import {PieChart, Mic, Document, User} from "@element-plus/icons-vue";
 import emitter from "@/utils/emitter";
 
 const collapse = ref(false);

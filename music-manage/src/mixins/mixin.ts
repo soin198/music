@@ -52,6 +52,7 @@ export default function () {
       case RouterName.Comment:
       case RouterName.Consumer:
       case RouterName.Collect:
+      case RouterName.Music:
         proxy.$router.push({ path: options.path, query: options.query });
         break;
       case RouterName.Home:

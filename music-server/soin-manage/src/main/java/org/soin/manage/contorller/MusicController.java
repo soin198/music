@@ -1,8 +1,12 @@
 package org.soin.manage.contorller;
 
 import lombok.RequiredArgsConstructor;
+import org.soin.core.domain.music.params.BackstageMusicParams;
+import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.serivce.MusicService;
+import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.infrastructure.base.common.Assert;
+import org.soin.core.infrastructure.base.common.Page;
 import org.soin.core.infrastructure.base.common.RunTimeTool;
 import org.soin.core.infrastructure.base.response.GenericResponse;
 import org.soin.manage.api.IMusicApi;
@@ -42,5 +46,17 @@ public class MusicController implements IMusicApi {
         boolean isOpen = musicService.create(audio, image, singerId, musicName, resume, compose);
         RunTimeTool.printMethodResponseMsg("create", isOpen);
         return GenericResponse.builder().success(isOpen);
+    }
+
+    /**
+     * 获取歌曲分页列表
+     *
+     * @param params 分页查询数据源
+     * @return 歌曲分页
+     */
+    @Override
+    public GenericResponse<Page<BackstageMusicVo>> page(BackstageMusicParams params) {
+        Page<BackstageMusicVo> page = musicService.page(params);
+        return GenericResponse.builder().success(page);
     }
 }

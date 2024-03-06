@@ -3,7 +3,9 @@ package org.soin.core.infrastructure.mapper.music;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.soin.core.domain.music.entity.Music;
+import org.soin.core.domain.music.params.BackstageMusicParams;
 import org.soin.core.domain.music.params.MusicParams;
+import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.domain.music.vo.MusicVo;
 
@@ -40,4 +42,20 @@ public interface MusicMapper extends BaseMapper<Music> {
      * @return 评论页数据
      */
     MusicComposeVo customQuery(@Param("musicId") Long musicId);
+
+    /**
+     * 统计歌曲总数
+     *
+     * @param params 歌曲统计数据源
+     * @return 歌曲总数
+     */
+    int backstageCount(BackstageMusicParams params);
+
+    /**
+     * 获取歌曲分页
+     *
+     * @param params 歌曲查询数据源
+     * @return 歌单列表
+     */
+    List<BackstageMusicVo> backstagePage(BackstageMusicParams params);
 }

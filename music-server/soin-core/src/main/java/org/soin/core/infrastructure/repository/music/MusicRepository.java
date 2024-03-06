@@ -3,8 +3,10 @@ package org.soin.core.infrastructure.repository.music;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.soin.core.domain.music.entity.Music;
+import org.soin.core.domain.music.params.BackstageMusicParams;
 import org.soin.core.domain.music.params.MusicParams;
 import org.soin.core.domain.music.repository.IMusicRepository;
+import org.soin.core.domain.music.vo.BackstageMusicVo;
 import org.soin.core.domain.music.vo.MusicComposeVo;
 import org.soin.core.domain.music.vo.MusicVo;
 import org.soin.core.infrastructure.base.common.Page;
@@ -52,6 +54,21 @@ public class MusicRepository implements IMusicRepository {
             music.setAudio(audio64);
         }).collect(Collectors.toList());
         return new Page<>(totalRows, musicVos);
+    }
+
+    /**
+     * 获取歌曲分页列表
+     *
+     * @param params 分页查询数据源
+     * @return 歌曲分页
+     */
+    @Override
+    public Page<BackstageMusicVo> page(BackstageMusicParams params) {
+        Assert.isNull(params, "请提供查询数据源");
+        int totalRows = musicMapper.backstageCount(params);
+        List<BackstageMusicVo> list = (totalRows > 0) ? musicMapper.backstagePage(params) : Lists.newArrayList();
+        list = list.stream().peek(item -> item.setImage(ImageUtil.generate(item.getImage()))).collect(Collectors.toList());
+        return new Page<>(totalRows, list);
     }
 
     /**

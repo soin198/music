@@ -3,7 +3,20 @@
 
 <mapper namespace="org.soin.core.infrastructure.mapper.music.MusicMapper">
 
-    <select id="page" resultType="org.soin.core.domain.music.vo.MusicVo">
+    <!-- 统计歌曲总数 -->
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        t_singer ts
+        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
+        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="page"
+            parameterType="org.soin.core.domain.music.params.MusicParams"
+            resultType="org.soin.core.domain.music.vo.MusicVo">
         SELECT
         ts.`name` AS singerName,
         tm.id AS musicId,
@@ -18,16 +31,12 @@
         LEFT JOIN t_music tm ON tmcs.musicId = tm.id
         LEFT JOIN t_image_database img ON tm.imageId = img.id
         LEFT JOIN t_audio_database aud ON tm.audioId = aud.id
-        <where>
-            <if test="singerId != null">
-                AND tmcs.singerId = #{singerId}
-            </if>
-        </where>
+        <include refid="WHERE"/>
         <include refid="LIMIT"/>
     </select>
 
     <!-- 统计歌曲总数 -->
-    <select id="count" resultType="java.lang.Integer">
+    <select id="backstageCount" resultType="java.lang.Integer">
         SELECT
         COUNT(*)
         FROM
@@ -35,11 +44,40 @@
         LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
         LEFT JOIN t_music tm ON tmcs.musicId = tm.id
         <where>
+            1=1
+        </where>
+    </select>
+
+    <select id="backstagePage"
+            parameterType="org.soin.core.domain.music.params.BackstageMusicParams"
+            resultType="org.soin.core.domain.music.vo.BackstageMusicVo">
+        SELECT
+        ts.`name` AS singerName,
+        tm.id AS musicId,
+        tm.musicName,
+        tm.resume,
+        CONCAT(img.path,'/',img.name) AS image
+        FROM
+        t_singer ts
+        LEFT JOIN t_music_connect_singer tmcs ON ts.id = tmcs.singerId
+        LEFT JOIN t_music tm ON tmcs.musicId = tm.id
+        LEFT JOIN t_image_database img ON tm.imageId = img.id
+        <where>
+            1=1
+        </where>
+        <include refid="LIMIT"/>
+    </select>
+
+    <sql id="WHERE">
+        <where>
             <if test="singerId != null">
                 AND tmcs.singerId = #{singerId}
             </if>
+            <if test="musicId != null">
+                AND tm.id = #{musicId}
+            </if>
         </where>
-    </select>
+    </sql>
 
     <sql id="LIMIT">
         <if test="pageSize &gt; 0">LIMIT ${start}, ${pageSize}</if>
@@ -55,11 +93,7 @@
         LEFT JOIN t_music_connect_singer tmcs ON tm.id = tmcs.musicId
         LEFT JOIN t_singer ts ON tmcs.singerId = ts.id
         LEFT JOIN t_image_database tid ON tm.imageId = tid.id
-        <where>
-            <if test="musicId != null">
-                AND tm.id = #{musicId}
-            </if>
-        </where>
+        <include refid="WHERE"/>
     </select>
 
 </mapper>
